@@ -9,7 +9,7 @@ const defaultContent = {
   developer: {
     title: "Building Digital Experiences",
     subtitle: "Full-Stack Developer",
-    description: "I craft elegant solutions with clean code, transforming complex problems into intuitive digital experiences that users love.",
+    description: "I craft elegant solutions with clean code, transform complex problems into intuitive digital experiences that users love.",
     cta_text: "View My Code",
     metadata: { accent_color: "text-blue-400" }
   },
