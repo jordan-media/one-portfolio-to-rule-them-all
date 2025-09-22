@@ -1,5 +1,4 @@
 
-
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -260,13 +259,13 @@ export default function Layout({ children, currentPageName }) {
                 </div>
                 <div className="ml-4">
                   <div className="font-medium text-xs">{currentProject.title}</div>
-                  <div className="text-xs text-white/50">{currentProject.category?.replace('_', ' ')}</div>
-                  {currentProject.role &&
+                  {/* <div className="text-xs text-white/50">{currentProject.category?.replace('_', ' ')}</div> */}
+                  {/* {currentProject.role &&
                     <div className="flex items-center gap-1 mt-0.5">
                       <User className="w-2.5 h-2.5 text-purple-400" />
                       <span className="text-xs text-purple-400">{currentProject.role}</span>
                     </div>
-                  }
+                  } */}
                 </div>
               </div>
             }
@@ -583,4 +582,3 @@ export default function Layout({ children, currentPageName }) {
     </div>
   );
 }
-

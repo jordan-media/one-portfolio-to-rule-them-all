@@ -1,84 +1,183 @@
+
 export const projectsData = [
   {
     "id": "1",
-    "title": "E-Commerce Platform",
-    "description": "Full-stack e-commerce solution with React and Node.js",
-    "detailed_description": "A comprehensive e-commerce platform built with modern web technologies, featuring user authentication, payment processing, inventory management, and responsive design.",
-    "category": "development",
-    "role": "Full Stack Developer",
-    "technologies": ["React", "Node.js", "PostgreSQL", "Stripe API", "AWS"],
-    "image_url": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
-    "gallery_images": [
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop"
+    "title": "Amazon Product Video Advert",
+    "description": "Produced a product video advertisement for an Amazon seller, showcasing features in a natural setting.",
+    "short_description": "Produced a product video advertisement for an Amazon seller, showcasing features in a natural setting.",
+    "detailed_description": "I collaborated with an Amazon seller to produce a product video advertisement that highlighted the item's features in a natural environment. I was responsible for scriptwriting, storyboarding, cinematography, and voice-over narration. The production included setting up film shots, working with on-the-fly client changes, and even stepping in as the on-screen talent. This project taught me patience and adaptability, particularly while navigating cultural and language differences with the product owner.",
+    "summary_points": [
+      "End-to-end video production from script to final edit",
+      "Filmed entirely on iPhone with professional lighting/audio",
+      "Balanced creative direction with client's evolving requests"
     ],
-    "project_url": "https://example.com",
-    "github_url": "https://github.com/jordan-media/ecommerce-platform",
+    "category": "storytelling",
+    "role": "Scriptwriter, Voice-Over Artist, Cinematographer, Storyboarder, On-Screen Talent",
+    "technologies": ["Adobe Audition", "Adobe Premiere Pro"],
+    "tools_used": ["iPhone Camera", "Studio Microphone", "Lighting Equipment"],
+    "services_provided": ["Scriptwriting", "Cinematography", "Voice-over", "Editing"],
+    "skills_applied": ["Creative Direction", "Video Production", "Storyboarding", "On-Camera Presentation"],
+    "image_url": "/images/projects/amazon/1.jpeg",
+    "gallery_images": [
+      "/images/projects/amazon/1.jpeg",
+      "/images/projects/amazon/2.jpg",
+      "/images/projects/amazon/dev/2.jpg",
+      "/images/projects/amazon/ux/1.jpg"
+    ],
+    "project_url": "https://www.amazon.com/Waterproof-Outdoor-Curtain-W52-L84/dp/B08SMQ1LQT?ref_=ast_sto_dp&th=1",
+    "github_url": null,
     "featured": true,
-    "completion_date": "2024-03-15"
+    "completion_date": "2024-01-15",
+    "challenges": [
+      {
+        "description": "Communicating with a non-native English speaker client.",
+        "solution": "Patience and cultural understanding bridged the gap successfully."
+      },
+      {
+        "description": "Finding a film location to match the client's vision.",
+        "solution": "Scouted multiple sites until the perfect environment was secured."
+      },
+      {
+        "description": "Dealing with unpredictable outdoor conditions.",
+        "solution": "Stayed flexible and filmed at the right weather window."
+      },
+      {
+        "description": "Client introduced new ideas mid-shoot.",
+        "solution": "Adapted on the fly, focusing on producing a strong final product."
+      }
+    ],
+    "development_process": [
+      {
+        "title": "Concept & Planning",
+        "description": "Collaborated with client to define goals and highlight unique product features for natural lifestyle setting."
+      },
+      {
+        "title": "Pre-Production", 
+        "description": "Scripted and storyboarded the advertisement, organizing filming logistics on budget while exceeding expectations."
+      },
+      {
+        "title": "Production",
+        "description": "Captured scenes in natural outdoor environment, adapting to weather conditions and client changes on-the-fly."
+      },
+      {
+        "title": "Post-Production",
+        "description": "Edited footage with professional audio mixing, color correction, and final delivery optimized for Amazon platform."
+      }
+    ],
+    "outcome": "Delivered a completed product showcase video. Despite minor overexposure, the client was very happy with the final result."
   },
   {
     "id": "2", 
-    "title": "Brand Story Campaign",
-    "description": "Multi-platform storytelling campaign for tech startup",
-    "detailed_description": "Created a comprehensive brand narrative across video, social media, and web content that increased engagement by 300% and helped secure Series A funding.",
-    "category": "storytelling",
-    "role": "Creative Director",
-    "technologies": ["Premiere Pro", "After Effects", "Figma", "Copywriting"],
-    "image_url": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
-    "gallery_images": [
-      "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop"
+    "title": "Adobe Automation Scripting Workflow",
+    "description": "Developed an Illustrator scripting workflow to convert raster images into vectorized, geometric artwork.",
+    "short_description": "Developed an Illustrator scripting workflow to convert raster images into vectorized, geometric artwork.",
+    "detailed_description": "This project was my entry into creative automation, combining programming with design. I built a workflow in Adobe Illustrator using ExtendScript that converted raster images into simplified, scalable vector art with geometric patterns. The process also deepened my interest in motion graphics and visual experimentation in After Effects, leading me to create parallax animations and branding bumpers. The project sparked a passion for motion design and creative coding, showing me how technical precision and artistry can work together.",
+    "summary_points": [
+      "Built Adobe Illustrator automation with ExtendScript",
+      "Generated vector art using algorithmic geometry",
+      "Explored motion graphics foundations through After Effects"
     ],
-    "project_url": "https://example-story.com",
+    "category": "development",
+    "role": "Automation Developer & Creative Technologist",
+    "technologies": ["JavaScript", "Adobe ExtendScript"],
+    "tools_used": ["Adobe Illustrator", "Adobe After Effects"],
+    "services_provided": ["Automation Development", "Creative Scripting"],
+    "skills_applied": ["Algorithmic Design", "Motion Graphics", "Workflow Automation", "Debugging"],
+    "image_url": "/images/adobe-automation-main.jpg",
+    "gallery_images": [
+      "/images/adobe-automation-main.jpg"
+    ],
+    "project_url": null,
+    "github_url": null,
     "featured": true,
-    "completion_date": "2024-02-20"
+    "completion_date": "2024-02-20",
+    "challenges": [
+      {
+        "description": "Complex mathematical formulas and script layering.",
+        "solution": "Iteratively refined the code until the logic was stable."
+      },
+      {
+        "description": "Cumbersome test cycles in Illustrator slowed progress.",
+        "solution": "Used persistence and alternative methods to optimize workflow."
+      }
+    ],
+    "development_process": [
+      {
+        "title": "Creative Spark & Concept",
+        "description": "Started with a creative idea — what if I could automate a design style to recreate it consistently across different images? This curiosity became the foundation for exploring Adobe scripting."
+      },
+      {
+        "title": "Scripting & Development",
+        "description": "Used Adobe ExtendScript and JavaScript to build automation scripts. Applied mathematical formulas and geometry to transform raster images into simplified, scalable vector art."
+      },
+      {
+        "title": "Testing & Iteration",
+        "description": "Ran extensive trial-and-error cycles inside Illustrator, debugging scripts and optimizing performance. Adjusted formulas and workflows until the results were reliable and repeatable."
+      },
+      {
+        "title": "Creative Application",
+        "description": "Applied the automated workflow to real images, generating consistent geometric designs. Extended experimentation into motion graphics with After Effects, expanding the creative possibilities."
+      }
+    ],
+    "outcome": "Created a unique automation process for raster-to-vector conversion. The project launched my passion for motion graphics and creative coding."
   },
   {
     "id": "3",
-    "title": "Healthcare Dashboard",
-    "description": "UX/UI design for medical professionals dashboard",
-    "detailed_description": "Designed an intuitive dashboard interface for healthcare workers to manage patient data, appointments, and medical records with focus on accessibility and efficiency.",
-    "category": "ux_design", 
-    "role": "UX/UI Designer",
-    "technologies": ["Figma", "Adobe Creative Suite", "Principle", "User Research"],
-    "image_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop",
-    "gallery_images": [
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop"
+    "title": "J-Sports Cards App Prototype",
+    "description": "Designed and prototyped an app that turns sports photos into customizable trading cards with stats.",
+    "short_description": "Designed and prototyped an app that turns sports photos into customizable trading cards with stats.",
+    "detailed_description": "J-Sports Cards is a passion project that fills a gap in the youth sports market. The app concept transforms personal sports photos into digital or printable trading cards. Its unique strength is adaptability — supporting multiple sports with sport-specific stats such as goals/assists for hockey or home runs for baseball. I conducted user research with parents and athletes, created personas and journey maps, and built wireframes into a working prototype. The project blends fun customization with meaningful data tracking, making sports more engaging for kids and families. It lays the groundwork for a future MVP version.",
+    "summary_points": [
+      "Researched parents and youth athletes for user needs",
+      "Designed wireframes and interactive prototype in Figma",
+      "Created customizable templates for multiple sports"
     ],
+    "category": "ux_design", 
+    "role": "UI/UX Designer, Researcher, Product Conceptualizer, Developer",
+    "technologies": ["Mobile App Development", "UI/UX Design Principles", "Data Visualization"],
+    "tools_used": ["Figma", "Android Studio", "VS Code", "Adobe Illustrator", "Adobe InDesign", "Canva"],
+    "services_provided": ["UX Research", "Wireframing", "Prototyping", "UI Design"],
+    "skills_applied": ["User Research", "Prototyping", "Data Visualization", "UI/UX Design"],
+    "image_url": "/images/projects/j-sports/7.jpg",
+    "gallery_images": [
+      "/images/projects/j-sports/7.jpg",
+      "/images/projects/j-sports/8.jpg", 
+      "/images/projects/j-sports/1.jpg",
+      "/images/projects/j-sports/3.jpg",
+      "/images/projects/j-sports/10.jpg"
+    ],
+    "project_url": null,
+    "github_url": null,
     "featured": true,
-    "completion_date": "2024-01-10"
-  },
-  {
-    "id": "4",
-    "title": "Mobile App Development",
-    "description": "React Native fitness tracking application",
-    "category": "development",
-    "role": "Mobile Developer", 
-    "technologies": ["React Native", "TypeScript", "Firebase", "Expo"],
-    "image_url": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop",
-    "featured": false,
-    "completion_date": "2023-12-05"
-  },
-  {
-    "id": "5",
-    "title": "Corporate Website Redesign",
-    "description": "Complete website overhaul for manufacturing company",
-    "category": "development",
-    "role": "Front End Developer",
-    "technologies": ["React", "Vite", "Tailwind CSS", "Framer Motion"],
-    "image_url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
-    "featured": false,
-    "completion_date": "2023-11-18"
-  },
-  {
-    "id": "6",
-    "title": "Documentary Film Project", 
-    "description": "Short documentary about local artisans",
-    "category": "storytelling",
-    "role": "Director/Editor",
-    "technologies": ["Premiere Pro", "After Effects", "Adobe Audition"],
-    "image_url": "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&h=600&fit=crop",
-    "featured": false,
-    "completion_date": "2023-10-25"
+    "completion_date": "2024-03-10",
+    "challenges": [
+      {
+        "description": "Time management as a full-time student with limited extra hours.",
+        "solution": "Applied course methods to advance the personal project efficiently."
+      },
+      {
+        "description": "Avoiding personal bias when researching parents' needs.",
+        "solution": "Relied on real-world research to gather accurate insights."
+      }
+    ],
+    "development_process": [
+      {
+        "title": "Research & Exploration",
+        "description": "Identified real-world gaps in youth sports tracking. Conducted user research through interviews and personas to validate the concept and define user needs."
+      },
+      {
+        "title": "Design & Prototyping",
+        "description": "Created structured wireframes and layouts in Figma. Tested ideas and user flows, refining templates across multiple sports to balance flexibility and usability."
+      },
+      {
+        "title": "Validation & Iteration",
+        "description": "Manually created sample cards to simulate real-world usage. Used these to identify pinch points in workflows and improve the design before development."
+      },
+      {
+        "title": "App Development (In Progress)",
+        "description": "Currently building the MVP in a React Native environment. Iterating with real-world feedback while learning and applying modern mobile development practices."
+      }
+    ],
+    "outcome": "Produced validated wireframes and a functional prototype. Confirmed user demand and set the foundation for an MVP."
   }
 ];
