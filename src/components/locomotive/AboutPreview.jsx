@@ -118,7 +118,7 @@ const AboutPreview = ({ entryPoint = "developer" }) => {
             <div className="relative aspect-[4/5] bg-white/5 overflow-hidden">
               {/* Actual image */}
               <img
-                src="./public/assets/fullshot-5.jpg"
+                src="/assets/fullshot-5.jpg"
                 alt="Profile"
                 className="absolute inset-0 w-full h-full object-contain object-center"
               />
