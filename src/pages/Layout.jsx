@@ -293,10 +293,10 @@ export default function Layout({ children, currentPageName }) {
                 <Link
                   key={item.title}
                   to={item.url}
-                  className={`group flex items-center gap-2.5 p-2.5 sm:p-3 rounded-lg transition-all duration-300 cursor-pointer ${
+                  className={`group flex items-center gap-2.5 p-2.5 sm:p-3 transition-all duration-300 cursor-pointer ${
                     location.pathname === item.url ?
-                      'bg-white/10 border border-white/20 shadow-lg' :
-                      'hover:bg-white/5 border border-transparent hover:border-white/10'}`
+                      'bg-white/10 border border-white/30 shadow-lg' :
+                      'hover:bg-white/5 border border-transparent hover:border-white/40'}`
                   }>
 
                   <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-md flex items-center justify-center transition-all duration-300 ${

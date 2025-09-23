@@ -1,6 +1,7 @@
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+// import SimpleFloatingDemo from '../components/locomotive/SimpleFloatingDemo.jsx';
 
 // Move elementSize outside component to avoid dependency issues
 const ELEMENT_SIZE = { width: 120, height: 32 };
@@ -337,7 +338,7 @@ const CollaborationSection = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 sm:mb-24 2xl:mb-32"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[10rem] font-black tracking-tight leading-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-[10rem] font-black tracking-tight leading-tight">
             <span className="text-green-400">"100 feet in the air</span>
             <br />
             <span className="text-white">taught me more about</span>
@@ -591,14 +592,14 @@ const TechSkillsSection = () => {
           className="text-center"
         >
           <div className="group relative inline-block">
-            <div className="absolute -inset-1 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
             <a
               href="/Projects"
-              className="relative flex items-center gap-3 sm:gap-4 bg-gradient-to-r from-green-400/10 via-blue-500/10 to-purple-600/10 backdrop-blur-xl border border-white/10 text-white px-6 sm:px-8 py-4 sm:py-6 font-bold text-sm sm:text-lg tracking-wider transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl group cursor-pointer rounded-2xl"
+              className="relative flex items-center gap-3 sm:gap-4 bg-gradient-to-r from-green-400/10 via-blue-500/10 to-purple-600/10 backdrop-blur-xl border border-white/10 text-white px-6 sm:px-8 py-4 sm:py-6 font-bold text-sm sm:text-lg tracking-wider transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl group cursor-pointer"
             >
               <div className="flex items-center gap-3">
                 <span className="text-2xl">🚀</span>
-                <span className="cursor-default">SEE THE WORK</span>
+                <span className="cursor-default">SEE All WORK</span>
               </div>
               <div className="ml-auto flex items-center gap-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -611,6 +612,8 @@ const TechSkillsSection = () => {
     </section>
   );
 };
+
+
 
 const CurrentFocusSection = () => {
   const ref = useRef(null);
@@ -626,7 +629,7 @@ const CurrentFocusSection = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 sm:mb-24 2xl:mb-32"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[10rem] font-black tracking-tight leading-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-[10rem] font-black tracking-tight leading-tight">
             <span className="text-green-400">"Curiosity</span> <span className="text-white">keeps me</span>
             <br />
             <span className="text-white">moving.</span> <span className="text-white/60">Quality</span>
@@ -639,7 +642,7 @@ const CurrentFocusSection = () => {
         <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 2xl:gap-24 items-center mb-16 sm:mb-24 2xl:mb-32">
           <motion.div
             initial={{ opacity: 0, x: -100 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -100 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
             transition={{ duration: 0.8 }}
             className="lg:col-span-3"
           >
@@ -757,12 +760,16 @@ const PersonalSideSection = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 sm:mb-24 2xl:mb-32"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[10rem] font-black tracking-tight leading-tight">
-            <span className="text-green-400">"From raising kids solo</span>
+          <h2 className="text-4xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-7xl 2xl:text-[10rem] font-black tracking-tight leading-tight">
+            <span className="text-green-400">i am</span>
             <br />
-            <span className="text-white">to raising beams skyward,</span>
+            <span className="text-white">a father</span>
             <br />
-            <span className="text-white/60">grit is my foundation."</span>
+            <span className="text-white/50">a role model</span>
+             <br />
+            <span className="text-cyan-400">a storyteller</span>
+            <br />
+            <span className="text-white">and keeper of balance</span>
           </h2>
         </motion.div>
 
@@ -789,6 +796,8 @@ const PersonalSideSection = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {/* Activities Grid */}
+
+           
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 2xl:gap-6">
               {[
                 { emoji: '🏂', label: 'Snowboarding', color: 'from-blue-400/20 to-cyan-400/20' },
@@ -845,7 +854,7 @@ const ClosingCTASection = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-xl sm:text-2xl xl:text-3xl 2xl:text-5xl text-white/80 max-w-5xl 2xl:max-w-8xl mx-auto mb-12 2xl:mb-20 leading-relaxed">
 
-          I believe in staying curious, staying strong, and building things that matter—whether that's steel in the sky, code on a screen, or relationships that make both possible.
+          I believe in <span className="font-bold text-cyan-400">staying curious</span>, staying strong, and building things that matter—whether that's steel in the sky, <span className="font-bold text-cyan-400">code on the screen</span>, or relationships that make both possible.
         </motion.p>
 
         <motion.div
@@ -855,7 +864,7 @@ const ClosingCTASection = () => {
 
           <a
             href="mailto:jordanasseff@gmail.com"
-            className="group relative bg-white text-black px-12 py-6 2xl:px-20 2xl:py-10 font-black text-lg 2xl:text-2xl tracking-widest uppercase overflow-hidden transition-all duration-500 hover:scale-105 rounded-xl 2xl:rounded-2xl inline-block cursor-pointer">
+            className="group relative bg-white text-black px-12 py-6 2xl:px-20 2xl:py-10 font-black text-lg 2xl:text-2xl tracking-widest uppercase overflow-hidden transition-all duration-500 hover:scale-105 inline-block cursor-pointer">
 
             <span className="relative z-10">LET'S CONNECT</span>
             <div className="absolute inset-0 bg-green-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
