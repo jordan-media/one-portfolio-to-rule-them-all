@@ -17,12 +17,12 @@ export const projectsData = [
     "tools_used": ["iPhone Camera", "Studio Microphone", "Lighting Equipment"],
     "services_provided": ["Scriptwriting", "Cinematography", "Voice-over", "Editing"],
     "skills_applied": ["Creative Direction", "Video Production", "Storyboarding", "On-Camera Presentation"],
-    "image_url": "/images/projects/amazon/1.jpeg",
+    "image_url": "/assets/images/projects/amazon/2.jpg",
     "gallery_images": [
-      "/images/projects/amazon/1.jpeg",
-      "/images/projects/amazon/2.jpg",
-      "/images/projects/amazon/dev/2.jpg",
-      "/images/projects/amazon/ux/1.jpg"
+      "/assets/images/projects/amazon/1.jpeg",
+      "/assets/images/projects/amazon/2.jpg",
+      "/assets/images/projects/amazon/3.jpg",
+      "/assets/images/projects/amazon/4.jpg"
     ],
     "project_url": "https://www.amazon.com/Waterproof-Outdoor-Curtain-W52-L84/dp/B08SMQ1LQT?ref_=ast_sto_dp&th=1",
     "github_url": null,
@@ -83,9 +83,11 @@ export const projectsData = [
     "tools_used": ["Adobe Illustrator", "Adobe After Effects"],
     "services_provided": ["Automation Development", "Creative Scripting"],
     "skills_applied": ["Algorithmic Design", "Motion Graphics", "Workflow Automation", "Debugging"],
-    "image_url": "/images/adobe-automation-main.jpg",
+    "image_url": "assets/images/projects/adobe-script/1x/3.webp",
     "gallery_images": [
-      "/images/adobe-automation-main.jpg"
+      "assets/images/projects/adobe-script/3.jpg",
+      "assets/images/projects/adobe-script/tomatoes.jpg", 
+      "assets/images/projects/adobe-script/1x/3.webp",
     ],
     "project_url": null,
     "github_url": null,
@@ -138,13 +140,13 @@ export const projectsData = [
     "tools_used": ["Figma", "Android Studio", "VS Code", "Adobe Illustrator", "Adobe InDesign", "Canva"],
     "services_provided": ["UX Research", "Wireframing", "Prototyping", "UI Design"],
     "skills_applied": ["User Research", "Prototyping", "Data Visualization", "UI/UX Design"],
-    "image_url": "/images/projects/j-sports/7.jpg",
+    "image_url": "assets/images/projects/j-sports/7.jpg",
     "gallery_images": [
-      "/images/projects/j-sports/7.jpg",
-      "/images/projects/j-sports/8.jpg", 
-      "/images/projects/j-sports/1.jpg",
-      "/images/projects/j-sports/3.jpg",
-      "/images/projects/j-sports/10.jpg"
+      "assets/images/projects/j-sports/3.jpg",
+      "assets/images/projects/j-sports/5.jpg", 
+      "assets/images/projects/j-sports/1.jpg",
+      "assets/images/projects/j-sports/8.jpg",
+      "assets/images/projects/j-sports/10.jpg"
     ],
     "project_url": null,
     "github_url": null,

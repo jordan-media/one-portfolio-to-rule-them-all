@@ -137,7 +137,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                   <img
                     src={project.image_url}
                     alt={project.title}
-                    className="absolute inset-0 w-full h-full object-cover opacity-20"
+                    className="absolute inset-0 w-full h-full object-contain opacity-20"
                   />
                 )}
                 
@@ -324,7 +324,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                                 <img
                                   src={typeof image === 'string' ? image : image.src}
                                   alt={typeof image === 'string' ? `${project.title} screenshot ${index + 1}` : image.alt}
-                                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                                  className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
                                 />
                               </div>
                             ))}
