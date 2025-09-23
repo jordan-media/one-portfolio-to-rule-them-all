@@ -115,21 +115,21 @@ const AboutPreview = ({ entryPoint = "developer" }) => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="relative"
           >
-            <div className="relative aspect-[4/5] bg-white/5 overflow-hidden">
-              {/* Actual image */}
+            <div className="relative aspect-[4/5] overflow-hidden">
+              
               <img
-                src="/assets/fullshot-5.jpg"
-                alt="Profile"
+                src="/assets/images/jordan/fullshot-5.jpg"
+                alt="Profile Picture"
                 className="absolute inset-0 w-full h-full object-contain object-center"
               />
 
               {/* Gradient overlay on top */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-black/20" />
+              {/* <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-black/10" /> */}
             </div>
 
             {/* Decorative elements */}
-            <div className="absolute -top-4 -right-4 w-8 h-8 bg-white"></div>
-            <div className="absolute -bottom-4 -left-4 w-4 h-4 bg-white"></div>
+            <div className="absolute -top-1 -right-1 w-12 h-12 bg-white"></div>
+            <div className="absolute -bottom-4 -left-4 w-8 h-8 bg-white"></div>
           </motion.div>
         </div>
       </div>

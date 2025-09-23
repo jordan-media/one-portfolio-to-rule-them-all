@@ -28,7 +28,7 @@ const ProjectCard = ({ project, index, onClick }) => {
           <img
             src={project.image_url}
             alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
@@ -44,7 +44,7 @@ const ProjectCard = ({ project, index, onClick }) => {
           </p>
         </div>
         
-        <div className="absolute top-6 left-6">
+        <div className="absolute top-3 left-6">
           <span className="bg-white text-black px-3 py-1 text-xs font-black tracking-widest uppercase">
             {project.category?.replace('_', ' ')}
           </span>

@@ -118,27 +118,27 @@ const ProjectCard = ({ project, index, onProjectClick }) => {
         </div>
         
         {/* Category tag with theme colors */}
-        <div className="absolute top-6 left-6">
-          <span className={`bg-gradient-to-r ${theme.background} backdrop-blur-sm border ${theme.border} ${theme.accent} px-4 py-2 text-xs font-black tracking-widest uppercase rounded-full shadow-lg`}>
+        <div className="absolute left-1/2 -translate-x-1/2 top-[20%]">
+          <span className={`bg-gradient-to-r ${theme.background} bg-black/80 border ${theme.border} ${theme.accent} px-4 py-2 text-xs font-black tracking-widest uppercase rounded-full`}>
             {project.category?.replace('_', ' ')}
           </span>
         </div>
 
         {/* Lines of code indicator */}
-        <div className="absolute top-6 right-6">
+        {/* <div className="absolute top-6 right-6">
           <div className={`bg-black/50 backdrop-blur-sm border ${theme.border} rounded-lg px-3 py-1`}>
             <span className={`${theme.accent} font-mono text-xs`}>
               <AnimatedCounter end={Math.floor(Math.random() * 2000) + 500} /> lines
             </span>
           </div>
-        </div>
+        </div> */}
       </div>
       
       {/* Enhanced Project Info */}
       <div className="mt-8">
         <motion.h3 
           style={{ y: index % 2 === 0 ? y : 0 }}
-          className={`text-2xl md:text-4xl font-black tracking-tight mb-4 group-hover:${theme.accent} transition-colors`}
+          className={`text-2xl md:text-2xl font-black tracking-tight mb-4 group-hover:${theme.accent} transition-colors`}
         >
           {project.title}
         </motion.h3>
