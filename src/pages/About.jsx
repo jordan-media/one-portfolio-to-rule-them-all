@@ -1,6 +1,12 @@
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+
+import { gsap } from "gsap";
+import ScrambleTextPlugin from "gsap/ScrambleTextPlugin";
+
+gsap.registerPlugin(ScrambleTextPlugin);
+
 // import SimpleFloatingDemo from '../components/locomotive/SimpleFloatingDemo.jsx';
 
 // Move elementSize outside component to avoid dependency issues
@@ -198,6 +204,7 @@ const HeroSection = () => {
   const containerRef = useRef(null);
   const [showScrollCursor, setShowScrollCursor] = useState(true);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const textRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -234,6 +241,35 @@ const HeroSection = () => {
 
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [showScrollCursor]);
+
+  // Wiggle animation for RollerCoaster Tycoon
+  useEffect(() => {
+    if (textRef.current) {
+      const letters = textRef.current.querySelectorAll(".wiggle-letter");
+const wave = gsap.to(letters, {
+  y: 10,                      // wave amplitude
+  duration: 0.8,              // each letter’s cycle speed
+  ease: "sine.inOut",
+  yoyo: true,
+  repeat: -1,                 // infinite internally
+  stagger: {
+    each: 0.15,
+    from: "start",
+    repeat: -1,
+    yoyo: true
+  }
+});
+
+// Kill after ~5 seconds (about 3 waves)
+gsap.delayedCall(5, () => {
+  wave.kill();  // stop the tween
+  gsap.to(letters, { y: 0, duration: 0.5, ease: "sine.out" }); // settle clean
+});
+
+
+    
+    }
+  }, []);
 
   return (
     <section
@@ -305,13 +341,21 @@ const HeroSection = () => {
           </span>
 
           {/* Secondary Line - Medium, distinct color */}
-          <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-8xl font-bold text-white/80 mb-4 sm:mb-6 2xl:mb-8">
+          <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white/80 mb-4 sm:mb-6 2xl:mb-8">
             Quality - Authenticity
           </span>
 
           {/* Tertiary Line - Smaller, accent color */}
-          <span className="block text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-6xl font-semibold text-green-400 mb-4 sm:mb-6 2xl:mb-8">
-            UxD instincts since RollerCoaster Tycoon '99
+          <span
+            ref={textRef}
+            className="block text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-3xl 2xl:text-4xl font-semibold text-green-400 mb-4 sm:mb-6 2xl:mb-8"
+          >
+            {"UxD instincts since "}
+            {"RollerCoaster Tycoon '99".split("").map((char, i) => (
+              <span key={i} className="wiggle-letter inline-block">
+                {char}
+              </span>
+            ))}
           </span>
 
           {/* Description Line - Smallest, muted */}
@@ -323,6 +367,7 @@ const HeroSection = () => {
     </section>
   );
 };
+
 
 const CollaborationSection = () => {
   const ref = useRef(null);
@@ -468,142 +513,162 @@ const CollaborationSection = () => {
   );
 };
 
+
+// ________________________________________________________________________________
+
+
 const TechSkillsSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-200px" });
+  const skillsRef = useRef(null);
 
-  // State to track all floating element positions (only 'position' is stored as per outline)
-  const [devPositions, setDevPositions] = useState(Array(6).fill(null));
-  const [designPositions, setDesignPositions] = useState(Array(6).fill(null));
+  useEffect(() => {
+    const tl = gsap.timeline({ repeat: -1, delay: 1 });
 
-  // Outline specifies fixed container dimensions for the floating tags' logic.
-  // This means the dynamic `devSkillsContainerRef` and `designSkillsContainerRef` logic is removed for `containerBounds`.
-  const containerBounds = { width: 350, height: 300 };
+    const skills = [
+      "React",
+      "Node.js",
+      "JavaScript",
+      "Figma",
+      "React Native",
+      "TypeScript",
+      "HTML5",
+      "CSS3",
+      "CMS",
+      "Terminal",
+      "GitHub",
+      "GitHub Actions",
+      "AI Integration",
+      "Adobe Creative Cloud",
+      "Premiere Pro",
+      "After Effects",
+      "Blender",
+      "3D Modeling",
+      "Illustrator",
+      "Photoshop",
+      "AutoCAD",
+      "Technical Drawing",
+      "UI/UX Research",
+    ];
 
-  // Callbacks for FloatingText to update its current position in the parent's state
-  // Memoized with useCallback for stability, as they are dependencies in FloatingText's useEffect
-  const updateDevPosition = useCallback((index, position) => {
-    setDevPositions(prev => {
-      const newPositions = [...prev];
-      newPositions[index] = position;
-      return newPositions;
+    skills.forEach((skill, i) => {
+      const el = skillsRef.current?.querySelector(`#skill-${i}`);
+      if (el) {
+        tl.to(
+          el,
+          {
+            duration: 1.5,
+            scrambleText: { text: skill, chars: "XO0123456789", speed: 0.3 },
+          },
+          i * 0.15
+        );
+      }
     });
+
+    return () => tl.kill();
   }, []);
 
-  const updateDesignPosition = useCallback((index, position) => {
-    setDesignPositions(prev => {
-      const newPositions = [...prev];
-      newPositions[index] = position;
-      return newPositions;
-    });
-  }, []);
+  const pickColor = (word) => {
+    if (word === "Adobe Creative Cloud") {
+      return "bg-gradient-to-r from-pink-400 via-red-400 to-purple-400 bg-clip-text text-transparent";
+    }
+    const colorMap = {
+      React: "text-green-400",
+      "React Native": "text-blue-400",
+      JavaScript: "text-yellow-400",
+      TypeScript: "text-cyan-400",
+      Figma: "text-pink-400",
+      Blender: "text-purple-400",
+      GitHub: "text-gray-300",
+      "AI Integration": "text-indigo-400",
+      "UI/UX Research": "text-teal-300",
+    };
+    return (
+      colorMap[word] ||
+      [
+        "text-orange-400",
+        "text-lime-400",
+        "text-indigo-400",
+        "text-teal-400",
+        "text-white/80",
+      ][Math.floor(Math.random() * 5)]
+    );
+  };
 
+  const pickSize = (word) => {
+    const large = [
+      "React",
+      "React Native",
+      "JavaScript",
+      "Figma",
+      "Blender",
+      "Adobe Creative Cloud",
+    ];
+    const medium = [
+      "TypeScript",
+      "Node.js",
+      "Illustrator",
+      "Photoshop",
+      "GitHub",
+      "AI Integration",
+      "UI/UX Research",
+    ];
+    if (large.includes(word))
+      return "text-4xl sm:text-6xl font-black leading-none";
+    if (medium.includes(word))
+      return "text-2xl sm:text-4xl font-bold leading-tight";
+    return "text-lg sm:text-2xl font-medium leading-snug";
+  };
+
+  const skills = [
+    "React",
+    "Node.js",
+    "JavaScript",
+    "Figma",
+    "React Native",
+    "TypeScript",
+    "HTML5",
+    "CSS3",
+    "CMS",
+    "Terminal",
+    "GitHub",
+    "GitHub Actions",
+    "AI Integration",
+    "Adobe Creative Cloud",
+    "Premiere Pro",
+    "After Effects",
+    "Blender",
+    "3D Modeling",
+    "Illustrator",
+    "Photoshop",
+    "AutoCAD",
+    "Technical Drawing",
+    "UI/UX Research",
+  ];
 
   return (
-    <section ref={ref} className="py-20 sm:py-32 2xl:py-48 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 bg-slate-900 cursor-default">
-      <div className="w-full max-w-8xl 2xl:max-w-[120rem] mx-auto">
-        {/* Development and Design Skills - 2 Column Grid */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 2xl:gap-32 items-stretch mb-12 lg:mb-20 2xl:mb-32">
-          {/* Development Skills */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.8 }}
-            className="relative h-full"
-          >
-            <div className="bg-gradient-to-br from-orange-900/20 to-red-900/20 border border-orange-500/20 rounded-2xl 2xl:rounded-3xl p-8 2xl:p-12 h-full relative overflow-hidden min-h-[400px] 2xl:min-h-[500px]">
-              {/* Fixed Title */}
-              <div className="relative z-20 mb-6 2xl:mb-10">
-                <h3 className="text-xl 2xl:text-3xl font-black text-orange-400">DEVELOPMENT</h3>
-              </div>
-
-              {/* Floating Skills Container */}
-              <div className="relative w-full h-full">
-                {isInView && ( // Only render FloatingText when section is in view
-                  <>
-                    {[
-                      'React & React Native', 'Vite & Node.js', 'TypeScript & JavaScript',
-                      'HTML5 & CSS3', 'CMS Deployment', 'Terminal & GitHub Actions'
-                    ].map((tech, index) => (
-                      <FloatingText
-                        key={tech}
-                        delay={0.2 + index * 0.2}
-                        containerBounds={containerBounds}
-                        allPositions={devPositions}
-                        index={index}
-                        onPositionUpdate={updateDevPosition}
-                      >
-                        {tech}
-                      </FloatingText>
-                    ))}
-                  </>
-                )}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Design Skills */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative h-full"
-          >
-            <div className="bg-gradient-to-br from-blue-900/20 to-green-900/20 border border-blue-500/20 rounded-2xl 2xl:rounded-3xl p-8 2xl:p-12 h-full relative overflow-hidden min-h-[400px] 2xl:min-h-[500px]">
-              {/* Fixed Title */}
-              <div className="relative z-20 mb-6 2xl:mb-10">
-                <h3 className="text-xl 2xl:text-3xl font-black text-blue-400">DESIGN</h3>
-              </div>
-
-              {/* Floating Skills Container */}
-              <div className="relative w-full h-full">
-                {isInView && ( // Only render FloatingText when section is in view
-                  <>
-                    {[
-                      'Figma & Adobe Suite', 'Premiere Pro & After Effects', 'Blender & 3D Modeling',
-                      'Illustrator & Photoshop', 'AutoCAD & Technical Drawing', 'UI/UX Prototyping'
-                    ].map((skill, index) => (
-                      <FloatingText
-                        key={skill}
-                        delay={0.4 + index * 0.2}
-                        containerBounds={containerBounds}
-                        allPositions={designPositions}
-                        index={index}
-                        onPositionUpdate={updateDesignPosition}
-                      >
-                        {skill}
-                      </FloatingText>
-                    ))}
-                  </>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* See the Work Button - Styled like footer button */}
+    <section
+      ref={ref}
+      className="py-20 sm:py-32 2xl:py-48 px-6 sm:px-12 bg-slate-900 cursor-default"
+    >
+      <div className="w-full max-w-8xl 2xl:max-w-[120rem] mx-auto text-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-center"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          ref={skillsRef}
+          className="font-mono tracking-tight flex flex-wrap justify-center gap-x-4 gap-y-3"
         >
-          <div className="group relative inline-block">
-            <div className="absolute -inset-1 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-            <a
-              href="/Projects"
-              className="relative flex items-center gap-3 sm:gap-4 bg-gradient-to-r from-green-400/10 via-blue-500/10 to-purple-600/10 backdrop-blur-xl border border-white/10 text-white px-6 sm:px-8 py-4 sm:py-6 font-bold text-sm sm:text-lg tracking-wider transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl group cursor-pointer"
+          {skills.map((skill, i) => (
+            <span
+              key={i}
+              id={`skill-${i}`}
+              className={`${pickColor(skill)} ${pickSize(
+                skill
+              )} inline-block whitespace-nowrap`}
             >
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">🚀</span>
-                <span className="cursor-default">SEE All WORK</span>
-              </div>
-              <div className="ml-auto flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-sm text-green-400 cursor-default">Ready</span>
-              </div>
-            </a>
-          </div>
+              {skill}
+            </span>
+          ))}
         </motion.div>
       </div>
     </section>
@@ -612,28 +677,59 @@ const TechSkillsSection = () => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 const CurrentFocusSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-200px" });
 
   return (
-    <section ref={ref} className="py-20 sm:py-32 2xl:py-48 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 bg-gradient-to-b from-slate-900 to-black cursor-default">
+    <section
+      ref={ref}
+      className="py-20 sm:py-32 2xl:py-48 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 bg-gradient-to-b from-slate-900 to-black cursor-default"
+    >
       <div className="w-full max-w-8xl 2xl:max-w-[120rem] mx-auto">
         {/* Opening Quote */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16 sm:mb-24 2xl:mb-32"
-        >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-[9rem] font-black leading-relaxed tracking-tight">
-            <span className="text-green-300">Curiosity</span> <span className="text-white">keeps me</span>
-            <br />
-            <span className="text-white italic">- moving </span> <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent"> - - -</span> <br /> <span className="text-white/60">Quality</span>
-            <br />
-            <span className="text-white">keeps me</span> <span className="text-green-300">grounded.</span>
-          </h2>
-        </motion.div>
+  initial={{ opacity: 0, y: 50 }}
+  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+  transition={{ duration: 0.8 }}
+  className="text-center mb-16 sm:mb-24 2xl:mb-32"
+>
+  <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-[9rem] font-black leading-relaxed tracking-tight">
+    <span className="text-green-300">Curiosity</span>{" "}
+    <span className="text-white">keeps me</span>
+    <br />
+    <span
+      className="text-white italic 
+                 text-6xl sm:text-5xl md:text-8xl lg:text-6xl xl:text-8xl 2xl:text-[9rem]"
+    >
+      - moving
+    </span>{" "}
+    <span
+      className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 
+                 bg-clip-text text-transparent 
+                 text-6xl sm:text-5xl md:text-8xl lg:text-6xl xl:text-8xl 2xl:text-[9rem]"
+    >
+      ---
+    </span>
+    <br />
+    <span className="text-white/60">Quality</span>
+    <br />
+    <span className="text-white">keeps me</span>{" "}
+    <span className="text-green-300">grounded.</span>
+  </h2>
+</motion.div>
+
 
         {/* Current Learning - Image Right, Text Left */}
         <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 2xl:gap-24 items-center mb-16 sm:mb-24 2xl:mb-32">
@@ -645,10 +741,17 @@ const CurrentFocusSection = () => {
           >
             <div className="space-y-6 2xl:space-y-10">
               <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-                Now, I'm finishing my Web & App Development diploma at BCIT, where I've discovered a new passion: building with <span className="font-bold text-white">React</span>, <span className="font-bold text-white">TypeScript</span>, <span className="font-bold text-white">Vite</span>, and <span className="font-bold text-white">React Native</span>.
+                Now, I'm finishing my Web & App Development diploma at BCIT,
+                where I've discovered a new passion: building with{" "}
+                <span className="font-bold text-white">React</span>,{" "}
+                <span className="font-bold text-white">TypeScript</span>,{" "}
+                <span className="font-bold text-white">Vite</span>, and{" "}
+                <span className="font-bold text-white">React Native</span>.
               </p>
               <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-                I've explored deployments, tested workflows, and pushed passion projects live—not just to learn the tools, but to see how ideas come alive in the real world.
+                I've explored deployments, tested workflows, and pushed passion
+                projects live—not just to learn the tools, but to see how ideas
+                come alive in the real world.
               </p>
             </div>
           </motion.div>
@@ -664,27 +767,16 @@ const CurrentFocusSection = () => {
                 <div className="w-3 h-3 2xl:w-4 2xl:h-4 bg-red-500 rounded-full"></div>
                 <div className="w-3 h-3 2xl:w-4 2xl:h-4 bg-yellow-500 rounded-full"></div>
                 <div className="w-3 h-3 2xl:w-4 2xl:h-4 bg-green-500 rounded-full"></div>
-                <span className="text-white/60 ml-2 2xl:text-xl">React App</span>
+                <span className="text-white/60 ml-2 2xl:text-xl">
+                  React App
+                </span>
               </div>
               <motion.div
                 initial={{ opacity: 0.5 }}
                 animate={{ opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 2, repeat: Infinity }}
-                className="text-green-400 2xl:text-xl 2xl:leading-relaxed">
-
-                {`const LearnAndBuild = () => {
-  const [curiosity] = useState(true);
-  const [skills] = useSkills('growing');
-
-  return (
-    <div className="developer">
-      <Learn constantly />
-      <Build projects />
-      <Share knowledge />
-    </div>
-  );
-};`}
-              </motion.div>
+                className="text-green-400 2xl:text-xl 2xl:leading-relaxed"
+              ></motion.div>
             </div>
           </motion.div>
         </div>
@@ -730,10 +822,19 @@ const CurrentFocusSection = () => {
           >
             <div className="space-y-6 2xl:space-y-10">
               <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-                On the creative side, I've worked with the <span className="font-bold text-white">Adobe Creative Suite</span>, <span className="font-bold text-white">Figma</span>, and <span className="font-bold text-white">Blender</span>, which gives me empathy for designers and a deeper appreciation for how creativity and development connect.
+                On the creative side, I've worked with the{" "}
+                <span className="font-bold text-white">
+                  Adobe Creative Suite
+                </span>
+                , <span className="font-bold text-white">Figma</span>, and{" "}
+                <span className="font-bold text-white">Blender</span>, which
+                gives me empathy for designers and a deeper appreciation for how
+                creativity and development connect.
               </p>
               <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-                This combination allows me to bridge the gap between technical implementation and user experience, creating solutions that are both functional and beautiful.
+                This combination allows me to bridge the gap between technical
+                implementation and user experience, creating solutions that are
+                both functional and beautiful.
               </p>
             </div>
           </motion.div>
@@ -743,12 +844,17 @@ const CurrentFocusSection = () => {
   );
 };
 
+
+
 const PersonalSideSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-200px" });
 
   return (
-    <section ref={ref} className="py-20 sm:py-32 2xl:py-48 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 bg-black cursor-default">
+    <section
+      ref={ref}
+      className="py-20 sm:py-32 2xl:py-48 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 bg-black cursor-default"
+    >
       <div className="w-full max-w-8xl 2xl:max-w-[120rem] mx-auto">
         {/* Opening Quote */}
         <motion.div
@@ -757,13 +863,13 @@ const PersonalSideSection = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 sm:mb-24 2xl:mb-32"
         >
-          <h2 className="text-4xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-7xl 2xl:text-[10rem] font-black tracking-tight leading-tight">
+          <h2 className="text-4xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-7xl 2xl:text-[8rem] font-black tracking-tight leading-tight">
             <span className="text-green-400">i am</span>
             <br />
             <span className="text-white">a father</span>
             <br />
             <span className="text-white/50">a role model</span>
-             <br />
+            <br />
             <span className="text-cyan-400">a storyteller</span>
             <br />
             <span className="text-white">and keeper of balance</span>
@@ -779,16 +885,21 @@ const PersonalSideSection = () => {
           >
             <div className="space-y-6 2xl:space-y-10">
               <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-                Outside of work, you'll usually find me in the outdoors: <span className="font-bold text-white">hiking</span>, <span className="font-bold text-white">snowboarding</span>, <span className="font-bold text-white">surfing</span>, <span className="font-bold text-white">camping</span>, or plunging into ice-cold rivers.
+                Outside of work, you'll usually find me in the outdoors:{" "}
+                <span className="font-bold text-white">hiking</span>,{" "}
+                <span className="font-bold text-white">snowboarding</span>,{" "}
+                <span className="font-bold text-white">surfing</span>,{" "}
+                <span className="font-bold text-white">camping</span>, or
+                plunging into ice-cold rivers.
               </p>
               <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-                I've also been raising two kids as a single dad for the last seven years, which has given me
-                <span className="font-bold text-white"> grit</span>, 
-                
-                <span className="font-bold text-white"> patience</span>
-                , and 
+                I've also been raising two kids as a single dad for the last
+                seven years, which has given me
+                <span className="font-bold text-white"> grit</span>,
+                <span className="font-bold text-white"> patience</span>, and
                 <span className="font-bold text-white"> adaptability </span>
-                 in ways that you may only understand if you've been there yourself.
+                in ways that you may only understand if you've been there
+                yourself.
               </p>
             </div>
           </motion.div>
@@ -800,28 +911,62 @@ const PersonalSideSection = () => {
           >
             {/* Activities Grid */}
 
-           
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-3 gap-4 2xl:gap-6">
               {[
-                { emoji: '🏂', label: 'Snowboarding', color: 'from-blue-300 to-cyan-300' },
-{ emoji: '🥾', label: 'Hiking', color: 'from-green-300 to-emerald-300' },
-{ emoji: '🚴‍♂️', label: 'Biking', color: 'from-orange-300 to-red-300' },
-{ emoji: '🏄‍♂️', label: 'Surfing', color: 'from-blue-300 to-teal-300' },
-{ emoji: '🏕️', label: 'Camping', color: 'from-amber-300 to-orange-300' },
-{ emoji: '🏒', label: 'Hockey', color: 'from-indigo-300 to-blue-300' },
-{ emoji: '⚽', label: 'Soccer', color: 'from-green-300 to-lime-300' },
-{ emoji: '👨‍👧‍👦', label: 'Dad Life', color: 'from-pink-300 to-rose-300' },
-
+                {
+                  emoji: "🏂",
+                  label: "Snowboarding",
+                  color: "from-blue-300 to-cyan-300",
+                },
+                {
+                  emoji: "🥾",
+                  label: "Hiking",
+                  color: "from-green-300 to-emerald-300",
+                },
+                {
+                  emoji: "🚴‍♂️",
+                  label: "Biking",
+                  color: "from-orange-300 to-red-300",
+                },
+                {
+                  emoji: "🏄‍♂️",
+                  label: "Surfing",
+                  color: "from-blue-300 to-teal-300",
+                },
+                {
+                  emoji: "🏕️",
+                  label: "Camping",
+                  color: "from-amber-300 to-orange-300",
+                },
+                {
+                  emoji: "🏒",
+                  label: "Hockey",
+                  color: "from-indigo-300 to-blue-300",
+                },
+                {
+                  emoji: "⚽",
+                  label: "Soccer",
+                  color: "from-green-300 to-lime-300",
+                },
+                {
+                  emoji: "👨‍👧‍👦",
+                  label: "Dad Life",
+                  color: "from-pink-300 to-rose-300",
+                },
               ].map((activity, index) => (
                 <motion.div
                   key={index}
                   initial={{ scale: 0, rotate: -180 }}
-                  animate={isInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
+                  animate={
+                    isInView
+                      ? { scale: 1, rotate: 0 }
+                      : { scale: 0, rotate: -180 }
+                  }
                   transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-                  className={`bg-gradient-to-br ${activity.color} border border-white/10 rounded-xl 2xl:rounded-2xl p-4 sm:p-2 2xl:p-6 text-center hover:scale-105 transition-all duration-300 flex items-center justify-center aspect-square group cursor-pointer`}
+                  className={`bg-gradient-to-br ${activity.color} border border-white/10 rounded-xl 2xl:rounded-2xl p-4 sm:2xl:p-6 text-center hover:scale-105 transition-all duration-300 flex items-center justify-center aspect-square group cursor-pointer`}
                   title={activity.label}
                 >
-                  <span className="text-2xl sm:text-6xl lg:text-5xl xl:text-7xl 2xl:text-8xl select-none group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-7xl sm:text-6xl lg:text-5xl xl:text-7xl 2xl:text-8xl select-none group-hover:scale-110 transition-transform duration-300">
                     {activity.emoji}
                   </span>
                 </motion.div>

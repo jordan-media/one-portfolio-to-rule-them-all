@@ -227,7 +227,8 @@ export default function Layout({ children, currentPageName }) {
                 <span className="text-xs text-green-400 font-mono">LIVE STATUS</span>
               </div>
               <div className="text-xs text-green-400">
-                {daysRemaining} days remaining - STUDENT
+                {daysRemaining} days remaining
+                <span className="text-xs text-blue-300"> as a </span>STUDENT
               </div>
               <div className="text-xs text-blue-400">Available for work Jan 5th, 2026</div>
             </div>
@@ -405,7 +406,7 @@ export default function Layout({ children, currentPageName }) {
 
                     <div className="flex items-center gap-3">
                       <Mail className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
-                      <span className="cursor-default">START A CONVERSATION</span>
+                      <span className="cursor-default text-sm">START A CONVERSATION</span>
                     </div>
                     <div className="ml-auto flex items-center gap-2">
                       <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>

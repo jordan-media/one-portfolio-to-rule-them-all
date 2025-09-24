@@ -157,7 +157,7 @@ const ProjectCard = ({ project, index, onProjectClick }) => {
         <TechStack technologies={project.technologies?.slice(0, 4)} />
         
         <motion.button 
-          className={`group flex items-center space-x-2 text-white font-bold tracking-widest uppercase text-sm hover:${theme.accent} transition-colors mt-6`}
+          className={`group flex items-center space-x-2  px-4 py-2 text-white font-bold tracking-widest uppercase text-sm hover:${theme.accent} transition-colors mt-6`}
           whileHover={{ x: 10 }}
         >
           <span>VIEW CASE STUDY</span>
@@ -196,8 +196,8 @@ const ProjectShowcase = ({ projects, onProjectClick }) => {
           
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 2xl:gap-16">
             <p className="text-xl xl:text-2xl 2xl:text-3xl text-white/60 max-w-3xl 2xl:max-w-5xl">
-              A curated selection of projects that showcase innovation, 
-              craftsmanship, and attention to detail.
+              A curated selection of projects that I have completed. 
+              < br/><span className="text-green-300 text-sm tracking-tight leading-tight">Each project highlights my skills in development, design, and storytelling, showcasing my ability to create impactful digital experiences."</span>
             </p>
             
             <div className="flex items-center gap-6 xl:gap-8 2xl:gap-12">
