@@ -333,100 +333,100 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                       )}
                     </div>
 
-                    {/* Sidebar - Enhanced for ultra-wide */}
-                    <div className="min-w-0">
-                      <div className="mb-8 sm:mb-12 2xl:mb-20">
-                        <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base mb-4 sm:mb-6 2xl:mb-10 text-white/60">
-                          PROJECT DETAILS
-                        </h4>
-                        <div className="space-y-4 sm:space-y-6 2xl:space-y-10">
-                          <div>
-                            <p className="text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 2xl:mb-2 tracking-widest uppercase">
-                              ROLE
-                            </p>
-                            <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl">{project.role || project.rolePlayed}</p>
-                          </div>
-                          {project.category && (
-                            <div>
-                              <p className="text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 2xl:mb-2 tracking-widest uppercase">
-                                CATEGORY
-                              </p>
-                              <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl">
-                                {project.category?.replace('_', ' ')}
-                              </p>
-                            </div>
-                          )}
-                          {project.completion_date && (
-                            <div>
-                              <p className="text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 2xl:mb-2 tracking-widest uppercase">
-                                COMPLETED
-                              </p>
-                              <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl">
-                                {new Date(project.completion_date).toLocaleDateString('en-US', {
-                                  month: 'long',
-                                  year: 'numeric'
-                                })}
-                              </p>
-                            </div>
-                          )}
-                          {project.outcome && (
-                            <div>
-                              <p className="text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 2xl:mb-2 tracking-widest uppercase">
-                                OUTCOME
-                              </p>
-                              <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl text-green-400">{project.outcome}</p>
-                            </div>
-                          )}
-                        </div>
-                      </div>
+                    {/* Sidebar - Tightened Layout */}
+<div className="min-w-0 space-y-4 sm:space-y-6 lg:space-y-8 2xl:space-y-12">
 
-                      {(project.technologies || project.technologiesUsed) && (project.technologies || project.technologiesUsed).length > 0 && (
-                        <div className="mb-8 sm:mb-12 2xl:mb-20">
-                          <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base mb-4 sm:mb-6 2xl:mb-10 text-white/60">
-                            TECHNOLOGIES
-                          </h4>
-                          <div className="space-y-2 2xl:space-y-4">
-                            {(project.technologies || project.technologiesUsed).map((tech, index) => (
-                              <div key={index} className="border-b border-white/10 pb-2 2xl:pb-3">
-                                <span className="font-medium text-sm sm:text-base xl:text-lg 2xl:text-xl">{tech}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
+  {/* PROJECT DETAILS */}
+  <div className="rounded-xl border border-white/10 odd:bg-white/5 even:bg-white/10 px-2 md:px-2 lg:px-2 py-4 sm:py-5 lg:py-6 2xl:py-8">
+    <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base pb-2 mb-3 sm:mb-4 border-b border-white/10 text-white/70">
+      PROJECT DETAILS
+    </h4>
+    <div className="space-y-3 sm:space-y-4 lg:space-y-5 2xl:space-y-8">
+      <div>
+        <p className="text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 tracking-widest uppercase">ROLE</p>
+        <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl">{project.role || project.rolePlayed}</p>
+      </div>
+      {project.category && (
+        <div>
+          <p className="text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 tracking-widest uppercase">CATEGORY</p>
+          <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl">
+            {project.category?.replace('_', ' ')}
+          </p>
+        </div>
+      )}
+      {project.completion_date && (
+        <div>
+          <p className="text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 tracking-widest uppercase">COMPLETED</p>
+          <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl">
+            {new Date(project.completion_date).toLocaleDateString('en-US', {
+              month: 'long',
+              year: 'numeric'
+            })}
+          </p>
+        </div>
+      )}
+      {project.outcome && (
+        <div>
+          <p className="text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 tracking-widest uppercase">OUTCOME</p>
+          <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl text-green-400">{project.outcome}</p>
+        </div>
+      )}
+    </div>
+  </div>
 
-                      {(project.tools_used || project.toolsUsed) && (project.tools_used || project.toolsUsed).length > 0 && (
-                        <div className="mb-8 sm:mb-12 2xl:mb-20">
-                          <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base mb-4 sm:mb-6 2xl:mb-10 text-white/60">
-                            TOOLS USED
-                          </h4>
-                          <div className="space-y-2 2xl:space-y-4">
-                            {(project.tools_used || project.toolsUsed).map((tool, index) => (
-                              <div key={index} className="border-b border-white/10 pb-2 2xl:pb-3">
-                                <span className="font-medium text-sm sm:text-base xl:text-lg 2xl:text-xl">{tool}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
+  {/* TECHNOLOGIES */}
+  {(project.technologies || project.technologiesUsed)?.length > 0 && (
+    <div className="rounded-xl border border-white/10 odd:bg-white/5 even:bg-white/10 px-2 md:px-2 lg:px-2 py-4 sm:py-5 lg:py-6 2xl:py-8">
+      <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base pb-2 mb-3 sm:mb-4 border-b border-white/10 text-white/70">
+        TECHNOLOGIES
+      </h4>
+      <div className="space-y-1.5 sm:space-y-2 lg:space-y-3 2xl:space-y-4">
+        {(project.technologies || project.technologiesUsed).map((tech, index) => (
+          <div key={index} className="pb-1.5 sm:pb-2 border-b border-white/10 last:border-none">
+            <span className="font-medium text-sm sm:text-base xl:text-lg 2xl:text-xl">{tech}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
 
-                      {project.challenges && project.challenges.length > 0 && (
-                        <div className="mb-8 sm:mb-12 2xl:mb-20">
-                          <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base mb-4 sm:mb-6 2xl:mb-10 text-white/60">
-                            CHALLENGES & SOLUTIONS
-                          </h4>
-                          <div className="space-y-4 2xl:space-y-6">
-                            {project.challenges.map((challenge, index) => (
-                              <div key={index} className="bg-white/5 border border-white/10 rounded-lg 2xl:rounded-xl p-3 sm:p-4 2xl:p-6">
-                                <p className="text-white/80 text-sm xl:text-base 2xl:text-lg mb-2 2xl:mb-3 font-medium">{challenge.description}</p>
-                                {challenge.solution && (
-                                  <p className="text-green-400 text-xs sm:text-sm xl:text-base 2xl:text-lg">{challenge.solution}</p>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
+  {/* TOOLS USED */}
+  {(project.tools_used || project.toolsUsed)?.length > 0 && (
+    <div className="rounded-xl border border-white/10 odd:bg-white/5 even:bg-white/10 px-2 md:px-2 lg:px-2 py-4 sm:py-5 lg:py-6 2xl:py-8">
+      <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base pb-2 mb-3 sm:mb-4 border-b border-white/10 text-white/70">
+        TOOLS USED
+      </h4>
+      <div className="space-y-1.5 sm:space-y-2 lg:space-y-3 2xl:space-y-4">
+        {(project.tools_used || project.toolsUsed).map((tool, index) => (
+          <div key={index} className="pb-1.5 sm:pb-2 border-b border-white/10 last:border-none">
+            <span className="font-medium text-sm sm:text-base xl:text-lg 2xl:text-xl">{tool}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {/* CHALLENGES & SOLUTIONS */}
+  {project.challenges?.length > 0 && (
+    <div className="rounded-xl border border-white/10 odd:bg-white/5 even:bg-white/10 px-2 md:px-2 lg:px-2 py-4 sm:py-5 lg:py-6 2xl:py-8">
+      <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base pb-2 mb-3 sm:mb-4 border-b border-white/10 text-white/70">
+        CHALLENGES & SOLUTIONS
+      </h4>
+      <div className="space-y-2 sm:space-y-3 lg:space-y-4 2xl:space-y-5">
+        {project.challenges.map((challenge, index) => (
+          <div key={index} className="bg-black/20 border border-white/10 rounded-lg px-2 sm:px-3 lg:px-4 2xl:px-5 py-2.5 sm:py-3 lg:py-4 2xl:py-5">
+            <p className="text-white/80 text-sm xl:text-base 2xl:text-lg mb-2 font-medium">{challenge.description}</p>
+            {challenge.solution && (
+              <p className="text-green-400 text-xs sm:text-sm xl:text-base 2xl:text-lg">{challenge.solution}</p>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+
+
 
                       {/* Action buttons - Enhanced for ultra-wide */}
                       <div className="space-y-3 sm:space-y-4 2xl:space-y-6">

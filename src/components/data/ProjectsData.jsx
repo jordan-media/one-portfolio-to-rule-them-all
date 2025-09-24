@@ -27,7 +27,7 @@ export const projectsData = [
     "project_url": "https://www.amazon.com/Waterproof-Outdoor-Curtain-W52-L84/dp/B08SMQ1LQT?ref_=ast_sto_dp&th=1",
     "github_url": null,
     "featured": true,
-    "completion_date": "2024-01-15",
+    "completion_date": "2025-07-15",
     "challenges": [
       {
         "description": "Communicating with a non-native English speaker client.",
@@ -92,7 +92,7 @@ export const projectsData = [
     "project_url": null,
     "github_url": null,
     "featured": true,
-    "completion_date": "2024-02-20",
+    "completion_date": "2025-02-20",
     "challenges": [
       {
         "description": "Complex mathematical formulas and script layering.",
@@ -136,10 +136,10 @@ export const projectsData = [
     ],
     "category": "ux_design", 
     "role": "UI/UX Designer, Researcher, Product Conceptualizer, Developer",
-    "technologies": ["Mobile App Development", "UI/UX Design Principles", "Data Visualization"],
-    "tools_used": ["Figma", "Android Studio", "VS Code", "Adobe Illustrator", "Adobe InDesign", "Canva"],
+    "technologies": ["React Native", "UI/UX Design Principles", "Figma"],
+    "tools_used": ["Figma", "Android Studio", "VS Code", "Adobe Illustrator", "Adobe InDesign", "Camera Raw"],
     "services_provided": ["UX Research", "Wireframing", "Prototyping", "UI Design"],
-    "skills_applied": ["User Research", "Prototyping", "Data Visualization", "UI/UX Design"],
+    "skills_applied": ["User Research", "Prototyping", "", "UI/UX Design"],
     "image_url": "assets/images/projects/j-sports/7.jpg",
     "gallery_images": [
       "assets/images/projects/j-sports/3.jpg",
@@ -151,7 +151,7 @@ export const projectsData = [
     "project_url": null,
     "github_url": null,
     "featured": true,
-    "completion_date": "2024-03-10",
+    "completion_date": "2025-10-10",
     "challenges": [
       {
         "description": "Time management as a full-time student with limited extra hours.",
