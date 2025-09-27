@@ -1,9 +1,9 @@
-
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Home, User, Briefcase, Mail, Github, Linkedin, Instagram, MapPin, ChevronRight, Eye, Code, Calendar, Menu, X } from "lucide-react";
 import { FloatingCursor } from "../components/locomotive/InteractiveElements";
+import ProjectLibraryModal from "../components/portfolio/ProjectLibraryModal";
 
 const navigationItems = [
   {
@@ -23,6 +23,12 @@ const navigationItems = [
     url: "/About", // Changed to match the actual page file name
     icon: User,
     description: "My Story & Skills"
+  },
+  {
+    title: "Other Cool Stuff",
+    action: "openGlobalProject",
+    icon: Code,
+    description: "The Collection"
   }
 ];
 
@@ -42,6 +48,7 @@ export default function Layout({ children, currentPageName }) {
   const [currentSection, setCurrentSection] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [daysRemaining, setDaysRemaining] = useState(0);
+  const [showGlobalModal, setShowGlobalModal] = useState(false);
 
   // Calculate days remaining until Dec 12, 2025
   useEffect(() => {
@@ -228,7 +235,7 @@ export default function Layout({ children, currentPageName }) {
               </div>
               <div className="text-xs text-green-400">
                 {daysRemaining} days remaining
-                <span className="text-xs text-blue-300"> as a </span>STUDENT
+                <span className="text-xs text-green-400"> as a </span>STUDENT
               </div>
               <div className="text-xs text-blue-400">Available for work Jan 5th, 2026</div>
             </div>
@@ -291,32 +298,53 @@ export default function Layout({ children, currentPageName }) {
             <div className="text-xs font-bold tracking-wider text-white/40 mb-2.5">NAVIGATION</div>
             <div className="space-y-1.5">
               {navigationItems.map((item, index) =>
-                <Link
-                  key={item.title}
-                  to={item.url}
-                  className={`group flex items-center gap-2.5 p-2.5 sm:p-3 transition-all duration-300 cursor-pointer ${
-                    location.pathname === item.url ?
-                      'bg-white/10 border border-white/30 shadow-lg' :
-                      'hover:bg-white/5 border border-transparent hover:border-white/40'}`
-                  }>
+                item.url ? (
+                  <Link
+                    key={item.title}
+                    to={item.url}
+                    className={`group flex items-center gap-2.5 p-2.5 sm:p-3 transition-all duration-300 cursor-pointer ${
+                      location.pathname === item.url ?
+                        'bg-gradient-to-r from-pink-300/10 via-blue-500/20 to-pink-300/40 backdrop-blur-xl border border-white' :
+                        'hover: bg-gradient-to-r from-pink-300/40 border border-white/20 hover:border-white'}`
+                    }>
 
-                  <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-md flex items-center justify-center transition-all duration-300 ${
-                    location.pathname === item.url ?
-                      'bg-gradient-to-br from-blue-500 to-cyan-400 text-black shadow-lg' :
-                      'bg-white/10 text-white/60 group-hover:text-white group-hover:bg-white/15'}`
-                  }>
-                    <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  </div>
+                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-md flex items-center justify-center transition-all duration-300 ${
+                      location.pathname === item.url ?
+                        'bg-gradient-to-br from-blue-500 to-cyan-400 text-black shadow-lg' :
+                        'bg-white/10 text-white/60 group-hover:text-white group-hover:bg-white/15'}`
+                    }>
+                      <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                    </div>
 
-                  <div className="flex-1 min-w-0">
-                    <div className="font-bold text-sm truncate">{item.title}</div>
-                    <div className="text-xs text-white/50 truncate leading-tight">{item.description}</div>
-                  </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-bold text-sm truncate">{item.title}</div>
+                      <div className="text-xs text-white/50 truncate leading-tight">{item.description}</div>
+                    </div>
 
-                  {location.pathname === item.url &&
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse flex-shrink-0"></div>
-                  }
-                </Link>
+                    {location.pathname === item.url &&
+                      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse flex-shrink-0"></div>
+                    }
+                  </Link>
+                ) : (
+                  <button
+                    key={item.title}
+                    onClick={() => {
+                      if (item.action === "openGlobalProject") {
+                        setShowGlobalModal(true);
+                      }
+                    }}
+                    className="group flex items-center gap-2.5 p-2.5 sm:p-3 transition-all duration-300 cursor-pointer hover:bg-white/5 border border-transparent hover:border-white/40 w-full text-left"
+                  >
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-md flex items-center justify-center transition-all duration-300 bg-white/10 text-white/60 group-hover:text-white group-hover:bg-white/15">
+                      <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <div className="font-bold text-sm truncate">{item.title}</div>
+                      <div className="text-xs text-white/50 truncate leading-tight">{item.description}</div>
+                    </div>
+                  </button>
+                )
               )}
             </div>
           </div>
@@ -580,6 +608,20 @@ export default function Layout({ children, currentPageName }) {
           }
         }
       `}</style>
+
+      <ProjectLibraryModal
+        project={{
+          title: "Featured Project",
+          description: "This modal was opened from the global navigation.",
+          category: "development",
+          role: "Full Stack Dev",
+          completion_date: "2025-01-01",  
+          technologies: ["React", "Tailwind", "Framer Motion"],
+          image_url: "/placeholder.png"
+        }}
+        isOpen={showGlobalModal}
+        onClose={() => setShowGlobalModal(false)}
+      />
     </div>
   );
 }
