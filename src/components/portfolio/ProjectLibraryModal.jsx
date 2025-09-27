@@ -303,7 +303,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
               width: 100%;
               top: 0;
               left: 0;
-              background-size: cover;
+              background-size: contain;
               background-position: center;
               background-repeat: no-repeat;
             }
