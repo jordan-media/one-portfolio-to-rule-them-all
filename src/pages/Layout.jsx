@@ -213,36 +213,32 @@ export default function Layout({ children, currentPageName }) {
             <X className="w-4 h-4" />
           </button>
 
-          {/* Logo & Status - Compact */}
-          <div className="mb-4 sm:mb-5">
-            <Link
-              to="/" // Changed to direct path
-              className="group flex items-center gap-2.5 mb-3 sm:mb-4 hover:scale-[1.02] transition-transform cursor-pointer">
-
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-green-400 to-blue-500 rounded-lg flex items-center justify-center group-hover:shadow-lg transition-shadow">
-                <span className="text-black font-black text-sm">J</span>
-              </div>
-              <div>
-                <h1 className="text-base sm:text-lg font-bold tracking-wider text-yellow-200">JORDAN MEDIA</h1>
-              </div>
-            </Link>
+            {/* Logo & Status - Compact */}
+            <div className="mb-2 sm:mb-5">
+  <Link
+    to="/" // Changed to direct path
+    className="group flex items-center gap-2.5 mb-3 sm:mb-4 hover:scale-[1.02] transition-transform cursor-pointer"
+  >
+    <img
+      src="/assets/images/wordmark-logo.svg"
+      alt="Jordan Media logo"
+      className="  object-contain"
+    />
+  </Link>
 
             {/* Status Information */}
             <div className="ml-2.5 space-y-1 pointer-events-none">
               <div className="flex items-center gap-1.5">
                 <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-xs text-green-400 font-mono">LIVE STATUS</span>
+                <span className="text-xs text-green-400 font-mono">LIVE STATUS [{daysRemaining} days remaining as a STUDENT]</span>
               </div>
-              <div className="text-xs text-green-400">
-                {daysRemaining} days remaining
-                <span className="text-xs text-green-400"> as a </span>STUDENT
-              </div>
+              
               <div className="text-xs text-blue-400">Available for work Jan 5th, 2026</div>
             </div>
           </div>
 
           {/* Live Location Tracking - Compact */}
-          <div className="mb-4 sm:mb-5 p-2.5 sm:p-3 bg-white/5 border border-white/10 rounded-lg">
+          <div className="mb-1 sm:mb-5 p-2.5 sm:p-3 bg-white/5 border border-white/10 rounded-lg">
             <div className="flex items-center gap-1.5 mb-2">
               <MapPin className="w-3 h-3 text-green-400" />
               <span className="text-xs font-bold tracking-wider">LOCATION</span>
@@ -294,56 +290,72 @@ export default function Layout({ children, currentPageName }) {
           </div>
 
           {/* Navigation Items - Compact */}
-          <div className="mb-4 sm:mb-5">
+          <div className="mb-2 sm:mb-5">
             <div className="text-xs font-bold tracking-wider text-white/40 mb-2.5">NAVIGATION</div>
             <div className="space-y-1.5">
               {navigationItems.map((item, index) =>
                 item.url ? (
                   <Link
-                    key={item.title}
-                    to={item.url}
-                    className={`group flex items-center gap-2.5 p-2.5 sm:p-3 transition-all duration-300 cursor-pointer ${
-                      location.pathname === item.url ?
-                        'bg-gradient-to-r from-pink-300/10 via-blue-500/20 to-pink-300/40 backdrop-blur-xl border border-white' :
-                        'hover: bg-gradient-to-r from-pink-300/40 border border-white/20 hover:border-white'}`
-                    }>
+  key={item.title}
+  to={item.url}
+  className={`group flex items-center gap-2.5 p-1 sm:p-3 transition-all duration-300 cursor-pointer ${
+    location.pathname === item.url
+      ? 'bg-gradient-to-r from-purple-800/40 via-green-500/40 to-green-300/90 backdrop-blur-xl border-2 border-green-100'
+      : 'border-2 border-white/40 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90'
+  }`}
+>
+  <div
+    className={`w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center transition-all duration-300 ${
+      location.pathname === item.url
+        ? 'bg-gradient-to-br from-blue-500 to-cyan-400 text-black shadow-lg'
+        : 'bg-white/10 text-white/60 group-hover:text-white group-hover:bg-white/15'
+    }`}
+  >
+    <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+  </div>
 
-                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-md flex items-center justify-center transition-all duration-300 ${
-                      location.pathname === item.url ?
-                        'bg-gradient-to-br from-blue-500 to-cyan-400 text-black shadow-lg' :
-                        'bg-white/10 text-white/60 group-hover:text-white group-hover:bg-white/15'}`
-                    }>
-                      <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                    </div>
+  <div className="flex-1 min-w-0">
+    <div className="font-bold text-sm truncate">{item.title}</div>
+    <div className="text-xs text-white/50 truncate leading-tight">{item.description}</div>
+  </div>
 
-                    <div className="flex-1 min-w-0">
-                      <div className="font-bold text-sm truncate">{item.title}</div>
-                      <div className="text-xs text-white/50 truncate leading-tight">{item.description}</div>
-                    </div>
+  {location.pathname === item.url && (
+    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse flex-shrink-0"></div>
+  )}
+</Link>
+) : (
+  <button
+    key={item.title}
+    onClick={() => {
+      if (item.action === "openGlobalProject") {
+        setShowGlobalModal(true);
+      }
+    }}
+    className={`group flex items-center gap-2 p-2 sm:p-3 transition-all duration-300 cursor-pointer w-full text-left ${
+      showGlobalModal
+        ? 'bg-gradient-to-r from-purple-800/40 via-green-500/40 to-green-300/90 backdrop-blur-xl border-2 border-green-100'
+        : 'border-2 border-white/40 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90'
+    }`}
+  >
+    <div
+      className={`w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center transition-all duration-300 ${
+        showGlobalModal
+          ? 'bg-gradient-to-br from-blue-500 to-cyan-400 text-black shadow-lg'
+          : 'bg-white/10 text-white/60 group-hover:text-white group-hover:bg-white/15'
+      }`}
+    >
+      <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+    </div>
 
-                    {location.pathname === item.url &&
-                      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse flex-shrink-0"></div>
-                    }
-                  </Link>
-                ) : (
-                  <button
-                    key={item.title}
-                    onClick={() => {
-                      if (item.action === "openGlobalProject") {
-                        setShowGlobalModal(true);
-                      }
-                    }}
-                    className="group flex items-center gap-2.5 p-2.5 sm:p-3 transition-all duration-300 cursor-pointer hover:bg-white/5 border border-transparent hover:border-white/40 w-full text-left"
-                  >
-                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-md flex items-center justify-center transition-all duration-300 bg-white/10 text-white/60 group-hover:text-white group-hover:bg-white/15">
-                      <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                    </div>
+    <div className="flex-1 min-w-0">
+      <div className="font-bold text-sm truncate">{item.title}</div>
+      <div className="text-xs text-white/50 truncate leading-tight">{item.description}</div>
+    </div>
 
-                    <div className="flex-1 min-w-0">
-                      <div className="font-bold text-sm truncate">{item.title}</div>
-                      <div className="text-xs text-white/50 truncate leading-tight">{item.description}</div>
-                    </div>
-                  </button>
+    {showGlobalModal && (
+      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse flex-shrink-0"></div>
+    )}
+  </button>
                 )
               )}
             </div>
