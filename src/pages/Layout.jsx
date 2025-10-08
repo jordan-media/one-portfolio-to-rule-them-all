@@ -226,7 +226,7 @@ export default function Layout({ children, currentPageName }) {
               <img
                 src="/assets/images/wordmark-logo.svg"
                 alt="Jordan Media logo"
-                className="  object-contain"
+                className="object-contain"
               />
             </Link>
 
@@ -536,7 +536,7 @@ export default function Layout({ children, currentPageName }) {
               <div className="space-y-6 sm:space-y-8">
                 {/* Current Status */}
                 <div className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 sm:p-6">
-                  <h4 className="font-bold mb-4 sm:mb-6 tracking-wider text-base sm:text-lg flex items-center gap-2 cursor-default">
+                  <h4 className="font-bold mb-2 sm:mb-6 tracking-wider text-base sm:text-lg flex items-center gap-2 cursor-default">
                     <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                     <span className="cursor-default">CURRENT STATUS</span>
                   </h4>
