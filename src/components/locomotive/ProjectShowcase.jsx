@@ -170,7 +170,9 @@ const ProjectCard = ({ project, index, onProjectClick }) => {
 
 const ProjectShowcase = ({ projects, onProjectClick }) => {
   return (
-    <section className="py-32 px-6 bg-gradient-to-br from-slate-900 via-black to-slate-900 relative">
+    <section 
+    id="projects"
+    className="py-32 px-6 bg-gradient-to-br from-slate-900 via-black to-slate-900 relative">
       {/* Code Snippets for this section */}
       <CodeSnippets section="projects" count={3} />
       
@@ -224,7 +226,7 @@ const ProjectShowcase = ({ projects, onProjectClick }) => {
         </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-16 md:gap-20 xl:gap-24 2xl:gap-32">
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-16 md:gap-20 xl:gap-24 2xl:gap-32">
           {projects.map((project, index) => (
             <ProjectCard
               key={project.id}
@@ -237,35 +239,32 @@ const ProjectShowcase = ({ projects, onProjectClick }) => {
 
         {/* Enhanced View All Projects */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-20"
-        >
-          <div className="inline-block">
-            <motion.button 
-              className="group relative bg-white text-black px-16 py-8 font-black text-lg tracking-widest uppercase overflow-hidden transition-all duration-500"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="relative z-10">VIEW ALL WORK</span>
-              <div className="absolute inset-0 bg-green-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
-              <span className="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 font-black tracking-widest">
-                VIEW ALL WORK
-              </span>
-            </motion.button>
-            
-            {/* Command line hint */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 1 }}
-              className="text-green-400 font-mono text-xs mt-4"
-            >
-              $ cd /projects && explore --all
-            </motion.p>
-          </div>
-        </motion.div>
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.6, delay: 0.4 }}
+  className="text-center mt-20"
+>
+  <div className="inline-block">
+    <motion.button 
+      className="group bg-gradient-to-r from-purple-800/40 via-green-500/40 to-green-300/90 backdrop-blur-xl border-2 border-green-100 text-white px-16 py-8 font-black text-lg tracking-widest uppercase transition-all duration-300 cursor-pointer hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      VIEW ALL WORK
+    </motion.button>
+    
+    {/* Command line hint */}
+    <motion.p
+      initial={{ opacity: 0 }}
+      whileHover={{ opacity: 1 }}
+      className="text-green-400 font-mono text-xs mt-4"
+    >
+      $ cd /projects && explore --all
+    </motion.p>
+  </div>
+</motion.div>
+
       </div>
     </section>
   );

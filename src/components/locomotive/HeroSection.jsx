@@ -181,25 +181,31 @@ const HeroSection = ({ entryPoint = 'developer' }) => {
             transition={{ delay: 1.2, duration: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 sm:gap-6 xl:gap-8 2xl:gap-12 justify-center"
           >
-            <motion.button 
-              className="group relative bg-white text-black px-8 sm:px-12 xl:px-16 2xl:px-20 py-4 sm:py-6 xl:py-8 2xl:py-10 font-black text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase overflow-hidden transition-all duration-500 cursor-pointer hover:scale-105"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="relative z-10">VIEW WORK</span>
-              <div className="absolute inset-0 bg-green-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
-              <span className="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 font-black text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest">
-                VIEW WORK
-              </span>
-            </motion.button>
-            
-            <motion.button 
-              className="group border-2 border-white text-white px-8 sm:px-12 xl:px-16 2xl:px-20 py-4 sm:py-6 xl:py-8 2xl:py-10 font-black text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase transition-all duration-300 hover:bg-green-500 hover:text-white hover:border-green-500 cursor-pointer hover:scale-105"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              CONTACT
-            </motion.button>
+            <motion.button
+  onClick={() => {
+    const section = document.getElementById("projects");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  }}
+  className="group bg-gradient-to-r from-purple-800/40 via-green-500/40 to-green-300/90 backdrop-blur-xl border-2 border-green-100 text-white px-8 sm:px-12 xl:px-16 2xl:px-20 py-4 sm:py-6 xl:py-8 2xl:py-10 font-black text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase transition-all duration-300 cursor-pointer hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90"
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+>
+  VIEW WORK
+</motion.button>
+
+
+<motion.a
+  href="mailto:jordanasseff@gmail.com"
+  className="group border-2 border-white/40 text-white px-8 sm:px-12 xl:px-16 2xl:px-20 py-4 sm:py-6 xl:py-8 2xl:py-10 font-black text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase transition-all duration-300 cursor-pointer hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90 hover:text-white backdrop-blur-xl inline-block"
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+>
+  CONTACT
+</motion.a>
+
+
           </motion.div>
         </motion.div>
       </div>

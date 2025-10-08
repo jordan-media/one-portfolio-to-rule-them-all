@@ -403,13 +403,14 @@ const CollaborationSection = () => {
     transition={{ duration: 0.8 }}
     className="lg:col-span-2"
   >
-    <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden border border-orange-500/20">
-      <img
-        src="/assets/images/jordan/JAHeadShot.png"
-        alt="Profile Picture"
-        className="w-full h-full object-cover object-center"
-      />
+    <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[-4px_4px_10px_rgba(255,255,255,0.25)] relative">
+  <img
+    src="/assets/images/jordan/about-1.jpg"
+    alt="Profile Picture"
+    className="w-full h-full object-cover object-center"
+  />
     </div>
+
   </motion.div>
 
   {/* Text (Right) */}
@@ -421,60 +422,50 @@ const CollaborationSection = () => {
   >
     <div className="space-y-6 2xl:space-y-10">
       <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-        Imagine being 100 feet in the air, balancing on a thin piece of steel. 
-        Forty feet across, you see your partner. You both have the same objective. 
-        In your hands, you each hold one end of a steel beam.
+       I like to think I'm clever, but I'm just a normal guy who likes to be creative. I enjoy bringing my energy when I walk into a room and<span className="font-bold text-cyan-400"> I enjoy all of the small moments that we tend to overlook each day.</span>
       </p>
       <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-        <span className="font-bold text-white">Your voice</span> is speaking to a crane operator who is blind to the entire situation—your carefully chosen words literally define what is happening.
+        <span className="font-bold text-cyan-400"> Experience</span> is one of my biggest assets, but the willingness to always be learning and staying curious is what will keep me growing.
       </p>
     </div>
   </motion.div>
 </div>
 
 
-        {/* Communication Focus - Text Left, Image Right */}
-        <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 2xl:gap-24 items-center mb-16 sm:mb-24 2xl:mb-32">
-          <motion.div
-            initial={{ opacity: 0, x: -100 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="lg:col-span-3"
-          >
-            <div className="space-y-6 2xl:space-y-10">
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-                <span className="font-bold text-white">Your eyes</span> are tracking four major pinch points while also watching your partner for hand signals on what's happening on their end.
-              </p>
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-                Together, you guide the beam into place, trying to avoid the hundreds of ways it can go wrong. One wrong decision could mean they lose a limb—or worse, their life.
-              </p>
-            </div>
-          </motion.div>
+{/* Communication Focus - Text Left, Image Right */}
+<div className="grid lg:grid-cols-5 gap-12 lg:gap-16 2xl:gap-24 items-center mb-16 sm:mb-24 2xl:mb-32">
+  <motion.div
+    initial={{ opacity: 0, x: -100 }}
+    animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
+    transition={{ duration: 0.8, delay: 0.4 }}
+    className="lg:col-span-3"
+  >
+    <div className="space-y-6 2xl:space-y-10">
+      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+        <span className="font-bold text-cyan-400">Learning new coding languages</span> can be challenging. When my car needed to be repaired at the cost of $2400, I decided to do it myself.
+      </p>
+      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+        Tearing apart half of the engine isn’t difficult when you follow all the small steps. It takes confidence and hard work — the same principles I apply when working with a large codebase. < br/>Breaking large unmanageable tasks into small bite-size pieces.
+      </p>
+    </div>
+  </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 100 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="lg:col-span-2"
-          >
-            <div className="aspect-[4/5] bg-gradient-to-br from-blue-900/20 to-cyan-900/20 rounded-2xl 2xl:rounded-3xl relative overflow-hidden border border-blue-500/20">
-              {/* Communication visualization */}
-              <div className="absolute inset-0">
-                <div className="absolute top-1/4 left-1/4 w-2 h-2 2xl:w-3 2xl:h-3 bg-blue-400 rounded-full animate-pulse"></div>
-                <div className="absolute top-1/2 right-1/4 w-2 h-2 2xl:w-3 2xl:h-3 bg-cyan-400 rounded-full animate-pulse delay-300"></div>
-                <div className="absolute bottom-1/4 left-1/2 w-2 h-2 2xl:w-3 2xl:h-3 bg-blue-300 rounded-full animate-pulse delay-600"></div>
+  <motion.div
+    initial={{ opacity: 0, x: 100 }}
+    animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
+    transition={{ duration: 0.8, delay: 0.6 }}
+    className="lg:col-span-2"
+  >
+    <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[4px_4px_10px_rgba(255,255,255,0.25)] backdrop-blur-xl">
+      <img
+        src="assets/images/jordan/about-2.jpg"
+        alt="Jordan working or learning"
+        className="w-full h-full object-cover"
+      />
+    </div>
+  </motion.div>
+</div>
 
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-20 h-20 2xl:w-32 2xl:h-32 bg-gradient-to-br from-blue-400/20 to-cyan-500/20 rounded-full flex items-center justify-center">
-                    <span className="text-3xl 2xl:text-5xl">👁️</span>
-                  </div>
-                </div>
-              </div>
-              <div className="absolute top-4 left-4 2xl:top-6 2xl:left-6 text-xs 2xl:text-sm font-mono text-blue-400/80">4 PINCH POINTS</div>
-              <div className="absolute bottom-4 right-4 2xl:bottom-6 2xl:right-6 text-xs 2xl:text-sm font-mono text-cyan-400/80">CONSTANT WATCH</div>
-            </div>
-          </motion.div>
-        </div>
 
         {/* Closing Quote - Full Width */}
         <motion.div
@@ -484,30 +475,29 @@ const CollaborationSection = () => {
           className="text-center mb-16 sm:mb-24 2xl:mb-32"
         >
           <h3 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-8xl font-black tracking-tight leading-tight mb-8 2xl:mb-12">
-            <span className="text-green-300">Every big build —</span>
+            <span className="text-green-300">Patience</span>
             <br />
-            <span className="text-white">steel or software —</span>
+            <span className="text-white">Perseverance</span>
             <br />
-            <span className="text-white/80">takes a team.</span>
+            <span className="text-white/60">Strength</span>
           </h3>
         </motion.div>
 
         {/* Lessons Learned - Full Width */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="max-w-4xl 2xl:max-w-6xl mx-auto text-center"
-        >
-          <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed mb-8 2xl:mb-12">
-            That's where I learned what collaboration really means. It's not just about working together. It's about
-            <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent"> patience, empathy, trust, awareness </span>
-           and <span className="font-bold text-white">accountability</span>.
-          </p>
-          <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-            Those lessons from ironworking stay with me every time I sit down to code or design. We can never fully know what it's like to stand in someone else's shoes, but I believe every big build takes a team.
-          </p>
-        </motion.div>
+  initial={{ opacity: 0, y: 30 }}
+  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+  transition={{ duration: 0.8, delay: 1 }}
+  className="max-w-4xl 2xl:max-w-6xl mx-auto text-center"
+>
+  <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed mb-8 2xl:mb-12">
+    <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent font-bold">Estimator, Project Manager,</span> and <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent font-bold">Foreman</span> are some career titles I've reached. The journey to get there has been challenging but deeply rewarding. Throughout my career, I’ve had to navigate many obstacles and follow new paths as local economies changed.
+  </p>
+  <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+    Like many professionals can attest, being flexible and open to change is needed. I do my best to absorb my surroundings and learn by observing how other skilled professionals move through their workflow.
+  </p>
+</motion.div>
+
       </div>
     </section>
   );
@@ -732,54 +722,46 @@ const CurrentFocusSection = () => {
 
 
         {/* Current Learning - Image Right, Text Left */}
-        <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 2xl:gap-24 items-center mb-16 sm:mb-24 2xl:mb-32">
-          <motion.div
-            initial={{ opacity: 0, x: -100 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
-            transition={{ duration: 0.8 }}
-            className="lg:col-span-3"
-          >
-            <div className="space-y-6 2xl:space-y-10">
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-                Now, I'm finishing my Web & App Development diploma at BCIT,
-                where I've discovered a new passion: building with{" "}
-                <span className="font-bold text-white">React</span>,{" "}
-                <span className="font-bold text-white">TypeScript</span>,{" "}
-                <span className="font-bold text-white">Vite</span>, and{" "}
-                <span className="font-bold text-white">React Native</span>.
-              </p>
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-                I've explored deployments, tested workflows, and pushed passion
-                projects live—not just to learn the tools, but to see how ideas
-                come alive in the real world.
-              </p>
-            </div>
-          </motion.div>
+<div className="grid lg:grid-cols-5 gap-12 lg:gap-16 2xl:gap-24 items-center mb-16 sm:mb-24 2xl:mb-32">
+  <motion.div
+    initial={{ opacity: 0, x: -100 }}
+    animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
+    transition={{ duration: 0.8 }}
+    className="lg:col-span-3"
+  >
+    <div className="space-y-6 2xl:space-y-10">
+      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+        Now, I'm finishing my Web & App Development Diploma at BCIT,
+        where I've discovered a new passion: building with{" "}
+        <span className="font-bold text-cyan-400">React</span>,{" "}
+        <span className="font-bold text-cyan-400">TypeScript</span>,{" "}
+        <span className="font-bold text-cyan-400">Vite</span>, and{" "}
+        <span className="font-bold text-cyan-400">React Native</span>.
+      </p>
+      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+        Passionate about the use of
+        <span className="font-bold bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent"> color </span>
+        and delivering digital products that incorporate storytelling and ease of use. 
+      </p>
+    </div>
+  </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 100 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-2"
-          >
-            <div className="bg-gradient-to-br from-green-900/20 to-blue-900/20 border border-green-500/20 rounded-2xl 2xl:rounded-3xl p-6 2xl:p-10 font-mono text-sm 2xl:text-lg overflow-hidden">
-              <div className="flex items-center gap-2 mb-4 2xl:mb-8">
-                <div className="w-3 h-3 2xl:w-4 2xl:h-4 bg-red-500 rounded-full"></div>
-                <div className="w-3 h-3 2xl:w-4 2xl:h-4 bg-yellow-500 rounded-full"></div>
-                <div className="w-3 h-3 2xl:w-4 2xl:h-4 bg-green-500 rounded-full"></div>
-                <span className="text-white/60 ml-2 2xl:text-xl">
-                  React App
-                </span>
-              </div>
-              <motion.div
-                initial={{ opacity: 0.5 }}
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="text-green-400 2xl:text-xl 2xl:leading-relaxed"
-              ></motion.div>
-            </div>
-          </motion.div>
-        </div>
+  <motion.div
+    initial={{ opacity: 0, x: 100 }}
+    animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
+    transition={{ duration: 0.8, delay: 0.2 }}
+    className="lg:col-span-2"
+  >
+    <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[4px_4px_10px_rgba(255,255,255,0.25)] backdrop-blur-xl">
+      <img
+        src="assets/images/jordan/about-3.jpg"
+        alt="Jordan studying web development"
+        className="w-full h-full object-cover"
+      />
+    </div>
+  </motion.div>
+</div>
+
 
         {/* Creative Side - Text Right, Image Left */}
         <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 2xl:gap-24 items-center">
@@ -789,28 +771,12 @@ const CurrentFocusSection = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="lg:col-span-2"
           >
-            <div className="aspect-[4/5] bg-gradient-to-br from-purple-900/20 to-pink-900/20 rounded-2xl 2xl:rounded-3xl relative overflow-hidden border border-purple-500/20">
-              {/* Creative tools visualization */}
-              <div className="absolute inset-0">
-                <div className="absolute top-6 left-6 2xl:top-8 2xl:left-8 w-8 h-8 2xl:w-12 2xl:h-12 bg-purple-400/30 rounded-lg flex items-center justify-center">
-                  <span className="text-sm 2xl:text-lg">Ps</span>
-                </div>
-                <div className="absolute top-6 right-6 2xl:top-8 2xl:right-8 w-8 h-8 2xl:w-12 2xl:h-12 bg-blue-400/30 rounded-lg flex items-center justify-center">
-                  <span className="text-sm 2xl:text-lg">Ai</span>
-                </div>
-                <div className="absolute bottom-6 left-6 2xl:bottom-8 2xl:left-8 w-8 h-8 2xl:w-12 2xl:h-12 bg-pink-400/30 rounded-lg flex items-center justify-center">
-                  <span className="text-sm 2xl:text-lg">Pr</span>
-                </div>
-                <div className="absolute bottom-6 right-6 2xl:bottom-8 2xl:right-8 w-8 h-8 2xl:w-12 2xl:h-12 bg-orange-400/30 rounded-lg flex items-center justify-center">
-                  <span className="text-sm 2xl:text-lg">Fg</span>
-                </div>
-
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-20 h-20 2xl:w-32 2xl:h-32 bg-gradient-to-br from-purple-400/20 to-pink-500/20 rounded-full flex items-center justify-center">
-                    <span className="text-3xl 2xl:text-5xl">🎨</span>
-                  </div>
-                </div>
-              </div>
+            <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[-4px_4px_10px_rgba(255,255,255,0.25)] backdrop-blur-xl">
+              <img
+                src="assets/images/jordan/about-5.jpg"
+                alt="Jordan working creatively with Adobe, Figma, and Blender"
+                className="w-full h-full object-cover"
+              />
             </div>
           </motion.div>
 
@@ -823,11 +789,11 @@ const CurrentFocusSection = () => {
             <div className="space-y-6 2xl:space-y-10">
               <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
                 On the creative side, I've worked with the{" "}
-                <span className="font-bold text-white">
+                <span className="font-bold text-cyan-400">
                   Adobe Creative Suite
                 </span>
-                , <span className="font-bold text-white">Figma</span>, and{" "}
-                <span className="font-bold text-white">Blender</span>, which
+                , <span className="font-bold text-cyan-400">Figma</span>, and{" "}
+                <span className="font-bold text-cyan-400">Blender</span>, which
                 gives me empathy for designers and a deeper appreciation for how
                 creativity and development connect.
               </p>
@@ -841,6 +807,7 @@ const CurrentFocusSection = () => {
         </div>
       </div>
     </section>
+
   );
 };
 
@@ -876,8 +843,8 @@ const PersonalSideSection = () => {
           </h2>
         </motion.div>
 
-        {/* Life Balance - Text and Activities */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 2xl:gap-32 items-start">
+        {/* Life Balance - Text and Image */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 2xl:gap-32 mb-16 items-start">
           <motion.div
             initial={{ opacity: 0, x: -100 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
@@ -885,21 +852,19 @@ const PersonalSideSection = () => {
           >
             <div className="space-y-6 2xl:space-y-10">
               <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-                Outside of work, you'll usually find me in the outdoors:{" "}
-                <span className="font-bold text-white">hiking</span>,{" "}
-                <span className="font-bold text-white">snowboarding</span>,{" "}
-                <span className="font-bold text-white">surfing</span>,{" "}
-                <span className="font-bold text-white">camping</span>, or
-                plunging into ice-cold rivers.
+                Outside of work I{" "}
+                <span className="font-bold text-cyan-400">
+                  love staying busy
+                </span>{" "}
+                as much as I love relaxing. Getting my hands dirty in the
+                garden, feeling the sand between my toes at the beach, or the
+                rush of cold water from the North Shore rivers.
               </p>
               <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-                I've also been raising two kids as a single dad for the last
-                seven years, which has given me
-                <span className="font-bold text-white"> grit</span>,
-                <span className="font-bold text-white"> patience</span>, and
-                <span className="font-bold text-white"> adaptability </span>
-                in ways that you may only understand if you've been there
-                yourself.
+                I'm also a{" "}
+                <span className="font-bold text-cyan-400">proud father</span> of
+                two grown children, raising them to be happy and healthy has
+                continued to shine light on personal strength and growth.
               </p>
             </div>
           </motion.div>
@@ -909,75 +874,58 @@ const PersonalSideSection = () => {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {/* Activities Grid */}
-
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-3 gap-4 2xl:gap-6">
-              {[
-                {
-                  emoji: "🏂",
-                  label: "Snowboarding",
-                  color: "from-blue-300 to-cyan-300",
-                },
-                {
-                  emoji: "🥾",
-                  label: "Hiking",
-                  color: "from-green-300 to-emerald-300",
-                },
-                {
-                  emoji: "🚴‍♂️",
-                  label: "Biking",
-                  color: "from-orange-300 to-red-300",
-                },
-                {
-                  emoji: "🏄‍♂️",
-                  label: "Surfing",
-                  color: "from-blue-300 to-teal-300",
-                },
-                {
-                  emoji: "🏕️",
-                  label: "Camping",
-                  color: "from-amber-300 to-orange-300",
-                },
-                {
-                  emoji: "🏒",
-                  label: "Hockey",
-                  color: "from-indigo-300 to-blue-300",
-                },
-                {
-                  emoji: "⚽",
-                  label: "Soccer",
-                  color: "from-green-300 to-lime-300",
-                },
-                {
-                  emoji: "👨‍👧‍👦",
-                  label: "Dad Life",
-                  color: "from-pink-300 to-rose-300",
-                },
-              ].map((activity, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ scale: 0, rotate: -180 }}
-                  animate={
-                    isInView
-                      ? { scale: 1, rotate: 0 }
-                      : { scale: 0, rotate: -180 }
-                  }
-                  transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-                  className={`bg-gradient-to-br ${activity.color} border border-white/10 rounded-xl 2xl:rounded-2xl p-4 sm:2xl:p-6 text-center hover:scale-105 transition-all duration-300 flex items-center justify-center aspect-square group cursor-pointer`}
-                  title={activity.label}
-                >
-                  <span className="text-7xl sm:text-6xl lg:text-5xl xl:text-7xl 2xl:text-8xl select-none group-hover:scale-110 transition-transform duration-300">
-                    {activity.emoji}
-                  </span>
-                </motion.div>
-              ))}
+            <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[4px_4px_15px_rgba(255,255,255,0.35)] backdrop-blur-xl">
+              <img
+                src="assets/images/jordan/about-4.jpg"
+                alt="Jordan enjoying outdoor activities with family"
+                className="w-full h-full object-cover"
+              />
             </div>
           </motion.div>
+        </div>
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 2xl:gap-32 items-start">
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[4px_4px_15px_rgba(255,255,255,0.35)] backdrop-blur-xl">
+              <img
+                src="assets/images/jordan/about-6.jpg"
+                alt="Jordan enjoying outdoor activities with family"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="space-y-6 2xl:space-y-10">
+              
+              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+                Regardless of the situation, the world we live in requires
+                adaptability and grit.
+              </p>
+              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+                Our family joke when going out to eat is:
+                <br />
+                <span className="font-bold text-cyan-400">
+                  "Table for three?"
+                </span>
+              </p>
+            </div>
+          </motion.div>
+
+          
         </div>
       </div>
     </section>
   );
 };
+
+
 
 const ClosingCTASection = () => {
   const ref = useRef(null);
@@ -990,11 +938,11 @@ const ClosingCTASection = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[10rem] font-black tracking-tight leading-tight mb-8 2xl:mb-16">
+          className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[10rem] font-black tracking-tight leading-tight mb-8 2xl:mb-16">
 
-          <span className="text-green-400">"Outdoors or online,</span>
+          <span className="text-green-400">Outdoors or online,</span>
           <br />
-          <span className="text-white/80">I build things to last."</span>
+          <span className="text-white/80">always looking forward into the horizon</span>
         </motion.h2>
 
         <motion.p
@@ -1003,7 +951,7 @@ const ClosingCTASection = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-xl sm:text-2xl xl:text-3xl 2xl:text-5xl text-white/80 max-w-5xl 2xl:max-w-8xl mx-auto mb-12 2xl:mb-20 leading-relaxed">
 
-          I believe in <span className="font-bold text-cyan-400">staying curious</span>, staying strong, and building things that matter—whether that's steel in the sky, <span className="font-bold text-cyan-400">code on the screen</span>, or relationships that make both possible.
+          I believe in <span className="font-bold text-cyan-400">staying curious</span>, working hard, and building things that actually have purpose.
         </motion.p>
 
         <motion.div
@@ -1012,15 +960,12 @@ const ClosingCTASection = () => {
           transition={{ duration: 0.6, delay: 0.4 }}>
 
           <a
-            href="mailto:jordanasseff@gmail.com"
-            className="group relative bg-white text-black px-12 py-6 2xl:px-20 2xl:py-10 font-black text-lg 2xl:text-2xl tracking-widest uppercase overflow-hidden transition-all duration-500 hover:scale-105 inline-block cursor-pointer">
+  href="mailto:jordanasseff@gmail.com"
+  className="group bg-gradient-to-r from-purple-800/40 via-green-500/40 to-green-300/90 backdrop-blur-xl border-2 border-green-100 text-white px-12 py-6 2xl:px-20 2xl:py-10 font-black text-lg 2xl:text-2xl tracking-widest uppercase transition-all duration-300 cursor-pointer hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90 inline-block"
+>
+  LET'S CONNECT
+</a>
 
-            <span className="relative z-10">LET'S CONNECT</span>
-            <div className="absolute inset-0 bg-green-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
-            <span className="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 font-black tracking-widest">
-              LET'S CONNECT
-            </span>
-          </a>
         </motion.div>
       </div>
     </section>
