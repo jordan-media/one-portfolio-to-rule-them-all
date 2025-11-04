@@ -1,6 +1,7 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import fullshot5 from '../../assets/images/jordan/fullshot-5.jpg';
 
 const AboutPreview = ({ entryPoint = "developer" }) => {
   const containerRef = useRef(null);
@@ -102,9 +103,8 @@ const AboutPreview = ({ entryPoint = "developer" }) => {
               transition={{ duration: 0.6, delay: 1 }}
             >
               <button className="group border-2 border-white/40 text-white px-12 py-6 font-black text-sm tracking-widest uppercase transition-all duration-300 cursor-pointer backdrop-blur-xl hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90 hover:text-white">
-  LEARN MORE ABOUT ME
-</button>
-
+                LEARN MORE ABOUT ME
+              </button>
             </motion.div>
           </motion.div>
 
@@ -117,9 +117,8 @@ const AboutPreview = ({ entryPoint = "developer" }) => {
             className="relative"
           >
             <div className="relative aspect-[4/5] overflow-hidden z-50">
-              
               <img
-                src="/assets/images/jordan/fullshot-5.jpg"
+                src={fullshot5}
                 alt="Profile Picture"
                 className="absolute inset-0 w-full h-full object-contain object-center"
               />
