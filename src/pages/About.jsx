@@ -1,6 +1,7 @@
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { useIsMobile } from '../hooks/use-mobile';
 
 import { gsap } from "gsap";
 import ScrambleTextPlugin from "gsap/ScrambleTextPlugin";
@@ -18,6 +19,7 @@ const FloatingText = ({ children, delay = 0, containerBounds, allPositions, inde
   const [velocity, setVelocity] = useState({ x: 0, y: 0 });
   const elementRef = useRef(null);
   const animationRef = useRef(null);
+  const isMobile = useIsMobile();
 
   // Collision detection helper, wrapped in useCallback for referential stability
   const checkCollision = useCallback((pos1, positions, currentIndex) => {
@@ -78,8 +80,11 @@ const FloatingText = ({ children, delay = 0, containerBounds, allPositions, inde
     onPositionUpdate(index, newPosition);
   }, [containerBounds, index, checkCollision, allPositions, onPositionUpdate]);
 
-  // Animation loop with improved physics
+  // Animation loop with improved physics - disabled on mobile for performance
   useEffect(() => {
+    // Skip complex physics animation on mobile devices
+    if (isMobile) return;
+    
     // Only start animating once component's position is set and container bounds are available
     if (position.x === 0 && position.y === 0 && velocity.x === 0 && velocity.y === 0) return;
     if (containerBounds.width === 0 || containerBounds.height === 0) return;
@@ -171,7 +176,7 @@ const FloatingText = ({ children, delay = 0, containerBounds, allPositions, inde
         cancelAnimationFrame(animationRef.current); // Cancel the animation frame
       }
     };
-  }, [position, velocity, allPositions, index, delay, containerBounds, onPositionUpdate]);
+  }, [position, velocity, allPositions, index, delay, containerBounds, onPositionUpdate, isMobile]);
 
 
   return (
@@ -181,8 +186,8 @@ const FloatingText = ({ children, delay = 0, containerBounds, allPositions, inde
       animate={{
         opacity: 1,
         scale: 1,
-        x: position.x,
-        y: position.y
+        x: isMobile ? undefined : position.x, // Disable position animation on mobile
+        y: isMobile ? undefined : position.y
       }}
       transition={{
         opacity: { duration: 0.6, delay },
@@ -190,8 +195,9 @@ const FloatingText = ({ children, delay = 0, containerBounds, allPositions, inde
         x: { duration: 0 }, // Position updates are continuous via RAF, no motion transition
         y: { duration: 0 }
       }}
-      className="absolute bg-white/5 backdrop-blur-sm border border-white/20 rounded-full px-3 py-1.5 text-xs 2xl:text-sm font-medium text-white/80 hover:bg-white/10 hover:scale-110 transition-all duration-300 select-none pointer-events-none"
+      className={`${isMobile ? 'relative inline-block m-2' : 'absolute'} bg-white/5 backdrop-blur-sm border border-white/20 rounded-full px-3 py-1.5 text-xs 2xl:text-sm font-medium text-white/80 hover:bg-white/10 hover:scale-110 transition-all duration-300 select-none pointer-events-none`}
       whileHover={{ scale: 1.1 }}
+      style={isMobile ? {} : { position: 'absolute' }} // Simple CSS animation fallback for mobile
     >
       {children}
     </motion.div>
@@ -205,6 +211,7 @@ const HeroSection = () => {
   const [showScrollCursor, setShowScrollCursor] = useState(true);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const textRef = useRef(null);
+  const isMobile = useIsMobile();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -242,34 +249,31 @@ const HeroSection = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [showScrollCursor]);
 
-  // Wiggle animation for RollerCoaster Tycoon
+  // Wiggle animation for RollerCoaster Tycoon - disabled on mobile for performance
   useEffect(() => {
-    if (textRef.current) {
+    if (textRef.current && !isMobile) {
       const letters = textRef.current.querySelectorAll(".wiggle-letter");
-const wave = gsap.to(letters, {
-  y: 10,                      // wave amplitude
-  duration: 0.8,              // each letter’s cycle speed
-  ease: "sine.inOut",
-  yoyo: true,
-  repeat: -1,                 // infinite internally
-  stagger: {
-    each: 0.15,
-    from: "start",
-    repeat: -1,
-    yoyo: true
-  }
-});
+      const wave = gsap.to(letters, {
+        y: 10,                      // wave amplitude
+        duration: 0.8,              // each letter's cycle speed
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,                 // infinite internally
+        stagger: {
+          each: 0.15,
+          from: "start",
+          repeat: -1,
+          yoyo: true
+        }
+      });
 
-// Kill after ~5 seconds (about 3 waves)
-gsap.delayedCall(5, () => {
-  wave.kill();  // stop the tween
-  gsap.to(letters, { y: 0, duration: 0.5, ease: "sine.out" }); // settle clean
-});
-
-
-    
+      // Kill after ~5 seconds (about 3 waves)
+      gsap.delayedCall(5, () => {
+        wave.kill();  // stop the tween
+        gsap.to(letters, { y: 0, duration: 0.5, ease: "sine.out" }); // settle clean
+      });
     }
-  }, []);
+  }, [isMobile]);
 
   return (
     <section
@@ -510,52 +514,150 @@ const CollaborationSection = () => {
 const TechSkillsSection = () => {
   const ref = useRef(null);
   const skillsRef = useRef(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
-    const tl = gsap.timeline({ repeat: -1, delay: 1 });
+    // Skip GSAP ScrambleText animation on mobile for compatibility
+    if (isMobile) {
+      // Simple fallback: just show the skills without scramble animation
+      const skills = [
+        "React",
+        "Node.js",
+        "JavaScript",
+        "Figma",
+        "React Native",
+        "TypeScript",
+        "HTML5",
+        "CSS3",
+        "CMS",
+        "Terminal",
+        "GitHub",
+        "GitHub Actions",
+        "AI Integration",
+        "Adobe Creative Cloud",
+        "Premiere Pro",
+        "After Effects",
+        "Blender",
+        "3D Modeling",
+        "Illustrator",
+        "Photoshop",
+        "AutoCAD",
+        "Technical Drawing",
+        "UI/UX Research",
+      ];
 
-    const skills = [
-      "React",
-      "Node.js",
-      "JavaScript",
-      "Figma",
-      "React Native",
-      "TypeScript",
-      "HTML5",
-      "CSS3",
-      "CMS",
-      "Terminal",
-      "GitHub",
-      "GitHub Actions",
-      "AI Integration",
-      "Adobe Creative Cloud",
-      "Premiere Pro",
-      "After Effects",
-      "Blender",
-      "3D Modeling",
-      "Illustrator",
-      "Photoshop",
-      "AutoCAD",
-      "Technical Drawing",
-      "UI/UX Research",
-    ];
+      // Simple text reveal animation as fallback
+      skills.forEach((skill, i) => {
+        const el = skillsRef.current?.querySelector(`#skill-${i}`);
+        if (el) {
+          // Set text content immediately and add a simple fade-in
+          el.textContent = skill;
+          gsap.fromTo(el,
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              delay: i * 0.1,
+              ease: "power2.out"
+            }
+          );
+        }
+      });
+      return;
+    }
 
-    skills.forEach((skill, i) => {
-      const el = skillsRef.current?.querySelector(`#skill-${i}`);
-      if (el) {
-        tl.to(
-          el,
-          {
-            duration: 1.5,
-            scrambleText: { text: skill, chars: "XO0123456789", speed: 0.3 },
-          },
-          i * 0.15
-        );
-      }
-    });
+    // Desktop: Use ScrambleTextPlugin with error handling
+    try {
+      const tl = gsap.timeline({ repeat: -1, delay: 1 });
 
-    return () => tl.kill();
-  }, []);
+      const skills = [
+        "React",
+        "Node.js",
+        "JavaScript",
+        "Figma",
+        "React Native",
+        "TypeScript",
+        "HTML5",
+        "CSS3",
+        "CMS",
+        "Terminal",
+        "GitHub",
+        "GitHub Actions",
+        "AI Integration",
+        "Adobe Creative Cloud",
+        "Premiere Pro",
+        "After Effects",
+        "Blender",
+        "3D Modeling",
+        "Illustrator",
+        "Photoshop",
+        "AutoCAD",
+        "Technical Drawing",
+        "UI/UX Research",
+      ];
+
+      skills.forEach((skill, i) => {
+        const el = skillsRef.current?.querySelector(`#skill-${i}`);
+        if (el) {
+          tl.to(
+            el,
+            {
+              duration: 1.5,
+              scrambleText: { text: skill, chars: "XO0123456789", speed: 0.3 },
+            },
+            i * 0.15
+          );
+        }
+      });
+
+      return () => tl.kill();
+    } catch (error) {
+      console.warn('ScrambleTextPlugin failed, falling back to simple text display:', error);
+      
+      // Fallback if ScrambleTextPlugin fails
+      const skills = [
+        "React",
+        "Node.js",
+        "JavaScript",
+        "Figma",
+        "React Native",
+        "TypeScript",
+        "HTML5",
+        "CSS3",
+        "CMS",
+        "Terminal",
+        "GitHub",
+        "GitHub Actions",
+        "AI Integration",
+        "Adobe Creative Cloud",
+        "Premiere Pro",
+        "After Effects",
+        "Blender",
+        "3D Modeling",
+        "Illustrator",
+        "Photoshop",
+        "AutoCAD",
+        "Technical Drawing",
+        "UI/UX Research",
+      ];
+
+      skills.forEach((skill, i) => {
+        const el = skillsRef.current?.querySelector(`#skill-${i}`);
+        if (el) {
+          el.textContent = skill;
+          gsap.fromTo(el,
+            { opacity: 0 },
+            {
+              opacity: 1,
+              duration: 0.6,
+              delay: i * 0.1
+            }
+          );
+        }
+      });
+    }
+  }, [isMobile]);
 
   const pickColor = (word) => {
     if (word === "Adobe Creative Cloud") {
@@ -664,17 +766,6 @@ const TechSkillsSection = () => {
     </section>
   );
 };
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -973,8 +1064,64 @@ const ClosingCTASection = () => {
 };
 
 export default function About() {
+  const isMobile = useIsMobile();
+
+  // Performance monitoring for mobile devices
+  useEffect(() => {
+    if (isMobile && typeof window !== 'undefined') {
+      console.log('About page loaded on mobile device - complex animations disabled for performance');
+      
+      // Monitor performance if needed
+      if ('performance' in window) {
+        const observer = new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          entries.forEach((entry) => {
+            if (entry.entryType === 'measure' && entry.duration > 100) {
+              console.warn(`Performance warning: ${entry.name} took ${entry.duration}ms`);
+            }
+          });
+        });
+        
+        try {
+          observer.observe({ entryTypes: ['measure', 'navigation'] });
+        } catch (e) {
+          // PerformanceObserver not supported, ignore
+        }
+        
+        return () => {
+          try {
+            observer.disconnect();
+          } catch (e) {
+            // Observer already disconnected, ignore
+          }
+        };
+      }
+    }
+  }, [isMobile]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-black to-slate-900 text-white cursor-default overflow-x-hidden">
+      {/* Add mobile-specific optimizations */}
+      {isMobile && (
+        <style jsx>{`
+          /* Disable complex transforms and animations on mobile */
+          * {
+            transform: none !important;
+            animation-duration: 0.01ms !important;
+            animation-delay: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+          }
+          /* Keep essential animations for UX */
+          .motion-safe\\:animate-pulse,
+          .motion-safe\\:animate-bounce,
+          .hover\\:scale-105:hover,
+          .hover\\:scale-110:hover {
+            animation-duration: 0.3s !important;
+            transition-duration: 0.3s !important;
+          }
+        `}</style>
+      )}
+      
       <HeroSection />
       <CollaborationSection />
       <TechSkillsSection />
