@@ -196,7 +196,12 @@ export default function Layout({ children, currentPageName }) {
       {isMobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden cursor-pointer"
-          onClick={() => setIsMobileMenuOpen(false)}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsMobileMenuOpen(false);
+          }}
+          aria-label="Close menu overlay"
         />
       )}
 
@@ -211,8 +216,13 @@ export default function Layout({ children, currentPageName }) {
         <div className="flex flex-col h-full p-3 sm:p-4">
           {/* Mobile Close Button */}
           <button
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="lg:hidden self-end mb-3 p-1.5 text-white/70 hover:text-white transition-colors cursor-pointer"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsMobileMenuOpen(false);
+            }}
+            className="lg:hidden self-end mb-3 p-1.5 text-white/70 hover:text-white transition-colors cursor-pointer z-50"
+            aria-label="Close menu"
           >
             <X className="w-4 h-4" />
           </button>
@@ -221,6 +231,7 @@ export default function Layout({ children, currentPageName }) {
           <div className="mb-2 sm:mb-5">
             <Link
               to="/" // Changed to direct path
+              onClick={() => setIsMobileMenuOpen(false)}
               className="group flex items-center gap-2.5 mb-3 sm:mb-4 hover:scale-[1.02] transition-transform cursor-pointer"
             >
               <img
@@ -318,6 +329,7 @@ export default function Layout({ children, currentPageName }) {
                   <Link
                     key={item.title}
                     to={item.url}
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className={`group flex items-center gap-2.5 p-1 sm:p-3 transition-all duration-300 cursor-pointer ${
                       location.pathname === item.url
                         ? "bg-gradient-to-r from-purple-800/40 via-green-500/40 to-green-300/90 backdrop-blur-xl border-2 border-green-100"
@@ -353,6 +365,7 @@ export default function Layout({ children, currentPageName }) {
                     onClick={() => {
                       if (item.action === "openGlobalProject") {
                         setShowGlobalModal(true);
+                        setIsMobileMenuOpen(false);
                       }
                     }}
                     className={`group flex items-center gap-2 p-2 sm:p-3 transition-all duration-300 cursor-pointer w-full text-left ${
