@@ -195,9 +195,9 @@ const FloatingText = ({ children, delay = 0, containerBounds, allPositions, inde
         x: { duration: 0 }, // Position updates are continuous via RAF, no motion transition
         y: { duration: 0 }
       }}
-      className={`${isMobile ? 'relative inline-block m-2' : 'absolute'} bg-white/5 backdrop-blur-sm border border-white/20 rounded-full px-3 py-1.5 text-xs 2xl:text-sm font-medium text-white/80 hover:bg-white/10 hover:scale-110 transition-all duration-300 select-none pointer-events-none`}
+      className={`${isMobile ? 'relative inline-block m-2 motion-div-fallback' : 'absolute'} bg-white/5 backdrop-blur-sm border border-white/20 rounded-full px-3 py-1.5 text-xs 2xl:text-sm font-medium text-white/80 hover:bg-white/10 hover:scale-110 transition-all duration-300 select-none pointer-events-none`}
       whileHover={{ scale: 1.1 }}
-      style={isMobile ? {} : { position: 'absolute' }} // Simple CSS animation fallback for mobile
+      style={isMobile ? { opacity: 1 } : { position: 'absolute' }} // Ensure visibility on mobile
     >
       {children}
     </motion.div>
@@ -317,7 +317,8 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="text-xs sm:text-sm xl:text-base 2xl:text-lg font-bold tracking-[0.3em] text-white/60 mb-6 sm:mb-8 2xl:mb-12 uppercase cursor-default"
+          className={`text-xs sm:text-sm xl:text-base 2xl:text-lg font-bold tracking-[0.3em] text-white/60 mb-6 sm:mb-8 2xl:mb-12 uppercase cursor-default ${isMobile ? 'motion-div-fallback' : ''}`}
+          style={isMobile ? { opacity: 1 } : {}}
         >
           FROM STEEL TO CODE
         </motion.p>
@@ -327,8 +328,8 @@ const HeroSection = () => {
           initial={{ opacity: 0, width: 0 }}
           animate={{ opacity: 1, width: "auto" }}
           transition={{ delay: 0.4, duration: 1 }}
-          className="text-green-400 font-mono text-xs sm:text-sm xl:text-base 2xl:text-lg mb-8 sm:mb-12 2xl:mb-16 overflow-hidden whitespace-nowrap mx-auto cursor-default"
-          style={{ width: "fit-content" }}
+          className={`text-green-400 font-mono text-xs sm:text-sm xl:text-base 2xl:text-lg mb-8 sm:mb-12 2xl:mb-16 overflow-hidden whitespace-nowrap mx-auto cursor-default ${isMobile ? 'motion-div-fallback' : ''}`}
+          style={isMobile ? { width: "fit-content", opacity: 1 } : { width: "fit-content" }}
         >
           $ build.foundation().withGrit().andCollaboration() ⚡
         </motion.p>
@@ -337,7 +338,8 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="leading-tight tracking-tighter cursor-default"
+          className={`leading-tight tracking-tighter cursor-default ${isMobile ? 'motion-div-fallback' : ''}`}
+          style={isMobile ? { opacity: 1 } : {}}
         >
           {/* Main Title - Largest with ultra-wide scaling */}
           <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[10rem] font-black mb-4 sm:mb-6 2xl:mb-10">
@@ -376,6 +378,7 @@ const HeroSection = () => {
 const CollaborationSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-200px" });
+  const isMobile = useIsMobile();
 
   return (
     <section ref={ref} className="py-20 sm:py-32 2xl:py-48 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 bg-gradient-to-b from-black to-slate-900 cursor-default overflow-hidden">
@@ -385,7 +388,8 @@ const CollaborationSection = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16 sm:mb-24 2xl:mb-32"
+          className={`text-center mb-16 sm:mb-24 2xl:mb-32 ${isMobile ? 'motion-div-fallback' : ''}`}
+          style={isMobile ? { opacity: 1 } : {}}
         >
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-[8rem] font-black tracking-tight leading-tight">
             <span className="text-green-300">"100 feet in the air</span>
@@ -405,7 +409,8 @@ const CollaborationSection = () => {
     initial={{ opacity: 0, x: -100 }}
     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
     transition={{ duration: 0.8 }}
-    className="lg:col-span-2"
+    className={`lg:col-span-2 ${isMobile ? 'motion-div-fallback' : ''}`}
+    style={isMobile ? { opacity: 1 } : {}}
   >
     <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[-4px_4px_10px_rgba(255,255,255,0.25)] relative">
   <img
@@ -422,7 +427,8 @@ const CollaborationSection = () => {
     initial={{ opacity: 0, x: 100 }}
     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
     transition={{ duration: 0.8, delay: 0.2 }}
-    className="lg:col-span-3"
+    className={`lg:col-span-3 ${isMobile ? 'motion-div-fallback' : ''}`}
+    style={isMobile ? { opacity: 1 } : {}}
   >
     <div className="space-y-6 2xl:space-y-10">
       <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
@@ -442,7 +448,8 @@ const CollaborationSection = () => {
     initial={{ opacity: 0, x: -100 }}
     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
     transition={{ duration: 0.8, delay: 0.4 }}
-    className="lg:col-span-3"
+    className={`lg:col-span-3 ${isMobile ? 'motion-div-fallback' : ''}`}
+    style={isMobile ? { opacity: 1 } : {}}
   >
     <div className="space-y-6 2xl:space-y-10">
       <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
@@ -458,7 +465,8 @@ const CollaborationSection = () => {
     initial={{ opacity: 0, x: 100 }}
     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
     transition={{ duration: 0.8, delay: 0.6 }}
-    className="lg:col-span-2"
+    className={`lg:col-span-2 ${isMobile ? 'motion-div-fallback' : ''}`}
+    style={isMobile ? { opacity: 1 } : {}}
   >
     <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[4px_4px_10px_rgba(255,255,255,0.25)] backdrop-blur-xl">
       <img
@@ -476,7 +484,8 @@ const CollaborationSection = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-center mb-16 sm:mb-24 2xl:mb-32"
+          className={`text-center mb-16 sm:mb-24 2xl:mb-32 ${isMobile ? 'motion-div-fallback' : ''}`}
+          style={isMobile ? { opacity: 1 } : {}}
         >
           <h3 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-8xl font-black tracking-tight leading-tight mb-8 2xl:mb-12">
             <span className="text-green-300">Patience</span>
@@ -492,7 +501,8 @@ const CollaborationSection = () => {
   initial={{ opacity: 0, y: 30 }}
   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
   transition={{ duration: 0.8, delay: 1 }}
-  className="max-w-4xl 2xl:max-w-6xl mx-auto text-center"
+  className={`max-w-4xl 2xl:max-w-6xl mx-auto text-center ${isMobile ? 'motion-div-fallback' : ''}`}
+  style={isMobile ? { opacity: 1 } : {}}
 >
   <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed mb-8 2xl:mb-12">
     <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent font-bold">Estimator, Project Manager,</span> and <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent font-bold">Foreman</span> are some career titles I've reached. The journey to get there has been challenging but deeply rewarding. Throughout my career, I’ve had to navigate many obstacles and follow new paths as local economies changed.
@@ -748,7 +758,8 @@ const TechSkillsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           ref={skillsRef}
-          className="font-mono tracking-tight flex flex-wrap justify-center gap-x-4 gap-y-3"
+          className={`font-mono tracking-tight flex flex-wrap justify-center gap-x-4 gap-y-3 ${isMobile ? 'motion-div-fallback' : ''}`}
+          style={isMobile ? { opacity: 1 } : {}}
         >
           {skills.map((skill, i) => (
             <span
@@ -772,6 +783,7 @@ const TechSkillsSection = () => {
 const CurrentFocusSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-200px" });
+  const isMobile = useIsMobile();
 
   return (
     <section
@@ -784,7 +796,8 @@ const CurrentFocusSection = () => {
   initial={{ opacity: 0, y: 50 }}
   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
   transition={{ duration: 0.8 }}
-  className="text-center mb-16 sm:mb-24 2xl:mb-32"
+  className={`text-center mb-16 sm:mb-24 2xl:mb-32 ${isMobile ? 'motion-div-fallback' : ''}`}
+  style={isMobile ? { opacity: 1 } : {}}
 >
   <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-[9rem] font-black leading-relaxed tracking-tight">
     <span className="text-green-300">Curiosity</span>{" "}
@@ -818,7 +831,8 @@ const CurrentFocusSection = () => {
     initial={{ opacity: 0, x: -100 }}
     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
     transition={{ duration: 0.8 }}
-    className="lg:col-span-3"
+    className={`lg:col-span-3 ${isMobile ? 'motion-div-fallback' : ''}`}
+    style={isMobile ? { opacity: 1 } : {}}
   >
     <div className="space-y-6 2xl:space-y-10">
       <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
@@ -841,7 +855,8 @@ const CurrentFocusSection = () => {
     initial={{ opacity: 0, x: 100 }}
     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
     transition={{ duration: 0.8, delay: 0.2 }}
-    className="lg:col-span-2"
+    className={`lg:col-span-2 ${isMobile ? 'motion-div-fallback' : ''}`}
+    style={isMobile ? { opacity: 1 } : {}}
   >
     <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[4px_4px_10px_rgba(255,255,255,0.25)] backdrop-blur-xl">
       <img
@@ -860,7 +875,8 @@ const CurrentFocusSection = () => {
             initial={{ opacity: 0, x: -100 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="lg:col-span-2"
+            className={`lg:col-span-2 ${isMobile ? 'motion-div-fallback' : ''}`}
+            style={isMobile ? { opacity: 1 } : {}}
           >
             <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[-4px_4px_10px_rgba(255,255,255,0.25)] backdrop-blur-xl">
               <img
@@ -875,7 +891,8 @@ const CurrentFocusSection = () => {
             initial={{ opacity: 0, x: 100 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="lg:col-span-3"
+            className={`lg:col-span-3 ${isMobile ? 'motion-div-fallback' : ''}`}
+            style={isMobile ? { opacity: 1 } : {}}
           >
             <div className="space-y-6 2xl:space-y-10">
               <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
@@ -907,6 +924,7 @@ const CurrentFocusSection = () => {
 const PersonalSideSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-200px" });
+  const isMobile = useIsMobile();
 
   return (
     <section
@@ -919,7 +937,8 @@ const PersonalSideSection = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16 sm:mb-24 2xl:mb-32"
+          className={`text-center mb-16 sm:mb-24 2xl:mb-32 ${isMobile ? 'motion-div-fallback' : ''}`}
+          style={isMobile ? { opacity: 1 } : {}}
         >
           <h2 className="text-4xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-7xl 2xl:text-[8rem] font-black tracking-tight leading-tight">
             <span className="text-green-400">i am</span>
@@ -940,6 +959,8 @@ const PersonalSideSection = () => {
             initial={{ opacity: 0, x: -100 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
             transition={{ duration: 0.8 }}
+            className={isMobile ? 'motion-div-fallback' : ''}
+            style={isMobile ? { opacity: 1 } : {}}
           >
             <div className="space-y-6 2xl:space-y-10">
               <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
@@ -964,6 +985,8 @@ const PersonalSideSection = () => {
             initial={{ opacity: 0, x: 100 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
             transition={{ duration: 0.8, delay: 0.2 }}
+            className={isMobile ? 'motion-div-fallback' : ''}
+            style={isMobile ? { opacity: 1 } : {}}
           >
             <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[4px_4px_15px_rgba(255,255,255,0.35)] backdrop-blur-xl">
               <img
@@ -979,6 +1002,8 @@ const PersonalSideSection = () => {
             initial={{ opacity: 0, x: 100 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
             transition={{ duration: 0.8, delay: 0.2 }}
+            className={isMobile ? 'motion-div-fallback' : ''}
+            style={isMobile ? { opacity: 1 } : {}}
           >
             <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[4px_4px_15px_rgba(255,255,255,0.35)] backdrop-blur-xl">
               <img
@@ -992,6 +1017,8 @@ const PersonalSideSection = () => {
             initial={{ opacity: 0, x: -100 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
             transition={{ duration: 0.8 }}
+            className={isMobile ? 'motion-div-fallback' : ''}
+            style={isMobile ? { opacity: 1 } : {}}
           >
             <div className="space-y-6 2xl:space-y-10">
               
@@ -1021,6 +1048,7 @@ const PersonalSideSection = () => {
 const ClosingCTASection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-200px" });
+  const isMobile = useIsMobile();
 
   return (
     <section ref={ref} className="py-20 sm:py-32 2xl:py-48 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 bg-gradient-to-b from-black to-slate-900 cursor-default">
@@ -1029,7 +1057,8 @@ const ClosingCTASection = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
-          className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[10rem] font-black tracking-tight leading-tight mb-8 2xl:mb-16">
+          className={`text-4xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[10rem] font-black tracking-tight leading-tight mb-8 2xl:mb-16 ${isMobile ? 'motion-div-fallback' : ''}`}
+          style={isMobile ? { opacity: 1 } : {}}>
 
           <span className="text-green-400">Outdoors or online,</span>
           <br />
@@ -1040,7 +1069,8 @@ const ClosingCTASection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-xl sm:text-2xl xl:text-3xl 2xl:text-5xl text-white/80 max-w-5xl 2xl:max-w-8xl mx-auto mb-12 2xl:mb-20 leading-relaxed">
+          className={`text-xl sm:text-2xl xl:text-3xl 2xl:text-5xl text-white/80 max-w-5xl 2xl:max-w-8xl mx-auto mb-12 2xl:mb-20 leading-relaxed ${isMobile ? 'motion-div-fallback' : ''}`}
+          style={isMobile ? { opacity: 1 } : {}}>
 
           I believe in <span className="font-bold text-cyan-400">staying curious</span>, working hard, and building things that actually have purpose.
         </motion.p>
@@ -1048,7 +1078,9 @@ const ClosingCTASection = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 0.4 }}>
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className={isMobile ? 'motion-div-fallback' : ''}
+          style={isMobile ? { opacity: 1 } : {}}>
 
           <a
   href="mailto:jordanasseff@gmail.com"
@@ -1104,20 +1136,84 @@ export default function About() {
       {/* Add mobile-specific optimizations */}
       {isMobile && (
         <style jsx>{`
-          /* Disable complex transforms and animations on mobile */
-          * {
-            transform: none !important;
-            animation-duration: 0.01ms !important;
-            animation-delay: 0.01ms !important;
-            transition-duration: 0.01ms !important;
+          /* Disable performance-heavy animations on mobile while preserving essential visibility */
+          
+          /* Allow essential opacity and basic transform animations for content visibility */
+          [data-framer-motion-initial] {
+            opacity: 1 !important;
           }
-          /* Keep essential animations for UX */
+          
+          /* Disable complex physics animations but allow basic transforms */
+          .floating-text-physics,
+          .complex-animation,
+          .wiggle-letter {
+            animation: none !important;
+            transform: none !important;
+          }
+          
+          /* Disable continuous/infinite animations - EXCLUDE ALL menu-related elements */
+          *[style*="animation-iteration-count: infinite"]:not(nav):not(nav *):not([class*="menu"]):not([class*="menu"] *):not(button):not(.fixed):not(.fixed *),
+          *[style*="repeat: -1"]:not(nav):not(nav *):not([class*="menu"]):not([class*="menu"] *):not(button):not(.fixed):not(.fixed *) {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+          }
+          
+          /* CRITICAL: Preserve ALL menu transitions and animations */
+          nav,
+          nav *,
+          [class*="menu"],
+          [class*="menu"] *,
+          .fixed.inset-y-0,
+          .fixed.inset-y-0 *,
+          .fixed.inset-0,
+          .fixed.inset-0 *,
+          button,
+          button *,
+          .transition-transform,
+          .transition-all,
+          .duration-300,
+          [class*="translate-x"],
+          [class*="lg:translate-x"] {
+            animation-duration: 0.3s !important;
+            transition-duration: 0.3s !important;
+            transition-property: all !important;
+            transform: initial !important;
+            pointer-events: auto !important;
+            cursor: pointer !important;
+          }
+          
+          /* Allow essential UI animations to work */
           .motion-safe\\:animate-pulse,
           .motion-safe\\:animate-bounce,
           .hover\\:scale-105:hover,
-          .hover\\:scale-110:hover {
+          .hover\\:scale-110:hover,
+          [data-motion-opacity],
+          [data-motion-scale] {
             animation-duration: 0.3s !important;
             transition-duration: 0.3s !important;
+          }
+          
+          /* Ensure motion.div elements with opacity animations work */
+          div[style*="opacity"] {
+            transition: opacity 0.6s ease !important;
+          }
+          
+          /* Fallback: ensure all content is visible - EXCLUDE ALL interactive elements */
+          .motion-div-fallback:not(button):not(a):not(nav):not(nav *):not([class*="menu"]):not([class*="menu"] *):not(.fixed):not(.fixed *) {
+            opacity: 1 !important;
+            transform: none !important;
+          }
+          
+          /* OVERRIDE: Force menu transitions to work properly */
+          .fixed.inset-y-0.left-0 {
+            transition: transform 0.3s ease !important;
+          }
+          
+          /* Ensure translate transforms work for menu slide animations */
+          .-translate-x-full,
+          .translate-x-0,
+          .lg\\:translate-x-0 {
+            transition: transform 0.3s ease !important;
           }
         `}</style>
       )}
