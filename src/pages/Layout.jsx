@@ -408,20 +408,8 @@ export default function Layout({ children, currentPageName }) {
                     to={item.url}
                     onClick={(e) => {
                       console.log(`Navigation clicked: ${item.title}`);
-                      closeMenu();
-                    }}
-                    onMouseDown={(e) => {
-                      console.log(`Navigation mouse down: ${item.title}`);
-                      closeMenu();
-                    }}
-                    onTouchStart={(e) => {
-                      console.log(`Navigation touch start: ${item.title}`);
-                      e.stopPropagation();
-                    }}
-                    onTouchEnd={(e) => {
-                      console.log(`Navigation touch end: ${item.title}`);
-                      e.stopPropagation();
-                      closeMenu();
+                      // Allow the Link to navigate first, then close menu
+                      setTimeout(() => closeMenu(), 0);
                     }}
                     className={`group flex items-center gap-2.5 p-1 sm:p-3 transition-all duration-300 cursor-pointer ${
                       location.pathname === item.url
