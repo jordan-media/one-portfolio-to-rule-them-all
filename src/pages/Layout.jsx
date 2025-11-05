@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Home, User, Briefcase, Mail, Github, Linkedin, Instagram, MapPin, ChevronRight, Eye, Code, Calendar, Menu, X } from "lucide-react";
 import { FloatingCursor } from "../components/locomotive/InteractiveElements";
 import ProjectLibraryModal from "../components/portfolio/ProjectLibraryModal";
@@ -47,6 +47,38 @@ export default function Layout({ children, currentPageName }) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [currentSection, setCurrentSection] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const menuCloseRef = useRef(false);
+
+  // Create a robust close menu function
+  const closeMenu = useCallback(() => {
+    console.log('closeMenu called, current state:', isMobileMenuOpen);
+    menuCloseRef.current = true;
+    setIsMobileMenuOpen(false);
+    // Force a re-render after a brief delay
+    setTimeout(() => {
+      if (menuCloseRef.current) {
+        console.log('Force closing menu');
+        setIsMobileMenuOpen(false);
+      }
+    }, 100);
+  }, [isMobileMenuOpen]);
+
+  // Reset the ref when menu opens
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      menuCloseRef.current = false;
+    }
+  }, [isMobileMenuOpen]);
+
+  // Ensure menu is always closed on initial mobile load
+  useEffect(() => {
+    // Force menu to be closed on component mount, especially on mobile
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+      setIsMobileMenuOpen(false);
+    }
+    setIsInitialized(true);
+  }, []);
   const [daysRemaining, setDaysRemaining] = useState(0);
   const [showGlobalModal, setShowGlobalModal] = useState(false);
 
@@ -118,9 +150,15 @@ export default function Layout({ children, currentPageName }) {
     };
   }, []);
 
-  // Close mobile menu when route changes
+  // Close mobile menu when route changes (but only if not manually closed)
   useEffect(() => {
-    setIsMobileMenuOpen(false);
+    // Add a small delay to allow manual close handlers to execute first
+    const timer = setTimeout(() => {
+      console.log('Route change effect closing menu for:', location.pathname);
+      setIsMobileMenuOpen(false);
+    }, 50);
+    
+    return () => clearTimeout(timer);
   }, [location.pathname]);
 
   // Close mobile menu on window resize to desktop
@@ -193,7 +231,7 @@ export default function Layout({ children, currentPageName }) {
       </button>
 
       {/* Mobile Overlay */}
-      {isMobileMenuOpen && (
+      {isInitialized && isMobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden cursor-pointer"
           onClick={(e) => {
@@ -208,23 +246,62 @@ export default function Layout({ children, currentPageName }) {
       {/* Sidebar - Compact design */}
       <nav
         className={`fixed inset-y-0 left-0 w-64 sm:w-72 lg:w-80 xl:w-96 2xl:w-[26rem] bg-black/95 backdrop-blur-xl border-r border-white/10 z-50 overflow-y-auto transition-transform duration-300 lg:translate-x-0 ${
-          isMobileMenuOpen
+          !isInitialized
+            ? "-translate-x-full lg:translate-x-0" // Force closed during initialization
+            : isMobileMenuOpen
             ? "translate-x-0"
             : "-translate-x-full lg:translate-x-0"
         }`}
+        style={{
+          // Force CSS transform to ensure menu visibility is controlled properly
+          transform: typeof window !== 'undefined' && window.innerWidth < 1024
+            ? (isMobileMenuOpen && isInitialized ? 'translateX(0)' : 'translateX(-100%)')
+            : undefined,
+          // Additional safety net
+          display: typeof window !== 'undefined' && window.innerWidth < 1024 && !isMobileMenuOpen && isInitialized
+            ? 'none'
+            : undefined
+        }}
       >
         <div className="flex flex-col h-full p-3 sm:p-4">
           {/* Mobile Close Button */}
           <button
             onClick={(e) => {
+              console.log('Close button clicked');
               e.preventDefault();
               e.stopPropagation();
-              setIsMobileMenuOpen(false);
+              closeMenu();
             }}
-            className="lg:hidden self-end mb-3 p-1.5 text-white/70 hover:text-white transition-colors cursor-pointer z-50"
+            onMouseDown={(e) => {
+              console.log('Close button mouse down');
+              e.preventDefault();
+              e.stopPropagation();
+              closeMenu();
+            }}
+            onTouchStart={(e) => {
+              console.log('Close button touch start');
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+            onTouchEnd={(e) => {
+              console.log('Close button touch end');
+              e.preventDefault();
+              e.stopPropagation();
+              closeMenu();
+            }}
+            className="lg:hidden self-end mb-3 p-3 text-white/70 hover:text-white transition-colors cursor-pointer z-[60] relative bg-black/50 rounded-md"
             aria-label="Close menu"
+            style={{
+              touchAction: 'manipulation',
+              WebkitTapHighlightColor: 'transparent',
+              minWidth: '44px',
+              minHeight: '44px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
           >
-            <X className="w-4 h-4" />
+            <X className="w-5 h-5" />
           </button>
 
           {/* Logo & Status - Compact */}
@@ -329,12 +406,32 @@ export default function Layout({ children, currentPageName }) {
                   <Link
                     key={item.title}
                     to={item.url}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      console.log(`Navigation clicked: ${item.title}`);
+                      closeMenu();
+                    }}
+                    onMouseDown={(e) => {
+                      console.log(`Navigation mouse down: ${item.title}`);
+                      closeMenu();
+                    }}
+                    onTouchStart={(e) => {
+                      console.log(`Navigation touch start: ${item.title}`);
+                      e.stopPropagation();
+                    }}
+                    onTouchEnd={(e) => {
+                      console.log(`Navigation touch end: ${item.title}`);
+                      e.stopPropagation();
+                      closeMenu();
+                    }}
                     className={`group flex items-center gap-2.5 p-1 sm:p-3 transition-all duration-300 cursor-pointer ${
                       location.pathname === item.url
                         ? "bg-gradient-to-r from-purple-800/40 via-green-500/40 to-green-300/90 backdrop-blur-xl border-2 border-green-100"
                         : "border-2 border-white/40 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90"
                     }`}
+                    style={{
+                      touchAction: 'manipulation',
+                      WebkitTapHighlightColor: 'transparent'
+                    }}
                   >
                     <div
                       className={`w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center transition-all duration-300 ${
@@ -362,7 +459,20 @@ export default function Layout({ children, currentPageName }) {
                 ) : (
                   <button
                     key={item.title}
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      if (item.action === "openGlobalProject") {
+                        setShowGlobalModal(true);
+                        setIsMobileMenuOpen(false);
+                      }
+                    }}
+                    onTouchStart={(e) => {
+                      e.stopPropagation();
+                    }}
+                    onTouchEnd={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
                       if (item.action === "openGlobalProject") {
                         setShowGlobalModal(true);
                         setIsMobileMenuOpen(false);
@@ -373,6 +483,7 @@ export default function Layout({ children, currentPageName }) {
                         ? "bg-gradient-to-r from-purple-800/40 via-green-500/40 to-green-300/90 backdrop-blur-xl border-2 border-green-100"
                         : "border-2 border-white/40 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90"
                     }`}
+                    style={{ touchAction: 'manipulation' }}
                   >
                     <div
                       className={`w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center transition-all duration-300 ${

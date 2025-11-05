@@ -1,12 +1,14 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { useIsMobile } from '../../hooks/use-mobile';
 import fullshot5 from '../../assets/images/jordan/fullshot-5.jpg';
 
 const AboutPreview = ({ entryPoint = "developer" }) => {
   const containerRef = useRef(null);
   const textRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-200px" });
+  const isMobile = useIsMobile();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -54,8 +56,8 @@ const AboutPreview = ({ entryPoint = "developer" }) => {
     >
       {/* Background elements */}
       <motion.div
-        style={{ y, opacity }}
-        className="absolute inset-0 pointer-events-none"
+        style={isMobile ? {} : { y, opacity }}
+        className={`absolute inset-0 pointer-events-none ${isMobile ? 'motion-div-fallback' : ''}`}
       >
         <div className="absolute top-1/4 right-10 w-1 h-64 bg-white/10 transform rotate-12"></div>
         <div className="absolute bottom-1/4 left-10 w-0.5 h-32 bg-white/20 transform -rotate-45"></div>
@@ -65,9 +67,11 @@ const AboutPreview = ({ entryPoint = "developer" }) => {
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           {/* Text Content */}
           <motion.div
-            initial={{ opacity: 0, x: -100 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
+            initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
+            animate={isInView ? { opacity: 1, x: 0 } : (isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 })}
             transition={{ duration: 0.8, delay: 0.2 }}
+            className={isMobile ? 'motion-div-fallback' : ''}
+            style={isMobile ? { opacity: 1 } : {}}
           >
             <motion.h2
               ref={textRef}
@@ -76,12 +80,13 @@ const AboutPreview = ({ entryPoint = "developer" }) => {
               {content.title.split("\n").map((line, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 50 }}
+                  initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
                   animate={
-                    isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
+                    isInView ? { opacity: 1, y: 0 } : (isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 })
                   }
                   transition={{ duration: 0.6, delay: 0.4 + i * 0.1 }}
-                  className="block"
+                  className={`block ${isMobile ? 'motion-div-fallback' : ''}`}
+                  style={isMobile ? { opacity: 1 } : {}}
                 >
                   {line}
                 </motion.div>
@@ -89,18 +94,21 @@ const AboutPreview = ({ entryPoint = "developer" }) => {
             </motion.h2>
 
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : (isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 })}
               transition={{ duration: 0.6, delay: 0.8 }}
-              className="text-xl text-white/70 leading-relaxed mb-12"
+              className={`text-xl text-white/70 leading-relaxed mb-12 ${isMobile ? 'motion-div-fallback' : ''}`}
+              style={isMobile ? { opacity: 1 } : {}}
             >
               {content.description}
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : (isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 })}
               transition={{ duration: 0.6, delay: 1 }}
+              className={isMobile ? 'motion-div-fallback' : ''}
+              style={isMobile ? { opacity: 1 } : {}}
             >
               <button className="group border-2 border-white/40 text-white px-12 py-6 font-black text-sm tracking-widest uppercase transition-all duration-300 cursor-pointer backdrop-blur-xl hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90 hover:text-white">
                 LEARN MORE ABOUT ME
@@ -111,10 +119,11 @@ const AboutPreview = ({ entryPoint = "developer" }) => {
           {/* Image/Visual */}
           {/* Image/Visual */}
           <motion.div
-            initial={{ opacity: 0, x: 100 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
+            initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
+            animate={isInView ? { opacity: 1, x: 0 } : (isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 })}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="relative"
+            className={`relative ${isMobile ? 'motion-div-fallback' : ''}`}
+            style={isMobile ? { opacity: 1 } : {}}
           >
             <div className="relative aspect-[4/5] overflow-hidden z-50">
               <img
