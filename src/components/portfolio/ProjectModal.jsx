@@ -1,9 +1,74 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, Github, Calendar, User, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function ProjectModal({ project, isOpen, onClose }) {
+  const modalRef = useRef(null);
+  const previousFocusRef = useRef(null);
+
+  // Focus management and focus trap
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Store the currently focused element
+    previousFocusRef.current = document.activeElement;
+
+    // Focus the modal after a brief delay to allow animation
+    const focusTimeout = setTimeout(() => {
+      if (modalRef.current) {
+        const closeButton = modalRef.current.querySelector('button[aria-label="Close project details"]');
+        if (closeButton) {
+          closeButton.focus();
+        }
+      }
+    }, 100);
+
+    // Keyboard navigation handler
+    const handleKeyDown = (e) => {
+      // Escape key to close modal
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+
+      // Focus trap for Tab key
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusableElements = modalRef.current.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          // Shift + Tab
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          // Tab
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      clearTimeout(focusTimeout);
+      document.removeEventListener('keydown', handleKeyDown);
+
+      // Return focus to the previously focused element
+      if (previousFocusRef.current && typeof previousFocusRef.current.focus === 'function') {
+        previousFocusRef.current.focus();
+      }
+    };
+  }, [isOpen]);
+
   if (!project) return null;
 
   return (
@@ -26,16 +91,21 @@ export default function ProjectModal({ project, isOpen, onClose }) {
 
           {/* Modal */}
           <motion.div
+            ref={modalRef}
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-modal-title"
           >
             <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl">
               {/* Close Button */}
               <button
                 onClick={onClose}
                 className="absolute top-6 right-6 z-10 text-white/70 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full"
+                aria-label="Close project details"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -45,7 +115,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
                 {project.image_url ? (
                   <img
                     src={project.image_url}
-                    alt={project.title}
+                    alt={project.image_alt || project.title}
                     className="w-full h-full object-cover"
                   />
                 ) : (
@@ -72,7 +142,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
                         {project.category?.replace('_', ' ').toUpperCase()}
                       </span>
                     </div>
-                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+                    <h2 id="project-modal-title" className="text-3xl md:text-4xl font-bold text-white mb-2">
                       {project.title}
                     </h2>
                     <p className="text-xl text-white/70">
@@ -132,7 +202,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
                               <div key={index} className="aspect-video rounded-xl overflow-hidden bg-white/5">
                                 <img
                                   src={image}
-                                  alt={`${project.title} screenshot ${index + 1}`}
+                                  alt={(project.gallery_images_alt && project.gallery_images_alt[index]) || `${project.title} screenshot ${index + 1}`}
                                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                                 />
                               </div>

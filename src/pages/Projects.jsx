@@ -20,14 +20,14 @@ const ProjectCard = ({ project, index, onClick }) => {
       initial={{ opacity: 0, y: 100 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
       transition={{ duration: 0.8, delay: index * 0.1 }}
-      className="group cursor-pointer"
+      className="group cursor-pointer h-full flex flex-col"
       onClick={() => onClick(project)}
     >
-      <div className="relative aspect-[4/3] bg-white/5 overflow-hidden mb-8">
+      <div className="relative aspect-[4/3] bg-white/5 overflow-hidden mb-8 flex-shrink-0">
         {project.image_url ? (
           <img
             src={project.image_url}
-            alt={project.title}
+            alt={project.image_alt || project.title}
             className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
           />
         ) : (
@@ -37,37 +37,39 @@ const ProjectCard = ({ project, index, onClick }) => {
             </div>
           </div>
         )}
-        
+
         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
           <p className="text-white font-black tracking-widest uppercase text-sm">
             VIEW PROJECT
           </p>
         </div>
-        
+
         <div className="absolute top-3 left-6">
           <span className="bg-white text-black px-3 py-1 text-xs font-black tracking-widest uppercase">
             {project.category?.replace('_', ' ')}
           </span>
         </div>
       </div>
-      
-      <h3 className="text-2xl md:text-3xl xl:text-4xl 2xl:text-5xl font-black tracking-tight mb-4 group-hover:text-white/80 transition-colors">
-        {project.title}
-      </h3>
-      
-      <p className="text-white/60 leading-relaxed mb-6 text-base xl:text-lg 2xl:text-xl">
-        {project.description}
-      </p>
-      
-      <div className="flex flex-wrap gap-2">
-        {project.technologies?.slice(0, 3).map((tech, i) => (
-          <span 
-            key={i}
-            className="text-xs font-bold tracking-widest uppercase border border-white/20 px-3 py-1 text-white/60"
-          >
-            {tech}
-          </span>
-        ))}
+
+      <div className="flex flex-col flex-grow">
+        <h3 className="text-2xl md:text-3xl xl:text-4xl 2xl:text-5xl font-black tracking-tight mb-4 group-hover:text-white/80 transition-colors">
+          {project.title}
+        </h3>
+
+        <p className="text-white/60 leading-relaxed mb-6 text-base xl:text-lg 2xl:text-xl">
+          {project.description}
+        </p>
+
+        <div className="flex flex-wrap gap-2 mt-auto">
+          {project.technologies?.slice(0, 3).map((tech, i) => (
+            <span
+              key={i}
+              className="text-xs font-bold tracking-widest uppercase border border-white/20 px-3 py-1 text-white/60"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
       </div>
     </motion.div>
   );
@@ -116,16 +118,25 @@ export default function Projects() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-black to-slate-900 flex items-center justify-center pt-20">
-        <div className="text-white font-mono">Loading projects...</div>
+        <div className="text-white font-mono" role="status" aria-live="polite">
+          Loading projects...
+        </div>
       </div>
     );
   }
 
   return (
-    <div 
+    <div
       className="min-h-screen bg-gradient-to-br from-slate-900 via-black to-slate-900 pt-20 sm:pt-32 cursor-default"
       style={{ cursor: showScrollCursor ? 'none' : 'default' }}
     >
+      {/* Screen reader announcement for filter changes */}
+      <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+        {filteredProjects.length === 0
+          ? `No projects found for ${activeFilter === 'all' ? 'all categories' : activeFilter.replace('_', ' ')}`
+          : `Showing ${filteredProjects.length} ${filteredProjects.length === 1 ? 'project' : 'projects'} ${activeFilter === 'all' ? '' : `in ${activeFilter.replace('_', ' ')}`}`
+        }
+      </div>
       {/* Custom Scroll Cursor */}
       {showScrollCursor && (
         <div
@@ -144,7 +155,7 @@ export default function Projects() {
 
       <div className="max-w-8xl 2xl:max-w-[120rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         {/* Header */}
-        <motion.div
+        <motion.header
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -163,10 +174,10 @@ export default function Projects() {
             ALL<br />WORK
           </h1>
           <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-3xl text-white/60 max-w-4xl 2xl:max-w-6xl">
-            A comprehensive collection of projects showcasing creativity, 
+            A comprehensive collection of projects showcasing creativity,
             technical excellence, and innovative problem-solving.
           </p>
-        </motion.div>
+        </motion.header>
 
         {/* Filters */}
         <motion.div
@@ -174,6 +185,8 @@ export default function Projects() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-wrap gap-3 sm:gap-4 xl:gap-6 2xl:gap-8 mb-12 sm:mb-16 2xl:mb-24 pb-6 sm:pb-8 2xl:pb-12 border-b border-white/10"
+          role="region"
+          aria-label="Project category filters"
         >
           {filterOptions.map((filter) => (
             <button
@@ -190,39 +203,11 @@ export default function Projects() {
           ))}
         </motion.div>
 
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 xl:gap-12 2xl:gap-16 mb-12 sm:mb-20 2xl:mb-32"
-        >
-          <div className="text-center">
-            <div className="text-2xl sm:text-4xl xl:text-5xl 2xl:text-7xl font-black mb-2 2xl:mb-4">{projects.length}</div>
-            <div className="text-white/60 text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase">TOTAL</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl sm:text-4xl xl:text-5xl 2xl:text-7xl font-black mb-2 2xl:mb-4">
-              {projects.filter(p => p.category === 'development').length}
-            </div>
-            <div className="text-white/60 text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase">DEV</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl sm:text-4xl xl:text-5xl 2xl:text-7xl font-black mb-2 2xl:mb-4">
-              {projects.filter(p => p.category === 'storytelling').length}
-            </div>
-            <div className="text-white/60 text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase">STORY</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl sm:text-4xl xl:text-5xl 2xl:text-7xl font-black mb-2 2xl:mb-4">
-              {projects.filter(p => p.category === 'ux_design').length}
-            </div>
-            <div className="text-white/60 text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase">UX</div>
-          </div>
-        </motion.div>
-
         {/* Projects Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 sm:gap-12 xl:gap-16 2xl:gap-20 mb-12 sm:mb-20 2xl:mb-32">
+        <section
+          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 sm:gap-12 xl:gap-16 2xl:gap-20 mb-12 sm:mb-20 2xl:mb-32"
+          aria-label="Projects gallery"
+        >
           {filteredProjects.map((project, index) => (
             <ProjectCard
               key={project.id}
@@ -231,7 +216,7 @@ export default function Projects() {
               onClick={handleProjectClick}
             />
           ))}
-        </div>
+        </section>
 
         {/* Empty State */}
         {filteredProjects.length === 0 && (

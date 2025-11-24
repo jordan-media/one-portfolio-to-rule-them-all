@@ -26,7 +26,9 @@ export default function Home() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-black to-slate-900 flex items-center justify-center">
-        <div className="text-white font-mono">Loading...</div>
+        <div className="text-white font-mono" role="status" aria-live="polite">
+          Loading...
+        </div>
       </div>
     );
   }

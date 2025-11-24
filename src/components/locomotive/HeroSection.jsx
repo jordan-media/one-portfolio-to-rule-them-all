@@ -78,9 +78,9 @@ const HeroSection = ({ entryPoint = 'developer' }) => {
   const content = getHeroContent();
 
   return (
-    <section 
+    <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-black to-slate-900 px-4 sm:px-6 cursor-default"
+      className="relative min-h-screen flex items-center justify-center overflow-x-hidden overflow-y-hidden bg-gradient-to-br from-slate-900 via-black to-slate-900 px-4 sm:px-6 py-8 sm:py-0 cursor-default"
       style={{ cursor: showScrollCursor ? 'none' : 'default' }}
     >
       {/* Custom Scroll Cursor */}
@@ -103,9 +103,10 @@ const HeroSection = ({ entryPoint = 'developer' }) => {
       <CodeSnippets section="hero" count={6} />
 
       {/* Animated background elements */}
-      <motion.div 
+      <motion.div
         style={{ y, opacity }}
         className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
       >
         <div className="absolute top-1/4 right-1/4 w-2 h-96 bg-white transform rotate-45 opacity-5"></div>
         <div className="absolute bottom-1/4 left-1/4 w-1 h-64 bg-white transform -rotate-12 opacity-10"></div>
@@ -115,65 +116,65 @@ const HeroSection = ({ entryPoint = 'developer' }) => {
         <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-blue-500/10 to-transparent animate-pulse delay-1000"></div>
       </motion.div>
 
-      <div className="max-w-8xl 2xl:max-w-[120rem] mx-auto text-center relative z-20 px-4 xl:px-8 2xl:px-16">
+      <div className="w-full max-w-8xl 2xl:max-w-[120rem] mx-auto text-center relative z-20">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
+          {/* Status indicator - Moved to top */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="flex items-center justify-center gap-2 mt-4 sm:mt-8 2xl:mt-12 mb-6 sm:mb-8 2xl:mb-12 cursor-default"
+          >
+            <div className="w-2 h-2 2xl:w-3 2xl:h-3 bg-green-500 rounded-full animate-pulse"></div>
+            <span className="text-green-400 font-mono text-xs sm:text-sm xl:text-base 2xl:text-lg">Available for projects</span>
+          </motion.div>
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-xs sm:text-sm xl:text-base 2xl:text-lg font-bold tracking-[0.3em] text-white/60 mb-4 2xl:mb-8 uppercase cursor-default"
+            className="text-xs sm:text-sm xl:text-base 2xl:text-lg font-bold tracking-tight sm:tracking-[0.3em] text-white/60 mb-3 sm:mb-4 2xl:mb-8 uppercase cursor-default px-2"
           >
             {content.subtitle}
           </motion.p>
-          
+
           {/* Accent line with typing effect */}
           <motion.p
             initial={{ opacity: 0, width: 0 }}
             animate={{ opacity: 1, width: "auto" }}
             transition={{ delay: 0.5, duration: 1 }}
-            className="text-green-400 font-mono text-xs sm:text-sm xl:text-base 2xl:text-lg mb-4 2xl:mb-8 overflow-hidden whitespace-nowrap mx-auto cursor-default"
-            style={{ width: "fit-content" }}
+            className="text-green-400 font-mono text-xs sm:text-sm xl:text-base 2xl:text-lg mb-3 sm:mb-4 2xl:mb-8 overflow-hidden sm:whitespace-nowrap mx-auto cursor-default break-words max-w-full px-2"
+            style={{ width: "fit-content", maxWidth: "100%" }}
           >
             $ {content.accent.toLowerCase()}.replace('limits', 'possibilities') ⚡
           </motion.p>
           
-          <GlitchText className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] 2xl:text-[14rem] font-black leading-none tracking-tighter mb-8 sm:mb-12 2xl:mb-20 cursor-default">
+          <GlitchText className="text-3xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] 2xl:text-[14rem] font-black leading-none tracking-tighter mb-4 sm:mb-12 2xl:mb-20 cursor-default px-2">
             <motion.h1
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
             >
               {content.title.split('\n').map((line, i) => (
-                <div key={i} className="block">
+                <div key={i} className="block break-words">
                   {line}
                 </div>
               ))}
             </motion.h1>
           </GlitchText>
-          
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.6 }}
-            className="text-lg sm:text-xl md:text-2xl xl:text-3xl 2xl:text-4xl text-white/80 max-w-4xl 2xl:max-w-7xl mx-auto mb-6 sm:mb-8 2xl:mb-16 font-light cursor-default"
+            className="text-base sm:text-xl md:text-2xl xl:text-3xl 2xl:text-4xl text-white/80 max-w-4xl 2xl:max-w-7xl mx-auto mb-6 sm:mb-16 2xl:mb-24 font-light cursor-default px-2"
           >
             {content.description}
           </motion.p>
-
-          {/* Status indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.1 }}
-            className="flex items-center justify-center gap-2 mb-8 sm:mb-16 2xl:mb-24 cursor-default"
-          >
-            <div className="w-2 h-2 2xl:w-3 2xl:h-3 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-green-400 font-mono text-xs sm:text-sm xl:text-base 2xl:text-lg">Available for projects</span>
-          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -188,7 +189,7 @@ const HeroSection = ({ entryPoint = 'developer' }) => {
       section.scrollIntoView({ behavior: "smooth" });
     }
   }}
-  className="group bg-gradient-to-r from-purple-800/40 via-green-500/40 to-green-300/90 backdrop-blur-xl border-2 border-green-100 text-white px-8 sm:px-12 xl:px-16 2xl:px-20 py-4 sm:py-6 xl:py-8 2xl:py-10 font-black text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase transition-all duration-300 cursor-pointer hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90"
+  className="group border-2 border-white/40 text-white px-6 sm:px-12 xl:px-16 2xl:px-20 py-3 sm:py-6 xl:py-8 2xl:py-10 font-black text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase transition-all duration-300 cursor-pointer hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90 hover:text-white backdrop-blur-xl"
   whileHover={{ scale: 1.05 }}
   whileTap={{ scale: 0.95 }}
 >
@@ -198,7 +199,7 @@ const HeroSection = ({ entryPoint = 'developer' }) => {
 
 <motion.a
   href="mailto:jordanasseff@gmail.com"
-  className="group border-2 border-white/40 text-white px-8 sm:px-12 xl:px-16 2xl:px-20 py-4 sm:py-6 xl:py-8 2xl:py-10 font-black text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase transition-all duration-300 cursor-pointer hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90 hover:text-white backdrop-blur-xl inline-block"
+  className="group border-2 border-white/40 text-white px-6 sm:px-12 xl:px-16 2xl:px-20 py-3 sm:py-6 xl:py-8 2xl:py-10 font-black text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase transition-all duration-300 cursor-pointer hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90 hover:text-white backdrop-blur-xl inline-block"
   whileHover={{ scale: 1.05 }}
   whileTap={{ scale: 0.95 }}
 >

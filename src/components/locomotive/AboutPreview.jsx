@@ -1,6 +1,7 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { useIsMobile } from '../../hooks/use-mobile';
 import fullshot5 from '../../assets/images/jordan/fullshot-5.jpg';
 
@@ -110,9 +111,9 @@ const AboutPreview = ({ entryPoint = "developer" }) => {
               className={isMobile ? 'motion-div-fallback' : ''}
               style={isMobile ? { opacity: 1 } : {}}
             >
-              <button className="group border-2 border-white/40 text-white px-12 py-6 font-black text-sm tracking-widest uppercase transition-all duration-300 cursor-pointer backdrop-blur-xl hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90 hover:text-white">
+              <Link to="/About" className="group border-2 border-white/40 text-white px-12 py-6 font-black text-sm tracking-widest uppercase transition-all duration-300 cursor-pointer backdrop-blur-xl hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90 hover:text-white inline-block">
                 LEARN MORE ABOUT ME
-              </button>
+              </Link>
             </motion.div>
           </motion.div>
 
@@ -128,7 +129,7 @@ const AboutPreview = ({ entryPoint = "developer" }) => {
             <div className="relative aspect-[4/5] overflow-hidden z-50">
               <img
                 src={fullshot5}
-                alt="Profile Picture"
+                alt="Full-body professional portrait of Jordan Asseff, self-photographed with custom lighting setup to showcase his photography skills"
                 className="absolute inset-0 w-full h-full object-contain object-center"
               />
 

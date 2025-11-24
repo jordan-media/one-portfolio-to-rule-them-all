@@ -63,7 +63,7 @@ function ProjectCard({ project, index, onClick }) {
           {project.image_url ? (
             <img
               src={project.image_url}
-              alt={project.title}
+              alt={project.image_alt || project.title}
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
             />
           ) : (
@@ -78,7 +78,7 @@ function ProjectCard({ project, index, onClick }) {
           {/* Overlay */}
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
             <div className="backdrop-blur-sm bg-white/20 rounded-full p-3">
-              <ExternalLink className="w-6 h-6 text-white" />
+              <ExternalLink className="w-6 h-6 text-white" aria-hidden="true" />
             </div>
           </div>
         </div>
@@ -122,10 +122,10 @@ function ProjectCard({ project, index, onClick }) {
 
             <div className="flex gap-2">
               {project.github_url && (
-                <Github className="w-4 h-4 text-white/50" />
+                <Github className="w-4 h-4 text-white/50" aria-hidden="true" />
               )}
               {project.project_url && (
-                <ExternalLink className="w-4 h-4 text-white/50" />
+                <ExternalLink className="w-4 h-4 text-white/50" aria-hidden="true" />
               )}
             </div>
           </div>

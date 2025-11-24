@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, Github, Calendar, User, ArrowLeft, ArrowRight, Home, Briefcase, Mail, MapPin, Code, Instagram, ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,76 @@ import { Link } from 'react-router-dom';
 const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateToProject }) => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const [showScrollCursor, setShowScrollCursor] = useState(true);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [showImageOverlay, setShowImageOverlay] = useState(false);
+  const [overlayPosition, setOverlayPosition] = useState({ top: 0, left: 0, right: 0 });
+  const modalRef = useRef(null);
+  const previousFocusRef = useRef(null);
+  const imageColumnRef = useRef(null);
+
+  // Focus management and focus trap
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Store the currently focused element
+    previousFocusRef.current = document.activeElement;
+
+    // Focus the modal after a brief delay to allow animation
+    const focusTimeout = setTimeout(() => {
+      if (modalRef.current) {
+        const closeButton = modalRef.current.querySelector('button');
+        if (closeButton) {
+          closeButton.focus();
+        }
+      }
+    }, 100);
+
+    // Keyboard navigation handler
+    const handleKeyDown = (e) => {
+      // Escape key to close modal
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+
+      // Focus trap for Tab key
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusableElements = modalRef.current.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          // Shift + Tab
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          // Tab
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      clearTimeout(focusTimeout);
+      document.removeEventListener('keydown', handleKeyDown);
+
+      // Return focus to the previously focused element
+      if (previousFocusRef.current && typeof previousFocusRef.current.focus === 'function') {
+        previousFocusRef.current.focus();
+      }
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     if (isOpen && project) {
@@ -36,12 +106,17 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
       const scrollTop = scrollableDiv.scrollTop;
       const scrollHeight = scrollableDiv.scrollHeight - scrollableDiv.clientHeight;
       const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-      
+
       setScrollProgress(progress);
-      
-      window.dispatchEvent(new CustomEvent('scroll-progress-update', { 
-        detail: { progress } 
+
+      window.dispatchEvent(new CustomEvent('scroll-progress-update', {
+        detail: { progress }
       }));
+
+      // Hide scroll cursor after user starts scrolling
+      if (scrollTop > 50) {
+        setShowScrollCursor(false);
+      }
     };
 
     const initialScrollTimeout = setTimeout(() => {
@@ -54,6 +129,69 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
       scrollableDiv.removeEventListener('scroll', handleScroll);
     };
   }, [isOpen]);
+
+  // Track mouse position for custom scroll cursor
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleMouseMove = (e) => {
+      setCursorPosition({ x: e.clientX, y: e.clientY });
+    };
+
+    if (showScrollCursor) {
+      window.addEventListener('mousemove', handleMouseMove);
+    }
+
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [isOpen, showScrollCursor]);
+
+  // Reset scroll cursor when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setShowScrollCursor(true);
+    }
+  }, [isOpen]);
+
+  // Handle image overlay keyboard events
+  useEffect(() => {
+    if (!showImageOverlay) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        e.stopPropagation(); // Prevent closing the main project modal
+        e.preventDefault();
+        setShowImageOverlay(false);
+        setSelectedImage(null);
+      }
+    };
+
+    // Use capture phase to intercept before main modal handler
+    document.addEventListener('keydown', handleKeyDown, true);
+    return () => document.removeEventListener('keydown', handleKeyDown, true);
+  }, [showImageOverlay]);
+
+  // Handle image click
+  const handleImageClick = (image, index, event) => {
+    const clickedElement = event.currentTarget;
+    const imageColumn = imageColumnRef.current;
+
+    if (clickedElement && imageColumn) {
+      // Get absolute positions for fixed positioning
+      const imageRect = clickedElement.getBoundingClientRect();
+      const columnRect = imageColumn.getBoundingClientRect();
+
+      // Position overlay to start at the clicked image's top edge
+      // and constrain it to the image column's left and right bounds
+      setOverlayPosition({
+        top: imageRect.top,
+        left: columnRect.left,
+        right: window.innerWidth - columnRect.right
+      });
+    }
+
+    setSelectedImage({ image, index });
+    setShowImageOverlay(true);
+  };
 
   if (!project) return null;
 
@@ -78,11 +216,31 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
     <AnimatePresence>
       {isOpen && (
         <motion.div
+          ref={modalRef}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 bg-black flex"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="locomotive-project-modal-title"
         >
+          {/* Custom Scroll Cursor */}
+          {showScrollCursor && (
+            <div
+              className="fixed z-50 pointer-events-none"
+              style={{
+                left: cursorPosition.x - 50,
+                top: cursorPosition.y - 15,
+                transform: 'translate(-50%, -50%)'
+              }}
+            >
+              <div className="bg-white text-black px-3 py-1 text-xs font-black tracking-widest uppercase rounded-full shadow-lg">
+                SCROLL
+              </div>
+            </div>
+          )}
+
           <div className="hidden lg:block w-80 xl:w-96 2xl:w-[26rem] flex-shrink-0"></div>
 
           <div className="flex-1 flex flex-col h-screen max-w-none overflow-hidden">
@@ -103,6 +261,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                   <div className="hidden md:flex items-center gap-2 text-xs sm:text-sm 2xl:text-base text-white/50 min-w-0">
                     <Link
                       to="/"
+                      onClick={onClose}
                       className="hover:text-white/80 transition-colors flex-shrink-0"
                     >
                       <Home className="w-3 h-3 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5" />
@@ -110,6 +269,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                     <span className="flex-shrink-0">/</span>
                     <Link
                       to="/Projects"
+                      onClick={onClose}
                       className="hover:text-white/80 transition-colors flex-shrink-0"
                     >
                       Projects
@@ -124,6 +284,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <Link
                     to="/Projects"
+                    onClick={onClose}
                     className="flex items-center gap-2 px-2 sm:px-3 2xl:px-4 py-2 2xl:py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300 text-xs sm:text-sm 2xl:text-base"
                   >
                     <Briefcase className="w-3 h-3 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5" />
@@ -139,29 +300,115 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
               exit={{ y: "100%" }}
               transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
               className="flex-1 overflow-y-auto project-modal-scrollable"
+              style={{ cursor: showScrollCursor ? 'none' : 'default' }}
             >
+              {/* Navigation and Category - Desktop: Above image, Mobile: Inside hero */}
+              <div className="hidden sm:block bg-black pt-2 sm:pt-3 2xl:pt-5 pb-2 sm:pb-2 2xl:pb-3 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+                <div className="text-center max-w-5xl 2xl:max-w-[120rem] mx-auto w-full">
+                  {/* Project Navigation */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="flex items-center justify-center gap-3 sm:gap-4 2xl:gap-6 mb-6 sm:mb-8 2xl:mb-12"
+                  >
+                    {prevProject && (
+                      <button
+                        onClick={() => handleNavigateToProject(prevProject)}
+                        className="flex items-center gap-2 px-4 sm:px-6 2xl:px-8 py-2 sm:py-3 2xl:py-4 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 transition-all duration-300 text-xs sm:text-sm 2xl:text-base group backdrop-blur-sm"
+                        title={`Previous: ${prevProject.title}`}
+                      >
+                        <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5 group-hover:-translate-x-1 transition-transform" />
+                        <span>Previous</span>
+                      </button>
+                    )}
+
+                    <div className="px-3 sm:px-4 2xl:px-6 py-2 sm:py-3 2xl:py-4 bg-white/5 border border-white/10 rounded-lg text-xs 2xl:text-sm text-white/60 backdrop-blur-sm">
+                      {currentIndex + 1} of {allProjects.length}
+                    </div>
+
+                    {nextProject && (
+                      <button
+                        onClick={() => handleNavigateToProject(nextProject)}
+                        className="flex items-center gap-2 px-4 sm:px-6 2xl:px-8 py-2 sm:py-3 2xl:py-4 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 transition-all duration-300 text-xs sm:text-sm 2xl:text-base group backdrop-blur-sm"
+                        title={`Next: ${nextProject.title}`}
+                      >
+                        <span>Next</span>
+                        <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5 group-hover:translate-x-1 transition-transform" />
+                      </button>
+                    )}
+                  </motion.div>
+
+                  {/* Category Label */}
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="text-xs sm:text-sm xl:text-base 2xl:text-lg font-bold tracking-[0.3em] text-white/60 uppercase"
+                  >
+                    {project.category?.replace("_", " ")}
+                  </motion.p>
+                </div>
+              </div>
+
               {/* Hero Section - Enhanced for ultra-wide */}
-              <div className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+              <div className="relative min-h-[60vh] sm:min-h-[70vh] flex items-start sm:items-center justify-center px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-8 sm:pt-12 2xl:pt-16">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50"></div>
                 {project.image_url && (
                   <img
                     src={project.image_url}
-                    alt={project.title}
+                    alt={project.image_alt || project.title}
                     className="absolute inset-0 w-full h-full object-contain opacity-20"
                   />
                 )}
 
                 <div className="relative z-10 text-center max-w-5xl 2xl:max-w-[120rem] mx-auto w-full">
-                  <motion.p
+                  {/* Mobile Navigation - Only visible on mobile */}
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="text-xs sm:text-sm xl:text-base 2xl:text-lg font-bold tracking-[0.3em] text-white/60 mb-6 sm:mb-8 2xl:mb-12 uppercase"
+                    className="sm:hidden flex items-center justify-center gap-3 mb-6"
+                  >
+                    {prevProject && (
+                      <button
+                        onClick={() => handleNavigateToProject(prevProject)}
+                        className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 transition-all duration-300 text-xs group backdrop-blur-sm"
+                        title={`Previous: ${prevProject.title}`}
+                      >
+                        <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" />
+                        <span>Previous</span>
+                      </button>
+                    )}
+
+                    <div className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-xs text-white/60 backdrop-blur-sm">
+                      {currentIndex + 1} of {allProjects.length}
+                    </div>
+
+                    {nextProject && (
+                      <button
+                        onClick={() => handleNavigateToProject(nextProject)}
+                        className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 transition-all duration-300 text-xs group backdrop-blur-sm"
+                        title={`Next: ${nextProject.title}`}
+                      >
+                        <span>Next</span>
+                        <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                      </button>
+                    )}
+                  </motion.div>
+
+                  {/* Mobile Category Label */}
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="sm:hidden text-xs font-bold tracking-[0.3em] text-white/60 mb-6 uppercase"
                   >
                     {project.category?.replace("_", " ")}
                   </motion.p>
 
                   <motion.h1
+                    id="locomotive-project-modal-title"
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4, duration: 0.8 }}
@@ -174,43 +421,30 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
-                    className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 max-w-3xl 2xl:max-w-8xl mx-auto mb-8 sm:mb-12 2xl:mb-20"
+                    className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 max-w-3xl 2xl:max-w-8xl mx-auto mb-8 sm:mb-12 2xl:mb-16"
                   >
                     {project.short_description || project.description}
                   </motion.p>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8 }}
-                    className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 2xl:gap-6"
-                  >
-                    {prevProject && (
-                      <button
-                        onClick={() => handleNavigateToProject(prevProject)}
-                        className="flex items-center gap-2 px-4 sm:px-6 2xl:px-8 py-2 sm:py-3 2xl:py-4 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 transition-all duration-300 text-xs sm:text-sm 2xl:text-base group backdrop-blur-sm w-full sm:w-auto"
-                        title={`Previous: ${prevProject.title}`}
+                  {/* Live Site Button - Hero Section */}
+                  {(project.project_url || project.liveUrl) && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.8 }}
+                      className="flex justify-center"
+                    >
+                      <a
+                        href={project.project_url || project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group relative inline-flex items-center gap-3 bg-white text-black px-6 sm:px-8 xl:px-10 2xl:px-12 py-3 sm:py-4 xl:py-5 2xl:py-6 font-black text-sm sm:text-base xl:text-lg 2xl:text-xl tracking-widest uppercase transition-all duration-300 hover:bg-green-500 hover:text-white hover:scale-105 shadow-2xl"
                       >
-                        <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5 group-hover:-translate-x-1 transition-transform" />
-                        <span className="truncate">Previous Project</span>
-                      </button>
-                    )}
-
-                    <div className="px-3 sm:px-4 2xl:px-6 py-2 sm:py-3 2xl:py-4 bg-white/5 border border-white/10 rounded-lg text-xs 2xl:text-sm text-white/60 backdrop-blur-sm">
-                      {currentIndex + 1} of {allProjects.length}
-                    </div>
-
-                    {nextProject && (
-                      <button
-                        onClick={() => handleNavigateToProject(nextProject)}
-                        className="flex items-center gap-2 px-4 sm:px-6 2xl:px-8 py-2 sm:py-3 2xl:py-4 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 transition-all duration-300 text-xs sm:text-sm 2xl:text-base group backdrop-blur-sm w-full sm:w-auto"
-                        title={`Next: ${nextProject.title}`}
-                      >
-                        <span className="truncate">Next Project</span>
-                        <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5 group-hover:translate-x-1 transition-transform" />
-                      </button>
-                    )}
-                  </motion.div>
+                        <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 2xl:w-6 2xl:h-6 group-hover:rotate-12 transition-transform" />
+                        <span>VIEW LIVE SITE</span>
+                      </a>
+                    </motion.div>
+                  )}
                 </div>
               </div>
 
@@ -289,10 +523,10 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                 )}
 
               {/* Content Section - Enhanced for ultra-wide */}
-              <div className="px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 py-16 sm:py-32 2xl:py-48 max-w-none">
+              <div className="px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-8 pb-16 sm:py-32 2xl:py-48 max-w-none">
                 <div className="max-w-7xl 2xl:max-w-[120rem] mx-auto w-full">
                   <div className="grid lg:grid-cols-3 gap-12 sm:gap-20 2xl:gap-32">
-                    <div className="lg:col-span-2 min-w-0">
+                    <div ref={imageColumnRef} className="lg:col-span-2 min-w-0 relative">
                       <h2 className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl 2xl:text-7xl font-black tracking-tight mb-6 sm:mb-8 2xl:mb-16">
                         PROJECT OVERVIEW
                       </h2>
@@ -374,7 +608,17 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                             ).map((image, index) => (
                               <div
                                 key={index}
-                                className="aspect-video bg-white/5 rounded-xl 2xl:rounded-2xl overflow-hidden"
+                                className="group relative aspect-video bg-white/5 rounded-xl 2xl:rounded-2xl overflow-hidden cursor-pointer"
+                                onClick={(e) => handleImageClick(image, index, e)}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    handleImageClick(image, index, e);
+                                  }
+                                }}
+                                aria-label={`View details for ${typeof image === "string" ? `screenshot ${index + 1}` : image.alt || `screenshot ${index + 1}`}`}
                               >
                                 <img
                                   src={
@@ -384,18 +628,113 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                                   }
                                   alt={
                                     typeof image === "string"
-                                      ? `${project.title} screenshot ${
-                                          index + 1
-                                        }`
+                                      ? (project.gallery_images_alt && project.gallery_images_alt[index]) || `${project.title} screenshot ${index + 1}`
                                       : image.alt
                                   }
-                                  className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
+                                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                                 />
+                                {/* Click indicator overlay */}
+                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+                                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-4 sm:px-6 py-2 sm:py-3">
+                                    <span className="text-white font-bold text-xs sm:text-sm tracking-widest uppercase">
+                                      VIEW DETAILS
+                                    </span>
+                                  </div>
+                                </div>
                               </div>
                             ))}
                           </div>
                         </div>
                       )}
+
+                      {/* Image Context Overlay - Constrained to image column */}
+                      <AnimatePresence>
+                        {showImageOverlay && selectedImage && (
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="fixed inset-0 z-[70] pointer-events-none"
+                            onClick={() => {
+                              setShowImageOverlay(false);
+                              setSelectedImage(null);
+                            }}
+                          >
+                            {/* Frosted Glass Overlay - Full screen on mobile, positioned on desktop */}
+                            <motion.div
+                              initial={{ y: '100%' }}
+                              animate={{ y: 0 }}
+                              exit={{ y: '100%' }}
+                              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+                              className="fixed bg-gradient-to-t from-black/60 via-black/50 to-black/40 backdrop-blur-2xl border-t border-white/30 flex flex-col shadow-2xl pointer-events-auto"
+                              style={{
+                                // Mobile: full screen, Desktop: positioned at image
+                                top: window.innerWidth < 768 ? 0 : `${overlayPosition.top}px`,
+                                left: window.innerWidth < 768 ? 0 : `${overlayPosition.left}px`,
+                                right: window.innerWidth < 768 ? 0 : `${overlayPosition.right}px`,
+                                bottom: 0,
+                                backdropFilter: 'blur(24px) saturate(180%)',
+                                WebkitBackdropFilter: 'blur(24px) saturate(180%)'
+                              }}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              {/* Close Button - Prominent on mobile */}
+                              <button
+                                onClick={() => {
+                                  setShowImageOverlay(false);
+                                  setSelectedImage(null);
+                                }}
+                                className="absolute top-4 right-4 sm:top-6 sm:right-6 p-3 sm:p-3 text-white hover:text-white transition-colors z-10 bg-black/80 hover:bg-black backdrop-blur-sm rounded-full border-2 border-white/60 hover:border-white shadow-2xl"
+                                style={{
+                                  minWidth: '48px',
+                                  minHeight: '48px'
+                                }}
+                                aria-label="Close image details"
+                              >
+                                <X className="w-6 h-6 sm:w-6 sm:h-6" />
+                              </button>
+
+                              {/* Content - Scrollable */}
+                              <div className="flex-1 overflow-y-auto px-6 sm:px-6 lg:px-8 py-8 sm:py-8">
+                                <div className="max-w-3xl mx-auto pt-12 sm:pt-6">
+                                  <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-black tracking-tight text-white mb-3 sm:mb-4" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
+                                    IMAGE CONTEXT
+                                  </h3>
+                                  <div className="text-sm sm:text-base md:text-lg lg:text-xl text-white/95 leading-relaxed space-y-3" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
+                                    {typeof selectedImage.image === 'object' && selectedImage.image.description ? (
+                                      <p>{selectedImage.image.description}</p>
+                                    ) : (
+                                      <p>
+                                        Click on images to learn more about the creative process, technical implementation,
+                                        and story behind each element of this project.
+                                      </p>
+                                    )}
+                                  </div>
+
+                                  {/* Additional metadata if available */}
+                                  {typeof selectedImage.image === 'object' && (
+                                    <div className="pt-4 sm:pt-6 border-t border-white/10 space-y-2 mt-4">
+                                      {selectedImage.image.title && (
+                                        <p className="text-sm sm:text-base text-white/60">
+                                          <span className="font-bold text-white/80">Title:</span> {selectedImage.image.title}
+                                        </p>
+                                      )}
+                                    </div>
+                                  )}
+
+                                  {/* Hint Text */}
+                                  <div className="mt-6 sm:mt-8 text-center pb-6">
+                                    <p className="text-xs sm:text-sm text-white/40 font-mono">
+                                      <span className="hidden md:inline">Press <kbd className="px-2 py-1 bg-white/10 rounded border border-white/20">ESC</kbd> or click the top area to close</span>
+                                      <span className="md:hidden">Tap the X button above to close</span>
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </motion.div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
 
                     {/* Sidebar - Tightened Layout */}
@@ -582,6 +921,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                     <div className="flex-shrink-0 order-1 sm:order-2">
                       <Link
                         to="/Projects"
+                        onClick={onClose}
                         className="flex items-center gap-2 xl:gap-3 bg-white text-black px-6 xl:px-8 2xl:px-10 py-3 xl:py-4 2xl:py-5 font-black text-xs xl:text-sm 2xl:text-base tracking-widest uppercase transition-all duration-300 hover:bg-green-500 hover:text-white"
                       >
                         <Briefcase className="w-3 h-3 xl:w-4 xl:h-4" />
@@ -927,6 +1267,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
               </footer>
             </motion.div>
           </div>
+
         </motion.div>
       )}
     </AnimatePresence>

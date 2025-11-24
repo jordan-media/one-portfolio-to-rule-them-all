@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Home, User, Briefcase, Mail, Github, Linkedin, Instagram, MapPin, ChevronRight, Eye, Code, Calendar, Menu, X } from "lucide-react";
+import { Home, User, Briefcase, Mail, Github, Linkedin, Instagram, MapPin, Code, Calendar, Menu, X } from "lucide-react";
 import { FloatingCursor } from "../components/locomotive/InteractiveElements";
 import ProjectLibraryModal from "../components/portfolio/ProjectLibraryModal";
 
@@ -43,7 +43,6 @@ const socialLinks = [
 
 export default function Layout({ children, currentPageName }) {
   const location = useLocation();
-  const [currentProject, setCurrentProject] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [currentSection, setCurrentSection] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -81,6 +80,21 @@ export default function Layout({ children, currentPageName }) {
   }, []);
   const [daysRemaining, setDaysRemaining] = useState(0);
   const [showGlobalModal, setShowGlobalModal] = useState(false);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+
+  // Listen for ProjectModal open/close events
+  useEffect(() => {
+    const handleProjectView = () => setIsProjectModalOpen(true);
+    const handleProjectClose = () => setIsProjectModalOpen(false);
+
+    window.addEventListener('project-view', handleProjectView);
+    window.addEventListener('project-close', handleProjectClose);
+
+    return () => {
+      window.removeEventListener('project-view', handleProjectView);
+      window.removeEventListener('project-close', handleProjectClose);
+    };
+  }, []);
 
   // Calculate days remaining until Dec 12, 2025
   useEffect(() => {
@@ -131,25 +145,6 @@ export default function Layout({ children, currentPageName }) {
     };
   }, []);
 
-  // Listen for project modal events
-  useEffect(() => {
-    const handleProjectView = (event) => {
-      setCurrentProject(event.detail);
-    };
-
-    const handleProjectClose = () => {
-      setCurrentProject(null);
-    };
-
-    window.addEventListener('project-view', handleProjectView);
-    window.addEventListener('project-close', handleProjectClose);
-
-    return () => {
-      window.removeEventListener('project-view', handleProjectView);
-      window.removeEventListener('project-close', handleProjectClose);
-    };
-  }, []);
-
   // Close mobile menu when route changes (but only if not manually closed)
   useEffect(() => {
     // Add a small delay to allow manual close handlers to execute first
@@ -172,6 +167,18 @@ export default function Layout({ children, currentPageName }) {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Update page title based on route
+  useEffect(() => {
+    const pageTitles = {
+      '/': 'Home - Jordan Asseff Portfolio',
+      '/Projects': 'Projects - Jordan Asseff Portfolio',
+      '/About': 'About - Jordan Asseff Portfolio'
+    };
+
+    const title = pageTitles[location.pathname] || 'Jordan Asseff Portfolio';
+    document.title = title;
+  }, [location.pathname]);
 
   const getCurrentPageInfo = () => {
     const path = location.pathname;
@@ -200,6 +207,14 @@ export default function Layout({ children, currentPageName }) {
 
   return (
     <div className="min-h-screen bg-black text-white font-mono">
+      {/* Skip Navigation Link */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-1/2 focus:-translate-x-1/2 focus:z-[100] focus:bg-white focus:text-black focus:px-6 focus:py-3 focus:rounded-lg focus:font-bold focus:shadow-2xl focus:outline-none focus:ring-4 focus:ring-green-400"
+      >
+        Skip to main content
+      </a>
+
       {/* Enhanced Background */}
       <div className="fixed inset-0 -z-20">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-black to-slate-900"></div>
@@ -263,47 +278,44 @@ export default function Layout({ children, currentPageName }) {
             : undefined
         }}
       >
-        <div className="flex flex-col h-full p-3 sm:p-4">
-          {/* Mobile Close Button */}
-          <button
-            onClick={(e) => {
-              console.log('Close button clicked');
-              e.preventDefault();
-              e.stopPropagation();
-              closeMenu();
-            }}
-            onMouseDown={(e) => {
-              console.log('Close button mouse down');
-              e.preventDefault();
-              e.stopPropagation();
-              closeMenu();
-            }}
-            onTouchStart={(e) => {
-              console.log('Close button touch start');
-              e.preventDefault();
-              e.stopPropagation();
-            }}
-            onTouchEnd={(e) => {
-              console.log('Close button touch end');
-              e.preventDefault();
-              e.stopPropagation();
-              closeMenu();
-            }}
-            className="lg:hidden self-end mb-3 p-3 text-white/70 hover:text-white transition-colors cursor-pointer z-[60] relative bg-black/50 rounded-md"
-            aria-label="Close menu"
-            style={{
-              touchAction: 'manipulation',
-              WebkitTapHighlightColor: 'transparent',
-              minWidth: '44px',
-              minHeight: '44px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            <X className="w-5 h-5" />
-          </button>
+        {/* Mobile Close Button - Positioned outside menu flow */}
+        <button
+          onClick={(e) => {
+            console.log('Close button clicked');
+            e.preventDefault();
+            e.stopPropagation();
+            closeMenu();
+          }}
+          onMouseDown={(e) => {
+            console.log('Close button mouse down');
+            e.preventDefault();
+            e.stopPropagation();
+            closeMenu();
+          }}
+          onTouchStart={(e) => {
+            console.log('Close button touch start');
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+          onTouchEnd={(e) => {
+            console.log('Close button touch end');
+            e.preventDefault();
+            e.stopPropagation();
+            closeMenu();
+          }}
+          className="lg:hidden absolute top-3 right-3 p-3 text-white/70 hover:text-white transition-colors cursor-pointer z-[60] bg-black/50 border-2 border-white rounded-md flex items-center justify-center"
+          aria-label="Close menu"
+          style={{
+            touchAction: 'manipulation',
+            WebkitTapHighlightColor: 'transparent',
+            minWidth: '44px',
+            minHeight: '44px'
+          }}
+        >
+          <X className="w-5 h-5" />
+        </button>
 
+        <div className="flex flex-col h-full p-3 sm:p-4">
           {/* Logo & Status - Compact */}
           <div className="mb-2 sm:mb-5">
             <Link
@@ -350,31 +362,6 @@ export default function Layout({ children, currentPageName }) {
                 </div>
               </div>
             </div>
-
-            {/* Current Project if viewing one */}
-            {currentProject && (
-              <div className="mt-2.5 pt-2.5 border-t border-white/10">
-                <div className="flex items-center gap-1.5 mb-1.5">
-                  <ChevronRight className="w-2.5 h-2.5 text-white/40" />
-                  <Eye className="w-2.5 h-2.5 text-blue-400" />
-                  <span className="text-xs font-mono text-white/60">
-                    VIEWING
-                  </span>
-                </div>
-                <div className="ml-4">
-                  <div className="font-medium text-xs">
-                    {currentProject.title}
-                  </div>
-                  {/* <div className="text-xs text-white/50">{currentProject.category?.replace('_', ' ')}</div> */}
-                  {/* {currentProject.role &&
-                    <div className="flex items-center gap-1 mt-0.5">
-                      <User className="w-2.5 h-2.5 text-purple-400" />
-                      <span className="text-xs text-purple-400">{currentProject.role}</span>
-                    </div>
-                  } */}
-                </div>
-              </div>
-            )}
 
             {/* Scroll Progress */}
             <div className="mt-2.5 pt-2.5 border-t border-white/10">
@@ -503,9 +490,6 @@ export default function Layout({ children, currentPageName }) {
 
           {/* Social Links - Compact */}
           <div className="mt-auto">
-            <div className="text-xs font-bold tracking-wider text-white/40 mb-2.5">
-              CONNECT
-            </div>
             <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
               {socialLinks.map((social, index) => (
                 <a
@@ -544,14 +528,15 @@ export default function Layout({ children, currentPageName }) {
       </nav>
 
       {/* Main Content - Updated margins for compact sidebar */}
-      <main className="lg:ml-80 xl:ml-96 2xl:ml-[26rem] relative z-10">
+      <main id="main-content" className="lg:ml-80 xl:ml-96 2xl:ml-[26rem] relative z-10">
         {children}
       </main>
 
       {/* Enhanced Interactive Footer - Updated margins for compact sidebar */}
+      {!isProjectModalOpen && (
       <footer className="lg:ml-80 xl:ml-96 2xl:ml-[26rem] bg-gradient-to-t from-black via-slate-900/90 to-black border-t border-white/10 relative overflow-hidden">
         {/* Animated Background Elements */}
-        <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-green-400/20 via-transparent to-transparent animate-pulse"></div>
           <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-blue-400/20 via-transparent to-transparent animate-pulse delay-1000"></div>
           <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent"></div>
@@ -837,7 +822,7 @@ export default function Layout({ children, currentPageName }) {
                 </div>
 
         {/* Floating particles effect */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
@@ -852,6 +837,7 @@ export default function Layout({ children, currentPageName }) {
           ))}
         </div>
       </footer>
+      )}
 
       {/* Custom Animations */}
       <style jsx>{`

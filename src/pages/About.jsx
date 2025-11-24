@@ -357,11 +357,13 @@ const HeroSection = () => {
             className="block text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-3xl 2xl:text-4xl font-semibold text-green-400 mb-4 sm:mb-6 2xl:mb-8"
           >
             {"UxD instincts since "}
-            {"RollerCoaster Tycoon '99".split("").map((char, i) => (
-              <span key={i} className="wiggle-letter inline-block">
-                {char}
-              </span>
-            ))}
+            <span className="inline-block whitespace-nowrap">
+              {"RollerCoaster Tycoon '99".split("").map((char, i) => (
+                <span key={i} className="wiggle-letter inline-block">
+                  {char}
+                </span>
+              ))}
+            </span>
           </span>
 
           {/* Description Line - Smallest, muted */}
@@ -391,7 +393,7 @@ const CollaborationSection = () => {
           className={`text-center mb-16 sm:mb-24 2xl:mb-32 ${isMobile ? 'motion-div-fallback' : ''}`}
           style={isMobile ? { opacity: 1 } : {}}
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-[8rem] font-black tracking-tight leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-[8rem] font-black tracking-tight leading-tight">
             <span className="text-green-300">"100 feet in the air</span>
             <br />
             <span className="text-white">taught me more about</span>
@@ -399,7 +401,7 @@ const CollaborationSection = () => {
             <span className="text-white/60">collaboration</span>
             <br />
             <span className="text-white">than any classroom."</span>
-          </h2>
+          </h1>
         </motion.div>
 
 {/* Story Content - Image Left, Text Right */}
@@ -415,7 +417,7 @@ const CollaborationSection = () => {
     <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[-4px_4px_10px_rgba(255,255,255,0.25)] relative">
   <img
     src="/assets/images/jordan/about-1.jpg"
-    alt="Profile Picture"
+    alt="Jordan Asseff working as a web developer at his desk, focused on coding"
     className="w-full h-full object-cover object-center"
   />
     </div>
@@ -431,10 +433,10 @@ const CollaborationSection = () => {
     style={isMobile ? { opacity: 1 } : {}}
   >
     <div className="space-y-6 2xl:space-y-10">
-      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
        I like to think I'm clever, but I'm just a normal guy who likes to be creative. I enjoy bringing my energy when I walk into a room and<span className="font-bold text-cyan-400"> I enjoy all of the small moments that we tend to overlook each day.</span>
       </p>
-      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
         <span className="font-bold text-cyan-400"> Experience</span> is one of my biggest assets, but the willingness to always be learning and staying curious is what will keep me growing.
       </p>
     </div>
@@ -452,11 +454,11 @@ const CollaborationSection = () => {
     style={isMobile ? { opacity: 1 } : {}}
   >
     <div className="space-y-6 2xl:space-y-10">
-      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
         <span className="font-bold text-cyan-400">Learning new coding languages</span> can be challenging. When my car needed to be repaired at the cost of $2400, I decided to do it myself.
       </p>
-      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-        Tearing apart half of the engine isn’t difficult when you follow all the small steps. It takes confidence and hard work — the same principles I apply when working with a large codebase. < br/>Breaking large unmanageable tasks into small bite-size pieces.
+      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
+        Tearing apart half of the engine isn't difficult when you follow all the small steps. It takes confidence and hard work — the same principles I apply when working with a large codebase. < br/>Breaking large unmanageable tasks into small bite-size pieces.
       </p>
     </div>
   </motion.div>
@@ -471,7 +473,7 @@ const CollaborationSection = () => {
     <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[4px_4px_10px_rgba(255,255,255,0.25)] backdrop-blur-xl">
       <img
         src="assets/images/jordan/about-2.jpg"
-        alt="Jordan working or learning"
+        alt="Jordan Asseff rebuilding a car engine, demonstrating attention to detail and hands-on mechanical work"
         className="w-full h-full object-cover"
       />
     </div>
@@ -487,13 +489,13 @@ const CollaborationSection = () => {
           className={`text-center mb-16 sm:mb-24 2xl:mb-32 ${isMobile ? 'motion-div-fallback' : ''}`}
           style={isMobile ? { opacity: 1 } : {}}
         >
-          <h3 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-8xl font-black tracking-tight leading-tight mb-8 2xl:mb-12">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-8xl font-black tracking-tight leading-tight mb-8 2xl:mb-12">
             <span className="text-green-300">Patience</span>
             <br />
             <span className="text-white">Perseverance</span>
             <br />
             <span className="text-white/60">Strength</span>
-          </h3>
+          </h2>
         </motion.div>
 
         {/* Lessons Learned - Full Width */}
@@ -767,7 +769,7 @@ const TechSkillsSection = () => {
               id={`skill-${i}`}
               className={`${pickColor(skill)} ${pickSize(
                 skill
-              )} inline-block whitespace-nowrap`}
+              )} inline-block sm:whitespace-nowrap text-center`}
             >
               {skill}
             </span>
@@ -835,7 +837,7 @@ const CurrentFocusSection = () => {
     style={isMobile ? { opacity: 1 } : {}}
   >
     <div className="space-y-6 2xl:space-y-10">
-      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
         Now, I'm finishing my Web & App Development Diploma at BCIT,
         where I've discovered a new passion: building with{" "}
         <span className="font-bold text-cyan-400">React</span>,{" "}
@@ -843,10 +845,10 @@ const CurrentFocusSection = () => {
         <span className="font-bold text-cyan-400">Vite</span>, and{" "}
         <span className="font-bold text-cyan-400">React Native</span>.
       </p>
-      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
         Passionate about the use of
         <span className="font-bold bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent"> color </span>
-        and delivering digital products that incorporate storytelling and ease of use. 
+        and delivering digital products that incorporate storytelling and ease of use.
       </p>
     </div>
   </motion.div>
@@ -861,7 +863,7 @@ const CurrentFocusSection = () => {
     <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[4px_4px_10px_rgba(255,255,255,0.25)] backdrop-blur-xl">
       <img
         src="assets/images/jordan/about-3.jpg"
-        alt="Jordan studying web development"
+        alt="Close-up of raindrops on a window during golden hour, showcasing use of color and photography to evoke mood and emotion"
         className="w-full h-full object-cover"
       />
     </div>
@@ -881,7 +883,7 @@ const CurrentFocusSection = () => {
             <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[-4px_4px_10px_rgba(255,255,255,0.25)] backdrop-blur-xl">
               <img
                 src="assets/images/jordan/about-5.jpg"
-                alt="Jordan working creatively with Adobe, Figma, and Blender"
+                alt="Jordan Asseff smiling while eating Japanese food, showing his relaxed and authentic personality"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -895,7 +897,7 @@ const CurrentFocusSection = () => {
             style={isMobile ? { opacity: 1 } : {}}
           >
             <div className="space-y-6 2xl:space-y-10">
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
                 On the creative side, I've worked with the{" "}
                 <span className="font-bold text-cyan-400">
                   Adobe Creative Suite
@@ -905,7 +907,7 @@ const CurrentFocusSection = () => {
                 gives me empathy for designers and a deeper appreciation for how
                 creativity and development connect.
               </p>
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
                 This combination allows me to bridge the gap between technical
                 implementation and user experience, creating solutions that are
                 both functional and beautiful.
@@ -963,7 +965,7 @@ const PersonalSideSection = () => {
             style={isMobile ? { opacity: 1 } : {}}
           >
             <div className="space-y-6 2xl:space-y-10">
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
                 Outside of work I{" "}
                 <span className="font-bold text-cyan-400">
                   love staying busy
@@ -972,7 +974,7 @@ const PersonalSideSection = () => {
                 garden, feeling the sand between my toes at the beach, or the
                 rush of cold water from the North Shore rivers.
               </p>
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
                 I'm also a{" "}
                 <span className="font-bold text-cyan-400">proud father</span> of
                 two grown children, raising them to be happy and healthy has
@@ -991,7 +993,7 @@ const PersonalSideSection = () => {
             <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[4px_4px_15px_rgba(255,255,255,0.35)] backdrop-blur-xl">
               <img
                 src="assets/images/jordan/about-4.jpg"
-                alt="Jordan enjoying outdoor activities with family"
+                alt="Jordan Asseff rock climbing, representing personal strength, growth, and maintaining balance in life"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -1008,7 +1010,7 @@ const PersonalSideSection = () => {
             <div className="aspect-[4/5] rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[4px_4px_15px_rgba(255,255,255,0.35)] backdrop-blur-xl">
               <img
                 src="assets/images/jordan/about-6.jpg"
-                alt="Jordan enjoying outdoor activities with family"
+                alt="Jordan Asseff celebrating an accomplishment with his two children, showcasing their strong family bond"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -1021,12 +1023,12 @@ const PersonalSideSection = () => {
             style={isMobile ? { opacity: 1 } : {}}
           >
             <div className="space-y-6 2xl:space-y-10">
-              
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+
+              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
                 Regardless of the situation, the world we live in requires
                 adaptability and grit.
               </p>
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
+              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
                 Our family joke when going out to eat is:
                 <br />
                 <span className="font-bold text-cyan-400">

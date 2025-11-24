@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ExternalLink, ArrowRight, Github, Eye } from 'lucide-react';
 import { TechStack, AnimatedCounter } from './InteractiveElements';
 import CodeSnippets from './CodeSnippets';
@@ -80,7 +81,7 @@ const ProjectCard = ({ project, index, onProjectClick }) => {
           {project.image_url ? (
             <img
               src={project.image_url}
-              alt={project.title}
+              alt={project.image_alt || project.title}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80"
             />
           ) : (
@@ -93,7 +94,7 @@ const ProjectCard = ({ project, index, onProjectClick }) => {
         </div>
         
         {/* Enhanced Overlay */}
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center" aria-hidden="true">
           <div className="text-center">
             <div className="flex items-center justify-center gap-4 mb-4">
               <motion.div
@@ -135,13 +136,12 @@ const ProjectCard = ({ project, index, onProjectClick }) => {
       </div>
       
       {/* Enhanced Project Info */}
-      <div className="mt-8">
-        <motion.h3 
-          style={{ y: index % 2 === 0 ? y : 0 }}
-          className={`text-2xl md:text-2xl font-black tracking-tight mb-4 group-hover:${theme.accent} transition-colors`}
+      <div className="mt-8 min-w-0">
+        <h3
+          className={`text-2xl md:text-2xl font-black tracking-tight mb-4 group-hover:${theme.accent} transition-colors line-clamp-2`}
         >
           {project.title}
-        </motion.h3>
+        </h3>
         
         <p className="text-white/60 text-lg leading-relaxed mb-4">
           {project.description}
@@ -246,13 +246,15 @@ const ProjectShowcase = ({ projects, onProjectClick }) => {
   className="text-center mt-20"
 >
   <div className="inline-block">
-    <motion.button 
-      className="group bg-gradient-to-r from-purple-800/40 via-green-500/40 to-green-300/90 backdrop-blur-xl border-2 border-green-100 text-white px-16 py-8 font-black text-lg tracking-widest uppercase transition-all duration-300 cursor-pointer hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-    >
-      VIEW ALL WORK
-    </motion.button>
+    <Link to="/Projects">
+      <motion.button
+        className="group bg-gradient-to-r from-purple-800/40 via-green-500/40 to-green-300/90 backdrop-blur-xl border-2 border-green-100 text-white px-16 py-8 font-black text-lg tracking-widest uppercase transition-all duration-300 cursor-pointer hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        VIEW ALL WORK
+      </motion.button>
+    </Link>
     
     {/* Command line hint */}
     <motion.p
