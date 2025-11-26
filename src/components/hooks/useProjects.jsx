@@ -18,7 +18,24 @@ export const useProjects = () => {
         detailed_description: t(`projectsData.${project.id}.detailedDescription`),
         summary_points: t(`projectsData.${project.id}.summaryPoints`, { returnObjects: true }),
         role: t(`projectsData.${project.id}.role`),
-        outcome: t(`projectsData.${project.id}.outcome`)
+        outcome: t(`projectsData.${project.id}.outcome`),
+        // Translate challenges
+        challenges: project.challenges ? t(`projectsData.${project.id}.challenges`, { returnObjects: true }) : [],
+        // Translate development process
+        development_process: project.development_process ? t(`projectsData.${project.id}.developmentProcess`, { returnObjects: true }) : [],
+        // Translate gallery images
+        gallery_images: project.gallery_images ? project.gallery_images.map((img, idx) => {
+          const translatedImg = t(`projectsData.${project.id}.galleryImages.${idx}`, { returnObjects: true });
+          return {
+            ...img,
+            title: translatedImg.title || img.title,
+            description: translatedImg.description || img.description
+          };
+        }) : [],
+        // Translate category display name
+        categoryDisplay: project.category ? t(`categories.${project.category}`) : project.category,
+        // Translate tools used
+        tools_used: project.tools_used ? project.tools_used.map(toolKey => t(`tools.${toolKey}`)) : []
       }));
       setProjects(translatedProjects);
       setLoading(false);

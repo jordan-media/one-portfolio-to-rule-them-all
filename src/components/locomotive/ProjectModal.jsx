@@ -443,7 +443,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                         className="group relative inline-flex items-center gap-3 bg-slate-900 dark:bg-white text-white dark:text-black px-6 sm:px-8 xl:px-10 2xl:px-12 py-3 sm:py-4 xl:py-5 2xl:py-6 font-black text-sm sm:text-base xl:text-lg 2xl:text-xl tracking-widest uppercase transition-all duration-300 hover:bg-green-500 hover:text-white hover:scale-105 shadow-2xl"
                       >
                         <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 2xl:w-6 2xl:h-6 group-hover:rotate-12 transition-transform" />
-                        <span>VIEW LIVE SITE</span>
+                        <span>{t('projectModal.viewLiveSite')}</span>
                       </a>
                     </motion.div>
                   )}
@@ -457,7 +457,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                   <div className="px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 py-16 sm:py-24 2xl:py-32 bg-gradient-to-b from-slate-200 to-transparent dark:from-black/50 dark:to-transparent max-w-none transition-colors duration-300">
                     <div className="max-w-7xl 2xl:max-w-[120rem] mx-auto w-full">
                       <h3 className="text-xl sm:text-2xl xl:text-3xl 2xl:text-5xl font-black tracking-tight mb-6 sm:mb-8 2xl:mb-12 text-center text-slate-900 dark:text-white">
-                        DEVELOPMENT PROCESS
+                        {t('projectModal.developmentProcess')}
                       </h3>
 
                       {/* Mobile/Tablet: Vertical Stack */}
@@ -530,7 +530,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                   <div className="grid lg:grid-cols-3 gap-12 sm:gap-20 2xl:gap-32">
                     <div ref={imageColumnRef} className="lg:col-span-2 min-w-0 relative">
                       <h2 className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl 2xl:text-7xl font-black tracking-tight mb-6 sm:mb-8 2xl:mb-16 text-slate-900 dark:text-white">
-                        PROJECT OVERVIEW
+                        {t('projectModal.projectOverview')}
                       </h2>
 
                       <div className="text-base sm:text-lg xl:text-xl 2xl:text-3xl text-slate-700 dark:text-white/80 leading-relaxed space-y-4 sm:space-y-6 2xl:space-y-12 mb-8 sm:mb-12 2xl:mb-20">
@@ -558,12 +558,12 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                             >
                               {showFullDescription ? (
                                 <>
-                                  <span>READ LESS</span>
+                                  <span>{t('projectModal.readLess')}</span>
                                   <ChevronUp className="w-4 h-4 2xl:w-5 2xl:h-5" />
                                 </>
                               ) : (
                                 <>
-                                  <span>READ MORE</span>
+                                  <span>{t('projectModal.readMore')}</span>
                                   <ChevronDown className="w-4 h-4 2xl:w-5 2xl:h-5" />
                                 </>
                               )}
@@ -576,7 +576,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                           .length > 0 && (
                           <div className="mb-12 sm:mb-16 2xl:mb-24">
                             <h3 className="text-xl sm:text-2xl xl:text-3xl 2xl:text-5xl font-black tracking-tight mb-6 sm:mb-8 2xl:mb-12 text-slate-900 dark:text-white">
-                              KEY HIGHLIGHTS
+                              {t('projectModal.keyHighlights')}
                             </h3>
                             <div className="space-y-4 2xl:space-y-8">
                               {(
@@ -600,7 +600,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                         (project.images && project.images.length > 0)) && (
                         <div className="mb-12 sm:mb-16 2xl:mb-24">
                           <h3 className="text-xl sm:text-2xl xl:text-3xl 2xl:text-5xl font-black tracking-tight mb-6 sm:mb-8 2xl:mb-12 text-slate-900 dark:text-white">
-                            PROJECT GALLERY
+                            {t('projectModal.projectGallery')}
                           </h3>
                           <div className="space-y-6 sm:space-y-8 2xl:space-y-12">
                             {(
@@ -639,7 +639,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
                                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-4 sm:px-6 py-2 sm:py-3">
                                     <span className="text-white font-bold text-xs sm:text-sm tracking-widest uppercase">
-                                      VIEW DETAILS
+                                      {t('projectModal.viewDetails')}
                                     </span>
                                   </div>
                                 </div>
@@ -691,7 +691,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                                   minWidth: '48px',
                                   minHeight: '48px'
                                 }}
-                                aria-label="Close image details"
+                                aria-label={t('projectModal.closeImageDetails')}
                               >
                                 <X className="w-6 h-6 sm:w-6 sm:h-6" />
                               </button>
@@ -700,15 +700,14 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                               <div className="flex-1 overflow-y-auto px-6 sm:px-6 lg:px-8 py-8 sm:py-8">
                                 <div className="max-w-3xl mx-auto pt-12 sm:pt-6">
                                   <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-black tracking-tight text-white mb-3 sm:mb-4" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
-                                    IMAGE CONTEXT
+                                    {t('projectModal.imageContext')}
                                   </h3>
                                   <div className="text-sm sm:text-base md:text-lg lg:text-xl text-white/95 leading-relaxed space-y-3" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
                                     {typeof selectedImage.image === 'object' && selectedImage.image.description ? (
                                       <p>{selectedImage.image.description}</p>
                                     ) : (
                                       <p>
-                                        Click on images to learn more about the creative process, technical implementation,
-                                        and story behind each element of this project.
+                                        {t('projectModal.imageContextPlaceholder')}
                                       </p>
                                     )}
                                   </div>
@@ -727,8 +726,8 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                                   {/* Hint Text */}
                                   <div className="mt-6 sm:mt-8 text-center pb-6">
                                     <p className="text-xs sm:text-sm text-white/40 font-mono">
-                                      <span className="hidden md:inline">Press <kbd className="px-2 py-1 bg-white/10 rounded border border-white/20">ESC</kbd> or click the top area to close</span>
-                                      <span className="md:hidden">Tap the X button above to close</span>
+                                      <span className="hidden md:inline">{t('projectModal.pressEscClose')} <kbd className="px-2 py-1 bg-white/10 rounded border border-white/20">ESC</kbd> {t('projectModal.orClickTopClose')}</span>
+                                      <span className="md:hidden">{t('projectModal.tapXToClose')}</span>
                                     </p>
                                   </div>
                                 </div>
@@ -744,12 +743,12 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                       {/* PROJECT DETAILS */}
                       <div className="rounded-xl border border-slate-300 dark:border-white/10 odd:bg-slate-100 dark:odd:bg-white/5 even:bg-slate-200 dark:even:bg-white/10 px-2 md:px-2 lg:px-2 py-4 sm:py-5 lg:py-6 2xl:py-8 transition-colors duration-300">
                         <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base pb-2 mb-3 sm:mb-4 border-b border-slate-300 dark:border-white/10 text-slate-700 dark:text-white/70">
-                          PROJECT DETAILS
+                          {t('projectModal.projectDetails')}
                         </h4>
                         <div className="space-y-3 sm:space-y-4 lg:space-y-5 2xl:space-y-8">
                           <div>
                             <p className="text-slate-600 dark:text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 tracking-widest uppercase">
-                              ROLE
+                              {t('projectModal.role')}
                             </p>
                             <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl text-slate-900 dark:text-white">
                               {project.role || project.rolePlayed}
@@ -758,7 +757,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                           {project.category && (
                             <div>
                               <p className="text-slate-600 dark:text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 tracking-widest uppercase">
-                                CATEGORY
+                                {t('projectModal.category')}
                               </p>
                               <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl text-slate-900 dark:text-white">
                                 {project.category?.replace("_", " ")}
@@ -768,7 +767,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                           {project.completion_date && (
                             <div>
                               <p className="text-slate-600 dark:text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 tracking-widest uppercase">
-                                COMPLETED
+                                {t('projectModal.completed')}
                               </p>
                               <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl text-slate-900 dark:text-white">
                                 {new Date(
@@ -783,7 +782,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                           {project.outcome && (
                             <div>
                               <p className="text-slate-600 dark:text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 tracking-widest uppercase">
-                                OUTCOME
+                                {t('projectModal.outcome')}
                               </p>
                               <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl text-green-600 dark:text-green-400">
                                 {project.outcome}
@@ -798,7 +797,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                         ?.length > 0 && (
                         <div className="rounded-xl border border-slate-300 dark:border-white/10 odd:bg-slate-100 dark:odd:bg-white/5 even:bg-slate-200 dark:even:bg-white/10 px-2 md:px-2 lg:px-2 py-4 sm:py-5 lg:py-6 2xl:py-8 transition-colors duration-300">
                           <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base pb-2 mb-3 sm:mb-4 border-b border-slate-300 dark:border-white/10 text-slate-700 dark:text-white/70">
-                            TECHNOLOGIES
+                            {t('projectModal.technologies')}
                           </h4>
                           <div className="space-y-1.5 sm:space-y-2 lg:space-y-3 2xl:space-y-4">
                             {(
@@ -822,7 +821,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                         0 && (
                         <div className="rounded-xl border border-slate-300 dark:border-white/10 odd:bg-slate-100 dark:odd:bg-white/5 even:bg-slate-200 dark:even:bg-white/10 px-2 md:px-2 lg:px-2 py-4 sm:py-5 lg:py-6 2xl:py-8 transition-colors duration-300">
                           <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base pb-2 mb-3 sm:mb-4 border-b border-slate-300 dark:border-white/10 text-slate-700 dark:text-white/70">
-                            TOOLS USED
+                            {t('projectModal.toolsUsed')}
                           </h4>
                           <div className="space-y-1.5 sm:space-y-2 lg:space-y-3 2xl:space-y-4">
                             {(project.tools_used || project.toolsUsed).map(
@@ -845,7 +844,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                       {project.challenges?.length > 0 && (
                         <div className="rounded-xl border border-slate-300 dark:border-white/10 odd:bg-slate-100 dark:odd:bg-white/5 even:bg-slate-200 dark:even:bg-white/10 px-2 md:px-2 lg:px-2 py-4 sm:py-5 lg:py-6 2xl:py-8 transition-colors duration-300">
                           <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base pb-2 mb-3 sm:mb-4 border-b border-slate-300 dark:border-white/10 text-slate-700 dark:text-white/70">
-                            CHALLENGES & SOLUTIONS
+                            {t('projectModal.challengesSolutions')}
                           </h4>
                           <div className="space-y-2 sm:space-y-3 lg:space-y-4 2xl:space-y-5">
                             {project.challenges.map((challenge, index) => (
@@ -876,7 +875,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                             rel="noopener noreferrer"
                             className="block w-full bg-slate-900 dark:bg-white text-white dark:text-black py-3 sm:py-4 2xl:py-6 px-4 sm:px-6 2xl:px-8 font-black text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase text-center hover:bg-slate-700 dark:hover:bg-white/90 transition-colors"
                           >
-                            VIEW LIVE SITE
+                            {t('projectModal.viewLiveSite')}
                           </a>
                         )}
                         {(project.github_url || project.githubUrl) && (
@@ -886,7 +885,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                             rel="noopener noreferrer"
                             className="block w-full border-2 border-slate-900 dark:border-white text-slate-900 dark:text-white py-3 sm:py-4 2xl:py-6 px-4 sm:px-6 2xl:px-8 font-black text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase text-center hover:bg-slate-900 dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors rounded-lg 2xl:rounded-xl"
                           >
-                            VIEW CODE
+                            {t('projectModal.viewCode')}
                           </a>
                         )}
                       </div>
@@ -908,7 +907,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                           <div className="flex items-center gap-2 xl:gap-3 mb-1 xl:mb-2">
                             <ArrowLeft className="w-3 h-3 xl:w-4 xl:h-4 text-slate-500 dark:text-white/40 group-hover:text-slate-900 dark:group-hover:text-white group-hover:-translate-x-1 transition-all" />
                             <span className="text-xs xl:text-sm text-slate-600 dark:text-white/60 tracking-wider uppercase">
-                              Previous
+                              {t('projectModal.previous')}
                             </span>
                           </div>
                           <p className="font-bold text-slate-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors text-xs xl:text-sm 2xl:text-base truncate">
@@ -928,9 +927,9 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                       >
                         <Briefcase className="w-3 h-3 xl:w-4 xl:h-4" />
                         <span className="hidden sm:inline">
-                          VIEW ALL PROJECTS
+                          {t('projectModal.viewAllProjects')}
                         </span>
-                        <span className="sm:hidden">ALL PROJECTS</span>
+                        <span className="sm:hidden">{t('projectModal.allProjectsShort')}</span>
                       </Link>
                     </div>
 
@@ -942,7 +941,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                         >
                           <div className="flex items-center justify-start sm:justify-end gap-2 xl:gap-3 mb-1 xl:mb-2">
                             <span className="text-xs xl:text-sm text-slate-600 dark:text-white/60 tracking-wider uppercase">
-                              Next
+                              {t('projectModal.next')}
                             </span>
                             <ArrowRight className="w-3 h-3 xl:w-4 xl:h-4 text-slate-500 dark:text-white/40 group-hover:text-slate-900 dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
                           </div>
@@ -971,7 +970,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                   {/* Terminal Header */}
                   <div className="flex items-center gap-4 mb-8 sm:mb-12">
                     <span className="text-green-500 dark:text-green-400 font-mono text-xs sm:text-sm animate-pulse cursor-default">
-                      $ footer --initialize
+                      {t('footer.terminalCommand')}
                     </span>
                     <div className="h-px bg-gradient-to-r from-green-500/50 dark:from-green-400/50 via-blue-400/30 to-purple-500/20 flex-1"></div>
                     <div className="flex gap-1">
@@ -987,16 +986,14 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                       <div className="space-y-6 sm:space-y-8">
                         <div>
                           <h3 className="text-2xl sm:text-4xl lg:text-5xl font-black mb-4 sm:mb-6 tracking-wider cursor-default text-slate-900 dark:text-white">
-                            <span className="cursor-default">LET'S BUILD</span>
+                            <span className="cursor-default">{t('footer.cta.title1')}</span>
                             <br />
                             <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-pulse cursor-default">
-                              THE FUTURE
+                              {t('footer.cta.title2')}
                             </span>
                           </h3>
                           <p className="text-slate-700 dark:text-white/70 text-base sm:text-lg lg:text-xl leading-relaxed mb-6 sm:mb-8 cursor-default">
-                            Ready to create something extraordinary? I'm
-                            passionate about turning ideas into reality and
-                            would love to hear about your next project.
+                            {t('footer.cta.description')}
                           </p>
                         </div>
 
@@ -1010,13 +1007,13 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                             <div className="flex items-center gap-3">
                               <Mail className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
                               <span className="cursor-default text-base lg:text-sm xl:text-base">
-                                START A CONVERSATION
+                                {t('footer.cta.button')}
                               </span>
                             </div>
                             <div className="ml-auto flex items-center gap-2">
                               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                               <span className="text-sm text-green-500 dark:text-green-400 cursor-default">
-                                Available
+                                {t('common.available')}
                               </span>
                             </div>
                           </a>
@@ -1028,12 +1025,12 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                             <div className="flex items-center gap-2 sm:gap-3 mb-2">
                               <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 dark:text-blue-400 group-hover:scale-110 transition-transform" />
                               <span className="text-xs sm:text-sm font-bold cursor-default text-slate-900 dark:text-white">
-                                RESPONSE TIME
+                                {t('footer.metrics.responseTime.label')}
                               </span>
                             </div>
                             <div className="text-lg sm:text-2xl font-black">
                               <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent cursor-default">
-                                &lt; 24h
+                                {t('footer.metrics.responseTime.value')}
                               </span>
                             </div>
                           </div>
@@ -1042,12 +1039,12 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                             <div className="flex items-center gap-2 sm:gap-3 mb-2">
                               <Code className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 dark:text-purple-400 group-hover:scale-110 transition-transform" />
                               <span className="text-xs sm:text-sm font-bold cursor-default text-slate-900 dark:text-white">
-                                ENERGY LEVEL
+                                {t('footer.metrics.energyLevel.label')}
                               </span>
                             </div>
                             <div className="text-lg sm:text-2xl font-black">
                               <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent cursor-default">
-                                92%
+                                {t('footer.metrics.energyLevel.value')}
                               </span>
                             </div>
                           </div>
@@ -1061,19 +1058,19 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                           <h4 className="font-bold mb-4 sm:mb-6 tracking-wider text-base sm:text-lg flex items-center gap-2 cursor-default text-slate-900 dark:text-white">
                             <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                             <span className="cursor-default">
-                              CURRENT STATUS
+                              {t('footer.status.title')}
                             </span>
                           </h4>
                           <div className="space-y-3 sm:space-y-4">
                             <div className="flex items-center justify-between p-3 bg-slate-50 dark:bg-black/20 rounded-lg hover:bg-slate-100 dark:hover:bg-black/30 transition-colors cursor-default">
                               <span className="text-slate-700 dark:text-white/80 text-sm sm:text-base cursor-default">
-                                🚀 Open for new projects
+                                {t('footer.status.openProjects')}
                               </span>
                               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                             </div>
                             <div className="flex items-center justify-between p-3 bg-slate-50 dark:bg-black/20 rounded-lg hover:bg-slate-100 dark:hover:bg-black/30 transition-colors cursor-default">
                               <span className="text-slate-700 dark:text-white/80 text-sm sm:text-base cursor-default">
-                                🌍 Remote collaboration
+                                {t('footer.status.remoteCollab')}
                               </span>
                               <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                             </div>
@@ -1083,14 +1080,14 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                         {/* Enhanced Social Links */}
                         <div>
                           <h4 className="font-bold mb-4 sm:mb-6 tracking-wider text-base sm:text-lg text-slate-900 dark:text-white">
-                            CONNECT & FOLLOW
+                            {t('footer.connectFollow')}
                           </h4>
                           <div className="grid grid-cols-2 gap-2 sm:gap-3">
                             {[
                               {
                                 icon: Github,
                                 href: "https://github.com/jordan-media",
-                                label: "GitHub",
+                                labelKey: "social.github",
                               },
                               {
                                 icon: () => (
@@ -1103,21 +1100,21 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                                   </svg>
                                 ),
                                 href: "https://www.linkedin.com/in/jor11/",
-                                label: "LinkedIn",
+                                labelKey: "social.linkedin",
                               },
                               {
                                 icon: Instagram,
                                 href: "https://www.instagram.com/jordanmediacreations/#",
-                                label: "Instagram",
+                                labelKey: "social.instagram",
                               },
                               {
                                 icon: Mail,
                                 href: "mailto:jordanasseff@gmail.com",
-                                label: "Email",
+                                labelKey: "social.email",
                               },
                             ].map((social, index) => (
                               <div
-                                key={social.label}
+                                key={social.labelKey}
                                 className="group relative"
                               >
                                 <div className="absolute -inset-1 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
@@ -1137,7 +1134,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                                 >
                                   <social.icon className="w-4 h-4 sm:w-5 sm:h-5 text-slate-600 dark:text-white/60 group-hover:text-slate-900 dark:group-hover:text-white transition-all duration-300 relative z-10" />
                                   <span className="font-medium relative z-10 text-xs sm:text-sm group-hover:translate-x-1 transition-transform duration-300 text-slate-900 dark:text-white">
-                                    {social.label}
+                                    {t(social.labelKey)}
                                   </span>
                                   <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 relative z-10">
                                     <div className="w-1 h-1 bg-slate-900 dark:bg-white rounded-full"></div>
@@ -1155,14 +1152,11 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                               🎯
                             </span>
                             <span className="font-bold text-purple-700 dark:text-purple-300 text-sm sm:text-base cursor-default">
-                              FUN FACT
+                              {t('footer.funFact.label')}
                             </span>
                           </div>
                           <p className="text-slate-700 dark:text-white/80 text-xs sm:text-sm leading-relaxed cursor-default">
-                            This portfolio was built with love, lots of late
-                            nights, and approximately 100 moments of thinking
-                            "finally finished!" immediately followed by more
-                            refactoring and additional work. ✨
+                            {t('footer.funFact.text')}
                           </p>
                         </div>
                       </div>
@@ -1174,17 +1168,17 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                         {/* Copyright with typing effect */}
                         <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
                           <span className="text-slate-500 dark:text-white/40 font-mono text-xs sm:text-sm cursor-default">
-                            © 2024 Portfolio —
+                            {t('footer.copyright.year')}
                           </span>
                           <div className="flex items-center gap-2">
                             <span className="text-slate-600 dark:text-white/60 font-mono text-xs sm:text-sm cursor-default">
-                              Made with
+                              {t('footer.copyright.madeWith')}
                             </span>
                             <span className="text-red-500 animate-pulse">
                               ❤️
                             </span>
                             <span className="text-slate-600 dark:text-white/60 font-mono text-xs sm:text-sm cursor-default">
-                              and
+                              {t('footer.copyright.and')}
                             </span>
                             <span className="text-yellow-600 text-2xl sm:text-2xl">
                               ☕
@@ -1197,11 +1191,11 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                           <div className="flex items-center gap-2">
                             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                             <span className="text-xs font-mono text-green-500 dark:text-green-400 cursor-default">
-                              LIVE
+                              {t('footer.live.label')}
                             </span>
                           </div>
                           <span className="text-xs font-mono text-slate-600 dark:text-white/60 cursor-default">
-                            Last updated: {new Date().toLocaleDateString()}
+                            {t('footer.live.lastUpdated', { date: new Date().toLocaleDateString() })}
                           </span>
                         </div>
 
@@ -1220,7 +1214,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                           }}
                           className="group flex items-center gap-2 text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white font-mono text-xs sm:text-sm transition-all duration-300 hover:scale-105 cursor-pointer"
                         >
-                          <span>Back to top</span>
+                          <span>{t('footer.backToTop')}</span>
                           <div className="w-3 h-3 sm:w-4 sm:h-4 border border-current border-t-transparent rounded-full animate-spin group-hover:animate-pulse"></div>
                         </button>
                       </div>
@@ -1228,11 +1222,11 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                       {/* Full-width footer line */}
                       <div className="mt-6 sm:mt-8 text-center border-t border-slate-300 dark:border-white/10 pt-4">
                         <span className="text-slate-600 dark:text-white/50 font-mono text-xs sm:text-sm tracking-wide cursor-default">
-                          This website was designed and coded by{" "}
+                          {t('footer.techStack.prefix')}{" "}
                           <span className="text-slate-900 dark:text-white font-semibold">
-                            Jordan Asseff
+                            {t('footer.techStack.author')}
                           </span>{" "}
-                          using{" "}
+                          {t('footer.techStack.using')}{" "}
                           <span className="text-sky-500 dark:text-sky-400 font-semibold">
                             React
                           </span>
@@ -1240,7 +1234,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                           <span className="text-cyan-500 dark:text-cyan-400 font-semibold">
                             Tailwind CSS
                           </span>
-                          , and{" "}
+                          , {t('footer.techStack.and')}{" "}
                           <span className="text-pink-500 dark:text-pink-400 font-semibold">
                             Framer Motion
                           </span>

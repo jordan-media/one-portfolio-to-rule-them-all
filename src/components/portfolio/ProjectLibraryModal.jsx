@@ -5,30 +5,32 @@ import { X } from "lucide-react";
 import gsap from "gsap";
 import { Observer } from "gsap/Observer";
 import SplitType from "split-type";
+import { useTranslation } from 'react-i18next';
 
 gsap.registerPlugin(Observer);
 
-// Library content descriptions
-const libraryContent = {
-  levi: {
-    title: "The Advertisement",
-    description: "This photo wasn't set up to become an advertisement—it was meant to capture a moment. When editing, the blue denim jacket naturally stood out. After some light adjustments, a story formed, and it translated into a marketing idea organically. This is the pure form of advertisement: selling a story, not a product. The text plays on two aspects—your favourite jacket and your favourite person."
-  },
-  pokedex: {
-    title: "The Pokedex",
-    description: "Growing up in the 90s, the Pokédex was a universally cool gadget. When diving into CSS and JavaScript, I used it as my learning project. It features buttons to switch between Poké balls and Pokémon, a randomizer scan feature that simulates \"finding items in the wild,\" and an integrated map with geolocation. I styled it with Game Boy-inspired textures and randomly placed Pokémon hospitals and training centres nearby your location. It's rewarding to build something that looks good and functions great."
-  },
-  photos: {
-    title: "The Photos",
-    description: "I fell in love with photography as a child. My first camera was an HP point-and-shoot, handpicked from the Sears Wish-book catalogue with a covenant 64MB SD card. Now shooting with a Nikon D800, the weight of the DSLR fits perfectly in my hands, and nothing beats that shutter sound. I love editing photos for their realism, syncing them with what my eyes see. Sunsets and the colours of nature are my favourite shots."
-  },
-  charcoal: {
-    title: "The Charcoal Sketch",
-    description: "My grandfather was a quiet man who loved to doodle on napkins and paper at the kitchen table. When I draw, I think of my family and the simple roots from where it was born for me. This is my first real drawing I was proud of, completed in grade 10 using charcoal pencils. I forgot my inspiration photo, ran to the school library, and googled \"cool car photos.\" This BMW wheel shot—found on page 3 in a five-second search—now hangs framed on the wall in my parents' house for a lifetime."
-  }
-};
-
 export default function ProjectLibraryModal({ isOpen, onClose }) {
+  const { t } = useTranslation();
+
+  // Library content descriptions - now using translations
+  const libraryContent = {
+    levi: {
+      title: t('library.levi.title'),
+      description: t('library.levi.description')
+    },
+    pokedex: {
+      title: t('library.pokedex.title'),
+      description: t('library.pokedex.description')
+    },
+    photos: {
+      title: t('library.photos.title'),
+      description: t('library.photos.description')
+    },
+    charcoal: {
+      title: t('library.charcoal.title'),
+      description: t('library.charcoal.description')
+    }
+  };
   const shellRef = useRef(null); // the modal shell (90vh glass)
   const scopeRef = useRef(null); // inner scope for querying sections only inside the modal
   const previousFocusRef = useRef(null);
@@ -266,21 +268,21 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
           <button
             onClick={onClose}
             className="absolute top-6 right-6 z-30 text-white/70 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full"
-            aria-label="Close library showcase"
+            aria-label={t('library.closeLabel')}
           >
             <X className="w-6 h-6" />
           </button>
 
           {/* Header overlay like your HTML */}
           <header className="plm-header">
-            <div id="library-modal-title">The Collection</div>
+            <div id="library-modal-title">{t('library.header.title')}</div>
             <div>
               <a
                 href="#"
                 target="_blank"
                 rel="noreferrer"
               >
-                Showcase of selected works
+                {t('library.header.subtitle')}
               </a>
             </div>
           </header>
@@ -300,7 +302,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
                         "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.05) 100%), url('/assets/images/library/assets.jpg')",
                     }}
                   >
-                    <h2 className="section-heading" aria-hidden="true">SWIPE | SCROLL | FLICK</h2>
+                    <h2 className="section-heading" aria-hidden="true">{t('library.navigation.instruction')}</h2>
                   </div>
                 </div>
               </div>
@@ -330,7 +332,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
                       }
                     }}
                   >
-                    <h2 className="section-heading" aria-hidden="true">The Advertisement</h2>
+                    <h2 className="section-heading" aria-hidden="true">{libraryContent.levi.title}</h2>
                   </div>
                 </div>
               </div>
@@ -358,7 +360,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
                       }
                     }}
                   >
-                    <h2 className="section-heading" aria-hidden="true">The Pokedex</h2>
+                    <h2 className="section-heading" aria-hidden="true">{libraryContent.pokedex.title}</h2>
                   </div>
                 </div>
               </div>
@@ -386,7 +388,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
                       }
                     }}
                   >
-                    <h2 className="section-heading" aria-hidden="true">The Photos</h2>
+                    <h2 className="section-heading" aria-hidden="true">{libraryContent.photos.title}</h2>
                   </div>
                 </div>
               </div>
@@ -414,7 +416,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
                       }
                     }}
                   >
-                    <h2 className="section-heading" aria-hidden="true">The Charcoal Sketch</h2>
+                    <h2 className="section-heading" aria-hidden="true">{libraryContent.charcoal.title}</h2>
                   </div>
                 </div>
               </div>
@@ -570,7 +572,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
                   <button
                     onClick={handleTopHalfClick}
                     className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 sm:p-3 text-slate-600 dark:text-white/70 hover:text-slate-900 dark:hover:text-white transition-colors z-10 bg-slate-200 dark:bg-white/10 backdrop-blur-sm rounded-full border border-slate-300 dark:border-white/20 hover:border-slate-400 dark:hover:border-white/40"
-                    aria-label="Close description"
+                    aria-label={t('library.closeDescriptionLabel')}
                   >
                     <X className="w-5 h-5 sm:w-6 sm:h-6" />
                   </button>
@@ -588,7 +590,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
                       {/* Hint Text */}
                       <div className="mt-6 sm:mt-8 text-center">
                         <p className="text-xs sm:text-sm text-slate-500 dark:text-white/40 font-mono">
-                          Press <kbd className="px-2 py-1 bg-slate-200 dark:bg-white/10 rounded border border-slate-300 dark:border-white/20">ESC</kbd> or click the top area to close
+                          {t('library.press')} <kbd className="px-2 py-1 bg-slate-200 dark:bg-white/10 rounded border border-slate-300 dark:border-white/20">ESC</kbd> {t('library.hintText')}
                         </p>
                       </div>
                     </div>

@@ -111,6 +111,11 @@ export default function Layout({ children, currentPageName }) {
     };
   }, []);
 
+  // Reset project modal state when navigating to different pages
+  useEffect(() => {
+    setIsProjectModalOpen(false);
+  }, [location.pathname]);
+
   // Calculate days remaining until Dec 12, 2025
   useEffect(() => {
     const calculateDaysRemaining = () => {

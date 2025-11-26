@@ -194,6 +194,23 @@
       "button": "LET'S CONNECT"
     }
   },
+  "categories": {
+    "storytelling": "Storytelling",
+    "development": "Development",
+    "ux_design": "UX Design"
+  },
+  "tools": {
+    "iPhoneCamera": "iPhone Camera",
+    "studioMicrophone": "Studio Microphone",
+    "lightingEquipment": "Lighting Equipment",
+    "adobeIllustrator": "Adobe Illustrator",
+    "adobeAfterEffects": "Adobe After Effects",
+    "figma": "Figma",
+    "androidStudio": "Android Studio",
+    "vsCode": "VS Code",
+    "adobeInDesign": "Adobe InDesign",
+    "cameraRaw": "Camera Raw"
+  },
   "projectsData": {
     "1": {
       "title": "Amazon Product Video Advert",
@@ -205,7 +222,61 @@
         "Balanced creative direction with client's evolving requests"
       ],
       "role": "Scriptwriter, Voice-Over Artist, Cinematographer, Storyboarder, On-Screen Talent",
-      "outcome": "Delivered a completed product showcase video. Despite minor overexposure, the client was very happy with the final result."
+      "outcome": "Delivered a completed product showcase video. Despite minor overexposure, the client was very happy with the final result.",
+      "challenges": [
+        {
+          "description": "Communicating with a non-native English speaker client.",
+          "solution": "Patience and cultural understanding bridged the gap successfully."
+        },
+        {
+          "description": "Finding a film location to match the client's vision.",
+          "solution": "Scouted multiple sites until the perfect environment was secured."
+        },
+        {
+          "description": "Dealing with unpredictable outdoor conditions.",
+          "solution": "Stayed flexible and filmed at the right weather window."
+        },
+        {
+          "description": "Client introduced new ideas mid-shoot.",
+          "solution": "Adapted on the fly, focusing on producing a strong final product."
+        }
+      ],
+      "developmentProcess": [
+        {
+          "title": "Concept & Planning",
+          "description": "Collaborated with client to define goals and highlight unique product features for natural lifestyle setting."
+        },
+        {
+          "title": "Pre-Production",
+          "description": "Scripted and storyboarded the advertisement, organizing filming logistics on budget while exceeding expectations."
+        },
+        {
+          "title": "Production",
+          "description": "Captured scenes in natural outdoor environment, adapting to weather conditions and client changes on-the-fly."
+        },
+        {
+          "title": "Post-Production",
+          "description": "Edited footage with professional audio mixing, color correction, and final delivery optimized for Amazon platform."
+        }
+      ],
+      "galleryImages": [
+        {
+          "title": "Behind the Scenes",
+          "description": "This project was filmed entirely on an iPhone, proving that professional-looking results don't always require expensive equipment. The key was understanding lighting, composition, and storytelling. Working with limited resources pushed me to be more creative with angles and natural lighting, ultimately creating a more authentic feel that resonated with the product's outdoor lifestyle positioning."
+        },
+        {
+          "title": "Garden Setting",
+          "description": "The natural garden setting was carefully scouted to match the client's vision of a peaceful outdoor living space. This location choice was crucial—it wasn't just about showing the product, but about selling the lifestyle and experience. The organic environment helped the waterproof curtains feel like a natural extension of outdoor comfort rather than just a functional item."
+        },
+        {
+          "title": "Material Close-Up",
+          "description": "Close-up shots were essential to demonstrate the quality and craftsmanship of the material. By focusing on texture and detail, we built trust with potential buyers who needed to feel confident about the product's durability. These detail shots also helped break up the pacing of the video, creating visual variety while reinforcing key selling points."
+        },
+        {
+          "title": "Final Installation",
+          "description": "The final installation shot brings the story full circle—from concept to reality. This moment shows the product in its completed form, giving viewers a clear mental picture of what their own outdoor space could look like. It's less about the curtain itself and more about the transformation of a space into something more inviting and functional."
+        }
+      ]
     },
     "2": {
       "title": "Adobe Automation Scripting Workflow",
@@ -217,7 +288,49 @@
         "Explored motion graphics foundations through After Effects"
       ],
       "role": "Automation Developer & Creative Technologist",
-      "outcome": "Created a unique automation process for raster-to-vector conversion. The project launched my passion for motion graphics and creative coding."
+      "outcome": "Created a unique automation process for raster-to-vector conversion. The project launched my passion for motion graphics and creative coding.",
+      "challenges": [
+        {
+          "description": "Complex mathematical formulas and script layering.",
+          "solution": "Iteratively refined the code until the logic was stable."
+        },
+        {
+          "description": "Cumbersome test cycles in Illustrator slowed progress.",
+          "solution": "Used persistence and alternative methods to optimize workflow."
+        }
+      ],
+      "developmentProcess": [
+        {
+          "title": "Creative Spark & Concept",
+          "description": "Started with a creative idea — what if I could automate a design style to recreate it consistently across different images? This curiosity became the foundation for exploring Adobe scripting."
+        },
+        {
+          "title": "Scripting & Development",
+          "description": "Used Adobe ExtendScript and JavaScript to build automation scripts. Applied mathematical formulas and geometry to transform raster images into simplified, scalable vector art."
+        },
+        {
+          "title": "Testing & Iteration",
+          "description": "Ran extensive trial-and-error cycles inside Illustrator, debugging scripts and optimizing performance. Adjusted formulas and workflows until the results were reliable and repeatable."
+        },
+        {
+          "title": "Creative Application",
+          "description": "Applied the automated workflow to real images, generating consistent geometric designs. Extended experimentation into motion graphics with After Effects, expanding the creative possibilities."
+        }
+      ],
+      "galleryImages": [
+        {
+          "title": "Geometric Patterns",
+          "description": "This image showcases the power of algorithmic design—each geometric shape was generated through JavaScript code, not manually drawn. The script analyzes the original raster image, identifies key features, and translates them into clean vector shapes. What makes this special is the repeatability: the same process can be applied to any image, creating a consistent artistic style across different subjects."
+        },
+        {
+          "title": "Vectorized Tomatoes",
+          "description": "The tomato image perfectly demonstrates how organic, complex subjects can be simplified into bold geometric art. The automation workflow identified color regions and shapes, then converted them into scalable vector paths. This wasn't just about making art—it was about understanding how computers interpret visual information and finding creative ways to bridge the gap between technical precision and artistic expression."
+        },
+        {
+          "title": "Final Output",
+          "description": "This final output represents countless hours of refining mathematical formulas and debugging scripts. Each iteration taught me more about how Illustrator's object model works and how to manipulate it programmatically. The project sparked my passion for creative coding—realizing that code isn't just for functionality, it's a creative medium that can generate art, automate workflows, and push the boundaries of what's possible in design software."
+        }
+      ]
     },
     "3": {
       "title": "J-Sports Cards App Prototype",
@@ -229,7 +342,57 @@
         "Created customizable templates for multiple sports"
       ],
       "role": "UI/UX Designer, Researcher, Product Conceptualizer, Developer",
-      "outcome": "Produced validated wireframes and a functional prototype. Confirmed user demand and set the foundation for an MVP."
+      "outcome": "Produced validated wireframes and a functional prototype. Confirmed user demand and set the foundation for an MVP.",
+      "challenges": [
+        {
+          "description": "Time management as a full-time student with limited extra hours.",
+          "solution": "Applied course methods to advance the personal project efficiently."
+        },
+        {
+          "description": "Avoiding personal bias when researching parents' needs.",
+          "solution": "Relied on real-world research to gather accurate insights."
+        }
+      ],
+      "developmentProcess": [
+        {
+          "title": "Research & Exploration",
+          "description": "Identified real-world gaps in youth sports tracking. Conducted user research through interviews and personas to validate the concept and define user needs."
+        },
+        {
+          "title": "Design & Prototyping",
+          "description": "Created structured wireframes and layouts in Figma. Tested ideas and user flows, refining templates across multiple sports to balance flexibility and usability."
+        },
+        {
+          "title": "Validation & Iteration",
+          "description": "Manually created sample cards to simulate real-world usage. Used these to identify pinch points in workflows and improve the design before development."
+        },
+        {
+          "title": "App Development (In Progress)",
+          "description": "Currently building the MVP in a React Native environment. Iterating with real-world feedback while learning and applying modern mobile development practices."
+        }
+      ],
+      "galleryImages": [
+        {
+          "title": "App Interface Design",
+          "description": "The interface was designed with simplicity in mind—parents and kids needed to create cards quickly without technical frustration. Every button placement, color choice, and navigation flow was tested against real user feedback. The challenge was balancing powerful customization features with an interface that felt approachable and fun, not overwhelming."
+        },
+        {
+          "title": "Trading Card Design",
+          "description": "This trading card represents the core value proposition: making kids feel like professional athletes. The stats aren't just numbers—they're memories of games, goals, and achievements that matter to young players. The design balances nostalgia for classic trading cards with modern customization that lets each card tell a unique story."
+        },
+        {
+          "title": "Multi-Sport Wireframes",
+          "description": "These wireframes show the foundational work behind a seemingly simple feature—multi-sport support. Each sport has different stats, positions, and metrics that matter. The system needed to be flexible enough to handle hockey's goals and assists, baseball's batting average, and soccer's positions, all while maintaining visual consistency. This required careful planning in the design phase to avoid technical debt later."
+        },
+        {
+          "title": "Stat Selection Interface",
+          "description": "The stat selection interface solves a complex UX challenge: how do you let users input meaningful data without it feeling like homework? The solution was contextual forms that adapt based on the sport selected, showing only relevant fields. This keeps the experience streamlined while preserving the depth that serious youth athletes and parents want for tracking progress."
+        },
+        {
+          "title": "Multi-Sport Card Examples",
+          "description": "These final card designs showcase the project's versatility across different sports. Each sport's card maintains brand consistency while respecting the unique culture and visual language of that sport. The layouts were refined through user testing to ensure parents found them professional enough to share, while kids found them exciting enough to collect and trade."
+        }
+      ]
     }
   },
   "projectModal": {
@@ -240,7 +403,32 @@
     "previous": "Previous",
     "next": "Next",
     "of": "of",
-    "title": "Title"
+    "title": "Title",
+    "developmentProcess": "DEVELOPMENT PROCESS",
+    "projectOverview": "PROJECT OVERVIEW",
+    "readMore": "READ MORE",
+    "readLess": "READ LESS",
+    "keyHighlights": "KEY HIGHLIGHTS",
+    "projectGallery": "PROJECT GALLERY",
+    "viewDetails": "VIEW DETAILS",
+    "imageContext": "IMAGE CONTEXT",
+    "imageContextPlaceholder": "Click on images to learn more about the creative process, technical implementation, and story behind each element of this project.",
+    "projectDetails": "PROJECT DETAILS",
+    "role": "ROLE",
+    "category": "CATEGORY",
+    "completed": "COMPLETED",
+    "outcome": "OUTCOME",
+    "technologies": "TECHNOLOGIES",
+    "toolsUsed": "TOOLS USED",
+    "challengesSolutions": "CHALLENGES & SOLUTIONS",
+    "viewLiveSite": "VIEW LIVE SITE",
+    "viewCode": "VIEW CODE",
+    "viewAllProjects": "VIEW ALL PROJECTS",
+    "allProjectsShort": "ALL PROJECTS",
+    "pressEscClose": "Press",
+    "orClickTopClose": "or click the top area to close",
+    "tapXToClose": "Tap the X button above to close",
+    "closeImageDetails": "Close image details"
   },
   "cookieBanner": {
     "closeLabel": "Close banner",
@@ -253,6 +441,35 @@
     "acceptButton": "Accept & Help Me Learn",
     "declineButton": "No Thanks, Stay Private",
     "finePrint": "Your choice will be remembered for 30 days. No personal data is collected."
+  },
+  "library": {
+    "header": {
+      "title": "The Collection",
+      "subtitle": "Showcase of selected works"
+    },
+    "navigation": {
+      "instruction": "SWIPE | SCROLL | FLICK"
+    },
+    "closeLabel": "Close library showcase",
+    "closeDescriptionLabel": "Close description",
+    "hintText": "or click the top area to close",
+    "press": "Press",
+    "levi": {
+      "title": "The Advertisement",
+      "description": "This photo wasn't set up to become an advertisement—it was meant to capture a moment. When editing, the blue denim jacket naturally stood out. After some light adjustments, a story formed, and it translated into a marketing idea organically. This is the pure form of advertisement: selling a story, not a product. The text plays on two aspects—your favourite jacket and your favourite person."
+    },
+    "pokedex": {
+      "title": "The Pokedex",
+      "description": "Growing up in the 90s, the Pokédex was a universally cool gadget. When diving into CSS and JavaScript, I used it as my learning project. It features buttons to switch between Poké balls and Pokémon, a randomizer scan feature that simulates \"finding items in the wild,\" and an integrated map with geolocation. I styled it with Game Boy-inspired textures and randomly placed Pokémon hospitals and training centres nearby your location. It's rewarding to build something that looks good and functions great."
+    },
+    "photos": {
+      "title": "The Photos",
+      "description": "I fell in love with photography as a child. My first camera was an HP point-and-shoot, handpicked from the Sears Wish-book catalogue with a covenant 64MB SD card. Now shooting with a Nikon D800, the weight of the DSLR fits perfectly in my hands, and nothing beats that shutter sound. I love editing photos for their realism, syncing them with what my eyes see. Sunsets and the colours of nature are my favourite shots."
+    },
+    "charcoal": {
+      "title": "The Charcoal Sketch",
+      "description": "My grandfather was a quiet man who loved to doodle on napkins and paper at the kitchen table. When I draw, I think of my family and the simple roots from where it was born for me. This is my first real drawing I was proud of, completed in grade 10 using charcoal pencils. I forgot my inspiration photo, ran to the school library, and googled \"cool car photos.\" This BMW wheel shot—found on page 3 in a five-second search—now hangs framed on the wall in my parents' house for a lifetime."
+    }
   },
   "footer": {
     "terminalCommand": "$ footer --initialize",
