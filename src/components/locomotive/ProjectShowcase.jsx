@@ -138,26 +138,26 @@ const ProjectCard = ({ project, index, onProjectClick }) => {
       {/* Enhanced Project Info */}
       <div className="mt-8 min-w-0">
         <h3
-          className={`text-2xl md:text-2xl font-black tracking-tight mb-4 group-hover:${theme.accent} transition-colors line-clamp-2`}
+          className={`text-2xl md:text-2xl font-black tracking-tight mb-4 text-slate-900 dark:text-white group-hover:${theme.accent} transition-colors line-clamp-2`}
         >
           {project.title}
         </h3>
         
-        <p className="text-white/60 text-lg leading-relaxed mb-4">
+        <p className="text-slate-700 dark:text-white/60 text-lg leading-relaxed mb-4">
           {project.description}
         </p>
 
         {/* Role indicator with theme colors */}
         <div className="flex items-center gap-2 mb-4">
-          <span className="text-xs font-mono text-white/40">ROLE:</span>
+          <span className="text-xs font-mono text-slate-500 dark:text-white/40">ROLE:</span>
           <span className={`text-sm font-bold ${theme.accent}`}>{project.role}</span>
         </div>
         
         {/* Tech stack */}
         <TechStack technologies={project.technologies?.slice(0, 4)} />
         
-        <motion.button 
-          className={`group flex items-center space-x-2  px-4 py-2 text-white font-bold tracking-widest uppercase text-sm hover:${theme.accent} transition-colors mt-6`}
+        <motion.button
+          className={`group flex items-center space-x-2  px-4 py-2 text-slate-900 dark:text-white font-bold tracking-widest uppercase text-sm hover:${theme.accent} transition-colors mt-6`}
           whileHover={{ x: 10 }}
         >
           <span>VIEW CASE STUDY</span>
@@ -170,9 +170,9 @@ const ProjectCard = ({ project, index, onProjectClick }) => {
 
 const ProjectShowcase = ({ projects, onProjectClick }) => {
   return (
-    <section 
+    <section
     id="projects"
-    className="py-32 px-6 bg-gradient-to-br from-slate-900 via-black to-slate-900 relative">
+    className="py-32 px-6 bg-gradient-to-br from-slate-100 via-white to-slate-50 dark:from-slate-900 dark:via-black dark:to-slate-900 relative transition-colors duration-300">
       {/* Code Snippets for this section */}
       <CodeSnippets section="projects" count={3} />
       
@@ -186,40 +186,40 @@ const ProjectShowcase = ({ projects, onProjectClick }) => {
           className="mb-20 2xl:mb-32"
         >
           <div className="flex items-center gap-4 xl:gap-6 2xl:gap-8 mb-8 2xl:mb-16">
-            <span className="text-green-400 font-mono text-sm xl:text-base 2xl:text-lg">
+            <span className="text-green-500 dark:text-green-400 font-mono text-sm xl:text-base 2xl:text-lg">
               $ ls -la ./projects
             </span>
-            <div className="h-px bg-white/20 flex-1"></div>
+            <div className="h-px bg-slate-300 dark:bg-white/20 flex-1"></div>
           </div>
           
-          <h2 className="text-6xl md:text-8xl xl:text-[8rem] 2xl:text-[12rem] font-black tracking-tighter mb-8 2xl:mb-16">
+          <h2 className="text-6xl md:text-8xl xl:text-[8rem] 2xl:text-[12rem] font-black tracking-tighter mb-8 2xl:mb-16 text-slate-900 dark:text-white">
             SELECTED<br />WORK
           </h2>
           
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 2xl:gap-16">
-            <p className="text-xl xl:text-2xl 2xl:text-3xl text-white/60 max-w-3xl 2xl:max-w-5xl">
-              A curated selection of projects that I have completed. 
-              < br/><span className="text-green-300 text-sm tracking-tight leading-tight">Each project highlights my skills in development, design, and storytelling, showcasing my ability to create impactful digital experiences."</span>
+            <p className="text-xl xl:text-2xl 2xl:text-3xl text-slate-700 dark:text-white/60 max-w-3xl 2xl:max-w-5xl">
+              A curated selection of projects that I have completed.
+              < br/><span className="text-green-600 dark:text-green-300 text-sm tracking-tight leading-tight">Each project highlights my skills in development, design, and storytelling, showcasing my ability to create impactful digital experiences."</span>
             </p>
             
             <div className="flex items-center gap-6 xl:gap-8 2xl:gap-12">
               <div className="text-center">
-                <div className="text-2xl xl:text-3xl 2xl:text-5xl font-black mb-1 2xl:mb-2">
+                <div className="text-2xl xl:text-3xl 2xl:text-5xl font-black mb-1 2xl:mb-2 text-slate-900 dark:text-white">
                   <AnimatedCounter end={projects.length} />
                 </div>
-                <div className="text-white/40 text-xs xl:text-sm 2xl:text-base tracking-widest uppercase">Projects</div>
+                <div className="text-slate-500 dark:text-white/40 text-xs xl:text-sm 2xl:text-base tracking-widest uppercase">Projects</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl xl:text-3xl 2xl:text-5xl font-black mb-1 2xl:mb-2">
+                <div className="text-2xl xl:text-3xl 2xl:text-5xl font-black mb-1 2xl:mb-2 text-slate-900 dark:text-white">
                   <AnimatedCounter end={47} suffix="k" />
                 </div>
-                <div className="text-white/40 text-xs xl:text-sm 2xl:text-base tracking-widest uppercase">Lines</div>
+                <div className="text-slate-500 dark:text-white/40 text-xs xl:text-sm 2xl:text-base tracking-widest uppercase">Lines</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl xl:text-3xl 2xl:text-5xl font-black mb-1 2xl:mb-2">
+                <div className="text-2xl xl:text-3xl 2xl:text-5xl font-black mb-1 2xl:mb-2 text-slate-900 dark:text-white">
                   <AnimatedCounter end={156} />
                 </div>
-                <div className="text-white/40 text-xs xl:text-sm 2xl:text-base tracking-widest uppercase">Commits</div>
+                <div className="text-slate-500 dark:text-white/40 text-xs xl:text-sm 2xl:text-base tracking-widest uppercase">Commits</div>
               </div>
             </div>
           </div>
@@ -260,7 +260,7 @@ const ProjectShowcase = ({ projects, onProjectClick }) => {
     <motion.p
       initial={{ opacity: 0 }}
       whileHover={{ opacity: 1 }}
-      className="text-green-400 font-mono text-xs mt-4"
+      className="text-green-500 dark:text-green-400 font-mono text-xs mt-4"
     >
       $ cd /projects && explore --all
     </motion.p>

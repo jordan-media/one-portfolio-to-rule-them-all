@@ -5,6 +5,45 @@
     <link rel="icon" type="image/svg+xml" href="/assets/images/port-logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jordan - Portfolio</title>
+
+    <!-- Google Fonts - Noto Sans JP for Japanese language support -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Google Analytics 4 - Loads only with user consent -->
+    <script>
+      // Check if user has accepted cookies before loading GA4
+      function initializeGA4() {
+        const consent = localStorage.getItem('cookie_consent');
+
+        if (consent === 'accepted') {
+          // Load gtag.js script
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-MFSVYJNGJE';
+          document.head.appendChild(script);
+
+          // Initialize dataLayer
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-MFSVYJNGJE');
+
+          console.log('GA4 initialized with user consent');
+        }
+      }
+
+      // Initialize on page load
+      initializeGA4();
+
+      // Re-initialize if consent is updated
+      window.addEventListener('cookie-consent-updated', function(e) {
+        if (e.detail.accepted) {
+          initializeGA4();
+        }
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>

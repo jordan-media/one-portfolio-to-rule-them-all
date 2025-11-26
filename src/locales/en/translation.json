@@ -1,0 +1,302 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "comingSoon": "Coming Soon",
+    "available": "Available",
+    "availableForProjects": "Available for projects",
+    "scroll": "SCROLL",
+    "viewWork": "VIEW WORK",
+    "contact": "CONTACT"
+  },
+  "navigation": {
+    "home": {
+      "title": "Home",
+      "description": "Welcome & Overview"
+    },
+    "work": {
+      "title": "Work",
+      "description": "Featured Projects"
+    },
+    "about": {
+      "title": "About",
+      "description": "My Story & Skills"
+    },
+    "otherStuff": {
+      "title": "Other Cool Stuff",
+      "description": "The Collection"
+    },
+    "label": "NAVIGATION"
+  },
+  "sidebar": {
+    "status": {
+      "liveLabel": "LIVE STATUS",
+      "daysRemaining": "{{count}} days remaining as a STUDENT",
+      "availableDate": "Available for work Jan 5th, 2026"
+    },
+    "progress": {
+      "label": "SCROLL PROGRESS"
+    }
+  },
+  "social": {
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "instagram": "Instagram",
+    "email": "Email"
+  },
+  "hero": {
+    "developer": {
+      "title": "DIGITAL\nCRAFTSMAN",
+      "subtitle": "FOCUSED ON FRONT END DEV, UX, STORYTELLING, AND COMMUNICATION",
+      "description": "Creating digital experiences that push boundaries and challenge conventions.",
+      "accent": "Building with"
+    },
+    "storyteller": {
+      "title": "NARRATIVE\nARCHITECT",
+      "subtitle": "STORYTELLER",
+      "description": "Weaving stories that captivate minds and move hearts across digital landscapes.",
+      "accent": "Writing with"
+    },
+    "ux_designer": {
+      "title": "EXPERIENCE\nDESIGNER",
+      "subtitle": "UX/UI DESIGNER",
+      "description": "Designing interactions that feel natural and inspire human connection.",
+      "accent": "Designing with"
+    },
+    "default": {
+      "title": "CREATIVE\nVISIONARY",
+      "subtitle": "MULTI-DISCIPLINARY",
+      "description": "Bridging the gap between technology, design, and human experience.",
+      "accent": "Creating with"
+    }
+  },
+  "aboutPreview": {
+    "developer": {
+      "title": "CRAFTING\nDIGITAL\nEXPERIENCES",
+      "description": "Authentic and Honest. Explore around—you might just find something worthy of your time."
+    },
+    "storyteller": {
+      "title": "WEAVING\nCOMPELLING\nNARRATIVES",
+      "description": "Stories have the power to transform. I create content that doesn't just inform—it captivates, resonates, and builds lasting connections between brands and their audiences."
+    },
+    "ux_designer": {
+      "title": "DESIGNING\nHUMAN\nCONNECTIONS",
+      "description": "Great design is invisible. I create interfaces that feel natural and intuitive, bridging the gap between complex technology and human needs."
+    },
+    "default": {
+      "title": "CREATING\nMEANINGFUL\nIMPACT",
+      "description": "At the intersection of technology, design, and storytelling, I create experiences that matter—solutions that not only work but inspire."
+    },
+    "button": "LEARN MORE ABOUT ME"
+  },
+  "projects": {
+    "filters": {
+      "all": "ALL",
+      "development": "DEVELOPMENT",
+      "storytelling": "STORYTELLING",
+      "uxDesign": "UX DESIGN"
+    },
+    "viewProject": "VIEW PROJECT",
+    "loading": "Loading projects...",
+    "scroll": "SCROLL",
+    "subtitle": "PORTFOLIO SHOWCASE",
+    "title": "ALL\nWORK",
+    "description": "A comprehensive collection of projects showcasing creativity, technical excellence, and innovative problem-solving.",
+    "emptyState": {
+      "title": "NO PROJECTS FOUND",
+      "description": "No projects match the current filter.",
+      "button": "SHOW ALL"
+    },
+    "screenReader": {
+      "noProjects": "No projects found for {{category}}",
+      "showingProjects": "Showing {{count}} {{projectWord}} {{filterText}}",
+      "project": "project",
+      "projects": "projects",
+      "allCategories": "all categories",
+      "in": "in"
+    }
+  },
+  "about": {
+    "hero": {
+      "scroll": "SCROLL",
+      "subtitle": "FROM STEEL TO CODE",
+      "codeSnippet": "$ build.foundation().withGrit().andCollaboration() ⚡",
+      "title1": "a BUILDER at HEART.",
+      "title2": "Quality - Authenticity",
+      "title3": "UxD instincts since ",
+      "title3Game": "RollerCoaster Tycoon '99",
+      "description": "Dev roots sprouted in science summer camps, back when AOL CDs came with breakfast."
+    },
+    "collaboration": {
+      "quote1Part1": "100 feet in the air",
+      "quote1Part2": "taught me more about",
+      "quote1Part3": "collaboration",
+      "quote1Part4": "than any classroom.",
+      "paragraph1": "I like to think I'm clever, but I'm just a normal guy who likes to be creative. I enjoy bringing my energy when I walk into a room and",
+      "paragraph1Bold": " I enjoy all of the small moments that we tend to overlook each day.",
+      "paragraph2Bold": " Experience",
+      "paragraph2": " is one of my biggest assets, but the willingness to always be learning and staying curious is what will keep me growing.",
+      "paragraph3Bold": "Learning new coding languages",
+      "paragraph3": " can be challenging. When my car needed to be repaired at the cost of $2400, I decided to do it myself.",
+      "paragraph4": "Tearing apart half of the engine isn't difficult when you follow all the small steps. It takes confidence and hard work — the same principles I apply when working with a large codebase. \nBreaking large unmanageable tasks into small bite-size pieces.",
+      "quote2Part1": "Patience",
+      "quote2Part2": "Perseverance",
+      "quote2Part3": "Strength",
+      "paragraph5Bold": "Estimator, Project Manager,",
+      "paragraph5Bold2": "Foreman",
+      "paragraph5": " are some career titles I've reached. The journey to get there has been challenging but deeply rewarding. Throughout my career, I've had to navigate many obstacles and follow new paths as local economies changed.",
+      "paragraph6": "Like many professionals can attest, being flexible and open to change is needed. I do my best to absorb my surroundings and learn by observing how other skilled professionals move through their workflow."
+    },
+    "currentFocus": {
+      "quotePart1": "Curiosity",
+      "quotePart2": "keeps me",
+      "quotePart3": "- moving",
+      "quotePart4": "---",
+      "quotePart5": "Quality",
+      "quotePart6": "keeps me",
+      "quotePart7": "grounded.",
+      "paragraph1": "Now, I'm finishing my Web & App Development Diploma at BCIT, where I've discovered a new passion: building with ",
+      "paragraph1Tech1": "React",
+      "paragraph1Tech2": "TypeScript",
+      "paragraph1Tech3": "Vite",
+      "paragraph1Tech4": "React Native",
+      "paragraph2": "Passionate about the use of",
+      "paragraph2Bold": " color ",
+      "paragraph2End": "and delivering digital products that incorporate storytelling and ease of use.",
+      "paragraph3": "On the creative side, I've worked with the ",
+      "paragraph3Tool1": "Adobe Creative Suite",
+      "paragraph3Tool2": "Figma",
+      "paragraph3Tool3": "Blender",
+      "paragraph3End": ", which gives me empathy for designers and a deeper appreciation for how creativity and development connect.",
+      "paragraph4": "This combination allows me to bridge the gap between technical implementation and user experience, creating solutions that are both functional and beautiful."
+    },
+    "personal": {
+      "quotePart1": "i am",
+      "quotePart2": "a father",
+      "quotePart3": "a role model",
+      "quotePart4": "a storyteller",
+      "quotePart5": "and keeper of balance",
+      "paragraph1": "Outside of work I ",
+      "paragraph1Bold": "love staying busy",
+      "paragraph1End": " as much as I love relaxing. Getting my hands dirty in the garden, feeling the sand between my toes at the beach, or the rush of cold water from the North Shore rivers.",
+      "paragraph2": "I'm also a ",
+      "paragraph2Bold": "proud father",
+      "paragraph2End": " of two grown children, raising them to be happy and healthy has continued to shine light on personal strength and growth.",
+      "paragraph3": "Regardless of the situation, the world we live in requires adaptability and grit.",
+      "paragraph4": "Our family joke when going out to eat is:",
+      "paragraph4Bold": "\"Table for three?\""
+    },
+    "closing": {
+      "title1": "Outdoors or online,",
+      "title2": "always looking forward into the horizon",
+      "description": "I believe in ",
+      "descriptionBold": "staying curious",
+      "descriptionEnd": ", working hard, and building things that actually have purpose.",
+      "button": "LET'S CONNECT"
+    }
+  },
+  "projectsData": {
+    "1": {
+      "title": "Amazon Product Video Advert",
+      "description": "Produced a product video advertisement for an Amazon seller, showcasing features in a natural setting.",
+      "detailedDescription": "I collaborated with an Amazon seller to produce a product video advertisement that highlighted the item's features in a natural environment. I was responsible for scriptwriting, storyboarding, cinematography, and voice-over narration. The production included setting up film shots, working with on-the-fly client changes, and even stepping in as the on-screen talent. This project taught me patience and adaptability, particularly while navigating cultural and language differences with the product owner.",
+      "summaryPoints": [
+        "End-to-end video production from script to final edit",
+        "Filmed entirely on iPhone with professional lighting/audio",
+        "Balanced creative direction with client's evolving requests"
+      ],
+      "role": "Scriptwriter, Voice-Over Artist, Cinematographer, Storyboarder, On-Screen Talent",
+      "outcome": "Delivered a completed product showcase video. Despite minor overexposure, the client was very happy with the final result."
+    },
+    "2": {
+      "title": "Adobe Automation Scripting Workflow",
+      "description": "Developed an Illustrator scripting workflow to convert raster images into vectorized, geometric artwork.",
+      "detailedDescription": "This project was my entry into creative automation, combining programming with design. I built a workflow in Adobe Illustrator using ExtendScript that converted raster images into simplified, scalable vector art with geometric patterns. The process also deepened my interest in motion graphics and visual experimentation in After Effects, leading me to create parallax animations and branding bumpers. The project sparked a passion for motion design and creative coding, showing me how technical precision and artistry can work together.",
+      "summaryPoints": [
+        "Built Adobe Illustrator automation with ExtendScript",
+        "Generated vector art using algorithmic geometry",
+        "Explored motion graphics foundations through After Effects"
+      ],
+      "role": "Automation Developer & Creative Technologist",
+      "outcome": "Created a unique automation process for raster-to-vector conversion. The project launched my passion for motion graphics and creative coding."
+    },
+    "3": {
+      "title": "J-Sports Cards App Prototype",
+      "description": "Designed and prototyped an app that turns sports photos into customizable trading cards with stats.",
+      "detailedDescription": "J-Sports Cards is a passion project that fills a gap in the youth sports market. The app concept transforms personal sports photos into digital or printable trading cards. Its unique strength is adaptability — supporting multiple sports with sport-specific stats such as goals/assists for hockey or home runs for baseball. I conducted user research with parents and athletes, created personas and journey maps, and built wireframes into a working prototype. The project blends fun customization with meaningful data tracking, making sports more engaging for kids and families. It lays the groundwork for a future MVP version.",
+      "summaryPoints": [
+        "Researched parents and youth athletes for user needs",
+        "Designed wireframes and interactive prototype in Figma",
+        "Created customizable templates for multiple sports"
+      ],
+      "role": "UI/UX Designer, Researcher, Product Conceptualizer, Developer",
+      "outcome": "Produced validated wireframes and a functional prototype. Confirmed user demand and set the foundation for an MVP."
+    }
+  },
+  "projectModal": {
+    "scroll": "SCROLL",
+    "close": "Close",
+    "projects": "Projects",
+    "allProjects": "All Projects",
+    "previous": "Previous",
+    "next": "Next",
+    "of": "of",
+    "title": "Title"
+  },
+  "cookieBanner": {
+    "closeLabel": "Close banner",
+    "title": "Help Me Learn?",
+    "description": "This portfolio is a learning project. Using analytics helps me understand how visitors interact with my work and improve my development skills.",
+    "acceptLabel": "Accept:",
+    "acceptDescription": "You'll help me gather valuable insights about how my portfolio performs",
+    "declineLabel": "Decline:",
+    "declineDescription": "You'll remain completely untracked (though I'll miss out on learning data)",
+    "acceptButton": "Accept & Help Me Learn",
+    "declineButton": "No Thanks, Stay Private",
+    "finePrint": "Your choice will be remembered for 30 days. No personal data is collected."
+  },
+  "footer": {
+    "terminalCommand": "$ footer --initialize",
+    "cta": {
+      "title1": "LET'S BUILD",
+      "title2": "THE FUTURE",
+      "description": "Ready to create something extraordinary? I'm passionate about turning ideas into reality and would love to hear about your next project.",
+      "button": "START A CONVERSATION"
+    },
+    "metrics": {
+      "responseTime": {
+        "label": "RESPONSE TIME",
+        "value": "< 24h"
+      },
+      "energyLevel": {
+        "label": "ENERGY LEVEL",
+        "value": "92%"
+      }
+    },
+    "status": {
+      "title": "CURRENT STATUS",
+      "openProjects": "🚀 Open for new projects",
+      "remoteCollab": "🌍 Remote collaboration"
+    },
+    "connectFollow": "CONNECT & FOLLOW",
+    "funFact": {
+      "label": "FUN FACT",
+      "text": "This portfolio was built with love, lots of late nights, and approximately 100 moments of thinking \"finally finished!\" immediately followed by more refactoring and additional work. ✨"
+    },
+    "copyright": {
+      "year": "© 2024 Portfolio —",
+      "madeWith": "Made with",
+      "and": "and"
+    },
+    "live": {
+      "label": "LIVE",
+      "lastUpdated": "Last updated: {{date}}"
+    },
+    "backToTop": "Back to top",
+    "techStack": {
+      "prefix": "This website was designed and coded by",
+      "author": "Jordan Asseff",
+      "using": "using",
+      "and": "and"
+    }
+  }
+}

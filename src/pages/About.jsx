@@ -1,6 +1,7 @@
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { useIsMobile } from '../hooks/use-mobile';
 
 import { gsap } from "gsap";
@@ -195,7 +196,7 @@ const FloatingText = ({ children, delay = 0, containerBounds, allPositions, inde
         x: { duration: 0 }, // Position updates are continuous via RAF, no motion transition
         y: { duration: 0 }
       }}
-      className={`${isMobile ? 'relative inline-block m-2 motion-div-fallback' : 'absolute'} bg-white/5 backdrop-blur-sm border border-white/20 rounded-full px-3 py-1.5 text-xs 2xl:text-sm font-medium text-white/80 hover:bg-white/10 hover:scale-110 transition-all duration-300 select-none pointer-events-none`}
+      className={`${isMobile ? 'relative inline-block m-2 motion-div-fallback' : 'absolute'} bg-slate-200/80 dark:bg-white/5 backdrop-blur-sm border border-slate-300 dark:border-white/20 rounded-full px-3 py-1.5 text-xs 2xl:text-sm font-medium text-slate-700 dark:text-white/80 hover:bg-slate-300 dark:hover:bg-white/10 hover:scale-110 transition-all duration-300 select-none pointer-events-none`}
       whileHover={{ scale: 1.1 }}
       style={isMobile ? { opacity: 1 } : { position: 'absolute' }} // Ensure visibility on mobile
     >
@@ -207,6 +208,7 @@ const FloatingText = ({ children, delay = 0, containerBounds, allPositions, inde
 
 // Individual section components for better organization
 const HeroSection = () => {
+  const { t } = useTranslation();
   const containerRef = useRef(null);
   const [showScrollCursor, setShowScrollCursor] = useState(true);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
@@ -291,8 +293,8 @@ const HeroSection = () => {
             transform: 'translate(-50%, -50%)'
           }}
         >
-          <div className="bg-white text-black px-3 py-1 text-xs font-black tracking-widest uppercase rounded-full shadow-lg">
-            SCROLL
+          <div className="bg-slate-900 dark:bg-white text-white dark:text-black px-3 py-1 text-xs font-black tracking-widest uppercase rounded-full shadow-lg">
+            {t('about.hero.scroll')}
           </div>
         </div>
       )}
@@ -317,10 +319,10 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className={`text-xs sm:text-sm xl:text-base 2xl:text-lg font-bold tracking-[0.3em] text-white/60 mb-6 sm:mb-8 2xl:mb-12 uppercase cursor-default ${isMobile ? 'motion-div-fallback' : ''}`}
+          className={`text-xs sm:text-sm xl:text-base 2xl:text-lg font-bold tracking-[0.3em] text-slate-600 dark:text-white/60 mb-6 sm:mb-8 2xl:mb-12 uppercase cursor-default ${isMobile ? 'motion-div-fallback' : ''}`}
           style={isMobile ? { opacity: 1 } : {}}
         >
-          FROM STEEL TO CODE
+          {t('about.hero.subtitle')}
         </motion.p>
 
         {/* Code snippet with typing effect */}
@@ -328,10 +330,10 @@ const HeroSection = () => {
           initial={{ opacity: 0, width: 0 }}
           animate={{ opacity: 1, width: "auto" }}
           transition={{ delay: 0.4, duration: 1 }}
-          className={`text-green-400 font-mono text-xs sm:text-sm xl:text-base 2xl:text-lg mb-8 sm:mb-12 2xl:mb-16 overflow-hidden whitespace-nowrap mx-auto cursor-default ${isMobile ? 'motion-div-fallback' : ''}`}
+          className={`text-green-500 dark:text-green-400 font-mono text-xs sm:text-sm xl:text-base 2xl:text-lg mb-8 sm:mb-12 2xl:mb-16 overflow-hidden whitespace-nowrap mx-auto cursor-default ${isMobile ? 'motion-div-fallback' : ''}`}
           style={isMobile ? { width: "fit-content", opacity: 1 } : { width: "fit-content" }}
         >
-          $ build.foundation().withGrit().andCollaboration() ⚡
+          {t('about.hero.codeSnippet')}
         </motion.p>
 
         <motion.h1
@@ -342,23 +344,23 @@ const HeroSection = () => {
           style={isMobile ? { opacity: 1 } : {}}
         >
           {/* Main Title - Largest with ultra-wide scaling */}
-          <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[10rem] font-black mb-4 sm:mb-6 2xl:mb-10">
-            a BUILDER at HEART.
+          <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[10rem] font-black mb-4 sm:mb-6 2xl:mb-10 text-slate-900 dark:text-white">
+            {t('about.hero.title1')}
           </span>
 
           {/* Secondary Line - Medium, distinct color */}
-          <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white/80 mb-4 sm:mb-6 2xl:mb-8">
-            Quality - Authenticity
+          <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-slate-700 dark:text-white/80 mb-4 sm:mb-6 2xl:mb-8">
+            {t('about.hero.title2')}
           </span>
 
           {/* Tertiary Line - Smaller, accent color */}
           <span
             ref={textRef}
-            className="block text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-3xl 2xl:text-4xl font-semibold text-green-400 mb-4 sm:mb-6 2xl:mb-8"
+            className="block text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-3xl 2xl:text-4xl font-semibold text-green-600 dark:text-green-400 mb-4 sm:mb-6 2xl:mb-8"
           >
-            {"UxD instincts since "}
+            {t('about.hero.title3')}
             <span className="inline-block whitespace-nowrap">
-              {"RollerCoaster Tycoon '99".split("").map((char, i) => (
+              {t('about.hero.title3Game').split("").map((char, i) => (
                 <span key={i} className="wiggle-letter inline-block">
                   {char}
                 </span>
@@ -367,8 +369,8 @@ const HeroSection = () => {
           </span>
 
           {/* Description Line - Smallest, muted */}
-          <span className="block text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-5xl font-normal text-white/60 leading-relaxed">
-            Dev roots sprouted in science summer camps, back when AOL CDs came with breakfast.
+          <span className="block text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-5xl font-normal text-slate-600 dark:text-white/60 leading-relaxed">
+            {t('about.hero.description')}
           </span>
         </motion.h1>
       </div>
@@ -378,12 +380,13 @@ const HeroSection = () => {
 
 
 const CollaborationSection = () => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-200px" });
   const isMobile = useIsMobile();
 
   return (
-    <section ref={ref} className="py-20 sm:py-32 2xl:py-48 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 bg-gradient-to-b from-black to-slate-900 cursor-default overflow-hidden">
+    <section ref={ref} className="py-20 sm:py-32 2xl:py-48 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 bg-gradient-to-b from-white to-slate-100 dark:from-black dark:to-slate-900 cursor-default overflow-hidden transition-colors duration-300">
       <div className="w-full max-w-8xl 2xl:max-w-[120rem] mx-auto">
         {/* Opening Quote - Full Width */}
         <motion.div
@@ -394,13 +397,13 @@ const CollaborationSection = () => {
           style={isMobile ? { opacity: 1 } : {}}
         >
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-[8rem] font-black tracking-tight leading-tight">
-            <span className="text-green-300">"100 feet in the air</span>
+            <span className="text-green-600 dark:text-green-300">"{t('about.collaboration.quote1Part1')}</span>
             <br />
-            <span className="text-white">taught me more about</span>
+            <span className="text-slate-900 dark:text-white">{t('about.collaboration.quote1Part2')}</span>
             <br />
-            <span className="text-white/60">collaboration</span>
+            <span className="text-slate-600 dark:text-white/60">{t('about.collaboration.quote1Part3')}</span>
             <br />
-            <span className="text-white">than any classroom."</span>
+            <span className="text-slate-900 dark:text-white">{t('about.collaboration.quote1Part4')}"</span>
           </h1>
         </motion.div>
 
@@ -433,11 +436,11 @@ const CollaborationSection = () => {
     style={isMobile ? { opacity: 1 } : {}}
   >
     <div className="space-y-6 2xl:space-y-10">
-      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
-       I like to think I'm clever, but I'm just a normal guy who likes to be creative. I enjoy bringing my energy when I walk into a room and<span className="font-bold text-cyan-400"> I enjoy all of the small moments that we tend to overlook each day.</span>
+      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed text-center lg:text-left">
+       {t('about.collaboration.paragraph1')}<span className="font-bold text-cyan-600 dark:text-cyan-400">{t('about.collaboration.paragraph1Bold')}</span>
       </p>
-      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
-        <span className="font-bold text-cyan-400"> Experience</span> is one of my biggest assets, but the willingness to always be learning and staying curious is what will keep me growing.
+      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed text-center lg:text-left">
+        <span className="font-bold text-cyan-600 dark:text-cyan-400">{t('about.collaboration.paragraph2Bold')}</span>{t('about.collaboration.paragraph2')}
       </p>
     </div>
   </motion.div>
@@ -454,11 +457,11 @@ const CollaborationSection = () => {
     style={isMobile ? { opacity: 1 } : {}}
   >
     <div className="space-y-6 2xl:space-y-10">
-      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
-        <span className="font-bold text-cyan-400">Learning new coding languages</span> can be challenging. When my car needed to be repaired at the cost of $2400, I decided to do it myself.
+      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed text-center lg:text-left">
+        <span className="font-bold text-cyan-600 dark:text-cyan-400">{t('about.collaboration.paragraph3Bold')}</span>{t('about.collaboration.paragraph3')}
       </p>
-      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
-        Tearing apart half of the engine isn't difficult when you follow all the small steps. It takes confidence and hard work — the same principles I apply when working with a large codebase. < br/>Breaking large unmanageable tasks into small bite-size pieces.
+      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed text-center lg:text-left">
+        {t('about.collaboration.paragraph4')}
       </p>
     </div>
   </motion.div>
@@ -490,11 +493,11 @@ const CollaborationSection = () => {
           style={isMobile ? { opacity: 1 } : {}}
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-8xl font-black tracking-tight leading-tight mb-8 2xl:mb-12">
-            <span className="text-green-300">Patience</span>
+            <span className="text-green-600 dark:text-green-300">{t('about.collaboration.quote2Part1')}</span>
             <br />
-            <span className="text-white">Perseverance</span>
+            <span className="text-slate-900 dark:text-white">{t('about.collaboration.quote2Part2')}</span>
             <br />
-            <span className="text-white/60">Strength</span>
+            <span className="text-slate-600 dark:text-white/60">{t('about.collaboration.quote2Part3')}</span>
           </h2>
         </motion.div>
 
@@ -506,11 +509,11 @@ const CollaborationSection = () => {
   className={`max-w-4xl 2xl:max-w-6xl mx-auto text-center ${isMobile ? 'motion-div-fallback' : ''}`}
   style={isMobile ? { opacity: 1 } : {}}
 >
-  <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed mb-8 2xl:mb-12">
-    <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent font-bold">Estimator, Project Manager,</span> and <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent font-bold">Foreman</span> are some career titles I've reached. The journey to get there has been challenging but deeply rewarding. Throughout my career, I’ve had to navigate many obstacles and follow new paths as local economies changed.
+  <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed mb-8 2xl:mb-12">
+    <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent font-bold">{t('about.collaboration.paragraph5Bold')}</span> and <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent font-bold">{t('about.collaboration.paragraph5Bold2')}</span>{t('about.collaboration.paragraph5')}
   </p>
-  <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed">
-    Like many professionals can attest, being flexible and open to change is needed. I do my best to absorb my surroundings and learn by observing how other skilled professionals move through their workflow.
+  <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed">
+    {t('about.collaboration.paragraph6')}
   </p>
 </motion.div>
 
@@ -752,7 +755,7 @@ const TechSkillsSection = () => {
   return (
     <section
       ref={ref}
-      className="py-20 sm:py-32 2xl:py-48 px-6 sm:px-12 bg-slate-900 cursor-default"
+      className="py-20 sm:py-32 2xl:py-48 px-6 sm:px-12 bg-slate-200 dark:bg-slate-900 cursor-default transition-colors duration-300"
     >
       <div className="w-full max-w-8xl 2xl:max-w-[120rem] mx-auto text-center">
         <motion.div
@@ -783,6 +786,7 @@ const TechSkillsSection = () => {
 
 
 const CurrentFocusSection = () => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-200px" });
   const isMobile = useIsMobile();
@@ -790,7 +794,7 @@ const CurrentFocusSection = () => {
   return (
     <section
       ref={ref}
-      className="py-20 sm:py-32 2xl:py-48 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 bg-gradient-to-b from-slate-900 to-black cursor-default"
+      className="py-20 sm:py-32 2xl:py-48 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 bg-gradient-to-b from-slate-100 to-white dark:from-slate-900 dark:to-black cursor-default transition-colors duration-300"
     >
       <div className="w-full max-w-8xl 2xl:max-w-[120rem] mx-auto">
         {/* Opening Quote */}
@@ -802,27 +806,27 @@ const CurrentFocusSection = () => {
   style={isMobile ? { opacity: 1 } : {}}
 >
   <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-[9rem] font-black leading-relaxed tracking-tight">
-    <span className="text-green-300">Curiosity</span>{" "}
-    <span className="text-white">keeps me</span>
+    <span className="text-green-600 dark:text-green-300">{t('about.currentFocus.quotePart1')}</span>{" "}
+    <span className="text-slate-900 dark:text-white">{t('about.currentFocus.quotePart2')}</span>
     <br />
     <span
-      className="text-white italic 
+      className="text-slate-900 dark:text-white italic
                  text-6xl sm:text-5xl md:text-8xl lg:text-6xl xl:text-8xl 2xl:text-[9rem]"
     >
-      - moving
+      {t('about.currentFocus.quotePart3')}
     </span>{" "}
     <span
-      className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 
-                 bg-clip-text text-transparent 
+      className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600
+                 bg-clip-text text-transparent
                  text-6xl sm:text-5xl md:text-8xl lg:text-6xl xl:text-8xl 2xl:text-[9rem]"
     >
-      ---
+      {t('about.currentFocus.quotePart4')}
     </span>
     <br />
-    <span className="text-white/60">Quality</span>
+    <span className="text-slate-600 dark:text-white/60">{t('about.currentFocus.quotePart5')}</span>
     <br />
-    <span className="text-white">keeps me</span>{" "}
-    <span className="text-green-300">grounded.</span>
+    <span className="text-slate-900 dark:text-white">{t('about.currentFocus.quotePart6')}</span>{" "}
+    <span className="text-green-600 dark:text-green-300">{t('about.currentFocus.quotePart7')}</span>
   </h2>
 </motion.div>
 
@@ -837,18 +841,17 @@ const CurrentFocusSection = () => {
     style={isMobile ? { opacity: 1 } : {}}
   >
     <div className="space-y-6 2xl:space-y-10">
-      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
-        Now, I'm finishing my Web & App Development Diploma at BCIT,
-        where I've discovered a new passion: building with{" "}
-        <span className="font-bold text-cyan-400">React</span>,{" "}
-        <span className="font-bold text-cyan-400">TypeScript</span>,{" "}
-        <span className="font-bold text-cyan-400">Vite</span>, and{" "}
-        <span className="font-bold text-cyan-400">React Native</span>.
+      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed text-center lg:text-left">
+        {t('about.currentFocus.paragraph1')}{" "}
+        <span className="font-bold text-cyan-600 dark:text-cyan-400">{t('about.currentFocus.paragraph1Tech1')}</span>,{" "}
+        <span className="font-bold text-cyan-600 dark:text-cyan-400">{t('about.currentFocus.paragraph1Tech2')}</span>,{" "}
+        <span className="font-bold text-cyan-600 dark:text-cyan-400">{t('about.currentFocus.paragraph1Tech3')}</span>, and{" "}
+        <span className="font-bold text-cyan-600 dark:text-cyan-400">{t('about.currentFocus.paragraph1Tech4')}</span>.
       </p>
-      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
-        Passionate about the use of
-        <span className="font-bold bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent"> color </span>
-        and delivering digital products that incorporate storytelling and ease of use.
+      <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed text-center lg:text-left">
+        {t('about.currentFocus.paragraph2')}
+        <span className="font-bold bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">{t('about.currentFocus.paragraph2Bold')}</span>
+        {t('about.currentFocus.paragraph2End')}
       </p>
     </div>
   </motion.div>
@@ -897,20 +900,16 @@ const CurrentFocusSection = () => {
             style={isMobile ? { opacity: 1 } : {}}
           >
             <div className="space-y-6 2xl:space-y-10">
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
-                On the creative side, I've worked with the{" "}
-                <span className="font-bold text-cyan-400">
-                  Adobe Creative Suite
+              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed text-center lg:text-left">
+                {t('about.currentFocus.paragraph3')}{" "}
+                <span className="font-bold text-cyan-600 dark:text-cyan-400">
+                  {t('about.currentFocus.paragraph3Tool1')}
                 </span>
-                , <span className="font-bold text-cyan-400">Figma</span>, and{" "}
-                <span className="font-bold text-cyan-400">Blender</span>, which
-                gives me empathy for designers and a deeper appreciation for how
-                creativity and development connect.
+                , <span className="font-bold text-cyan-600 dark:text-cyan-400">{t('about.currentFocus.paragraph3Tool2')}</span>, and{" "}
+                <span className="font-bold text-cyan-600 dark:text-cyan-400">{t('about.currentFocus.paragraph3Tool3')}</span>{t('about.currentFocus.paragraph3End')}
               </p>
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
-                This combination allows me to bridge the gap between technical
-                implementation and user experience, creating solutions that are
-                both functional and beautiful.
+              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed text-center lg:text-left">
+                {t('about.currentFocus.paragraph4')}
               </p>
             </div>
           </motion.div>
@@ -924,6 +923,7 @@ const CurrentFocusSection = () => {
 
 
 const PersonalSideSection = () => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-200px" });
   const isMobile = useIsMobile();
@@ -931,7 +931,7 @@ const PersonalSideSection = () => {
   return (
     <section
       ref={ref}
-      className="py-20 sm:py-32 2xl:py-48 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 bg-black cursor-default"
+      className="py-20 sm:py-32 2xl:py-48 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 bg-white dark:bg-black cursor-default transition-colors duration-300"
     >
       <div className="w-full max-w-8xl 2xl:max-w-[120rem] mx-auto">
         {/* Opening Quote */}
@@ -943,15 +943,15 @@ const PersonalSideSection = () => {
           style={isMobile ? { opacity: 1 } : {}}
         >
           <h2 className="text-4xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-7xl 2xl:text-[8rem] font-black tracking-tight leading-tight">
-            <span className="text-green-400">i am</span>
+            <span className="text-green-600 dark:text-green-400">{t('about.personal.quotePart1')}</span>
             <br />
-            <span className="text-white">a father</span>
+            <span className="text-slate-900 dark:text-white">{t('about.personal.quotePart2')}</span>
             <br />
-            <span className="text-white/50">a role model</span>
+            <span className="text-slate-500 dark:text-white/50">{t('about.personal.quotePart3')}</span>
             <br />
-            <span className="text-cyan-400">a storyteller</span>
+            <span className="text-cyan-600 dark:text-cyan-400">{t('about.personal.quotePart4')}</span>
             <br />
-            <span className="text-white">and keeper of balance</span>
+            <span className="text-slate-900 dark:text-white">{t('about.personal.quotePart5')}</span>
           </h2>
         </motion.div>
 
@@ -965,20 +965,16 @@ const PersonalSideSection = () => {
             style={isMobile ? { opacity: 1 } : {}}
           >
             <div className="space-y-6 2xl:space-y-10">
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
-                Outside of work I{" "}
-                <span className="font-bold text-cyan-400">
-                  love staying busy
+              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed text-center lg:text-left">
+                {t('about.personal.paragraph1')}{" "}
+                <span className="font-bold text-cyan-600 dark:text-cyan-400">
+                  {t('about.personal.paragraph1Bold')}
                 </span>{" "}
-                as much as I love relaxing. Getting my hands dirty in the
-                garden, feeling the sand between my toes at the beach, or the
-                rush of cold water from the North Shore rivers.
+                {t('about.personal.paragraph1End')}
               </p>
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
-                I'm also a{" "}
-                <span className="font-bold text-cyan-400">proud father</span> of
-                two grown children, raising them to be happy and healthy has
-                continued to shine light on personal strength and growth.
+              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed text-center lg:text-left">
+                {t('about.personal.paragraph2')}{" "}
+                <span className="font-bold text-cyan-600 dark:text-cyan-400">{t('about.personal.paragraph2Bold')}</span>{t('about.personal.paragraph2End')}
               </p>
             </div>
           </motion.div>
@@ -1024,15 +1020,14 @@ const PersonalSideSection = () => {
           >
             <div className="space-y-6 2xl:space-y-10">
 
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
-                Regardless of the situation, the world we live in requires
-                adaptability and grit.
+              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed text-center lg:text-left">
+                {t('about.personal.paragraph3')}
               </p>
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 leading-relaxed text-center lg:text-left">
-                Our family joke when going out to eat is:
+              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed text-center lg:text-left">
+                {t('about.personal.paragraph4')}
                 <br />
-                <span className="font-bold text-cyan-400">
-                  "Table for three?"
+                <span className="font-bold text-cyan-600 dark:text-cyan-400">
+                  {t('about.personal.paragraph4Bold')}
                 </span>
               </p>
             </div>
@@ -1048,12 +1043,13 @@ const PersonalSideSection = () => {
 
 
 const ClosingCTASection = () => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-200px" });
   const isMobile = useIsMobile();
 
   return (
-    <section ref={ref} className="py-20 sm:py-32 2xl:py-48 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 bg-gradient-to-b from-black to-slate-900 cursor-default">
+    <section ref={ref} className="py-20 sm:py-32 2xl:py-48 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 bg-gradient-to-b from-white to-slate-100 dark:from-black dark:to-slate-900 cursor-default transition-colors duration-300">
       <div className="w-full max-w-8xl 2xl:max-w-[120rem] mx-auto text-center">
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
@@ -1062,19 +1058,19 @@ const ClosingCTASection = () => {
           className={`text-4xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[10rem] font-black tracking-tight leading-tight mb-8 2xl:mb-16 ${isMobile ? 'motion-div-fallback' : ''}`}
           style={isMobile ? { opacity: 1 } : {}}>
 
-          <span className="text-green-400">Outdoors or online,</span>
+          <span className="text-green-600 dark:text-green-400">{t('about.closing.title1')}</span>
           <br />
-          <span className="text-white/80">always looking forward into the horizon</span>
+          <span className="text-slate-700 dark:text-white/80">{t('about.closing.title2')}</span>
         </motion.h2>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className={`text-xl sm:text-2xl xl:text-3xl 2xl:text-5xl text-white/80 max-w-5xl 2xl:max-w-8xl mx-auto mb-12 2xl:mb-20 leading-relaxed ${isMobile ? 'motion-div-fallback' : ''}`}
+          className={`text-xl sm:text-2xl xl:text-3xl 2xl:text-5xl text-slate-700 dark:text-white/80 max-w-5xl 2xl:max-w-8xl mx-auto mb-12 2xl:mb-20 leading-relaxed ${isMobile ? 'motion-div-fallback' : ''}`}
           style={isMobile ? { opacity: 1 } : {}}>
 
-          I believe in <span className="font-bold text-cyan-400">staying curious</span>, working hard, and building things that actually have purpose.
+          {t('about.closing.description')}<span className="font-bold text-cyan-600 dark:text-cyan-400">{t('about.closing.descriptionBold')}</span>{t('about.closing.descriptionEnd')}
         </motion.p>
 
         <motion.div
@@ -1086,9 +1082,9 @@ const ClosingCTASection = () => {
 
           <a
   href="mailto:jordanasseff@gmail.com"
-  className="group bg-gradient-to-r from-purple-800/40 via-green-500/40 to-green-300/90 backdrop-blur-xl border-2 border-green-100 text-white px-12 py-6 2xl:px-20 2xl:py-10 font-black text-lg 2xl:text-2xl tracking-widest uppercase transition-all duration-300 cursor-pointer hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90 inline-block"
+  className="group bg-gradient-to-r from-purple-800/40 via-green-500/40 to-green-300/90 backdrop-blur-xl border-2 border-green-100 text-slate-900 hover:text-white px-12 py-6 2xl:px-20 2xl:py-10 font-black text-lg 2xl:text-2xl tracking-widest uppercase transition-all duration-300 cursor-pointer hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90 inline-block"
 >
-  LET'S CONNECT
+  {t('about.closing.button')}
 </a>
 
         </motion.div>
@@ -1134,7 +1130,7 @@ export default function About() {
   }, [isMobile]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-black to-slate-900 text-white cursor-default overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-slate-50 dark:from-slate-900 dark:via-black dark:to-slate-900 text-slate-900 dark:text-white cursor-default overflow-x-hidden transition-colors duration-300">
       {/* Add mobile-specific optimizations */}
       {isMobile && (
         <style jsx>{`

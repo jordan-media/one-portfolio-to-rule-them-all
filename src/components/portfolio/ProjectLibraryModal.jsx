@@ -257,7 +257,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
           initial={{ scale: 0.95, opacity: 0, y: 10 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.95, opacity: 0, y: 10 }}
-          className="relative w-full max-w-6xl h-[90vh] overflow-hidden rounded-3xl bg-white/5 border border-white/20 shadow-2xl"
+          className="relative w-full max-w-6xl h-[90vh] overflow-hidden rounded-3xl bg-black/95 border border-white/20 shadow-2xl"
           role="dialog"
           aria-modal="true"
           aria-labelledby="library-modal-title"
@@ -297,7 +297,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
                     aria-label="Portfolio showcase opening screen with swipe navigation instructions"
                     style={{
                       backgroundImage:
-                        "linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 100%), url('/assets/images/library/assets.jpg')",
+                        "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.05) 100%), url('/assets/images/library/assets.jpg')",
                     }}
                   >
                     <h2 className="section-heading" aria-hidden="true">SWIPE | SCROLL | FLICK</h2>
@@ -319,7 +319,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
                     aria-label="Levi's advertisement creative project showcasing storytelling work - Click to learn more"
                     style={{
                       backgroundImage:
-                        "linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 100%), url('/assets/images/library/levi.jpg')",
+                        "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.05) 100%), url('/assets/images/library/levi.jpg')",
                       cursor: 'pointer'
                     }}
                     onClick={() => handleSectionClick('levi')}
@@ -347,7 +347,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
                     aria-label="Pokedex web application project featuring Pokemon card interface design - Click to learn more"
                     style={{
                       backgroundImage:
-                        "linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 100%), url('/assets/images/library/pokedex.jpg')",
+                        "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.05) 100%), url('/assets/images/library/pokedex.jpg')",
                       cursor: 'pointer'
                     }}
                     onClick={() => handleSectionClick('pokedex')}
@@ -375,7 +375,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
                     aria-label="Photography portfolio collection demonstrating visual composition skills - Click to learn more"
                     style={{
                       backgroundImage:
-                        "linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 100%), url('/assets/images/library/photos.jpg')",
+                        "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.05) 100%), url('/assets/images/library/photos.jpg')",
                       cursor: 'pointer'
                     }}
                     onClick={() => handleSectionClick('photos')}
@@ -403,7 +403,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
                     aria-label="Charcoal sketch artwork displaying traditional art capabilities - Click to learn more"
                     style={{
                       backgroundImage:
-                        "linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 100%), url('/assets/images/library/charcoal-sketch.jpg')",
+                        "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.05) 100%), url('/assets/images/library/charcoal-sketch.jpg')",
                       cursor: 'pointer'
                     }}
                     onClick={() => handleSectionClick('charcoal')}
@@ -435,13 +435,14 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
               padding-right: 80px; /* Ensure space for close button */
               height: 7em;
               z-index: 25;
-              color: #fff;
+              color: #f8fafc;
               text-transform: uppercase;
               letter-spacing: 0.5em;
               font-size: clamp(0.66rem, 2vw, 1rem);
               pointer-events: none;
+              text-shadow: 0 2px 4px rgba(0,0,0,0.3);
             }
-            .plm-header a { color: #fff; text-decoration: none; pointer-events: auto; }
+            .plm-header a { color: #f8fafc; text-decoration: none; pointer-events: auto; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
 
             @media (min-width: 769px) and (max-width: 1000px) {
               .plm-header {
@@ -502,7 +503,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
             }
             .section-heading {
               z-index: 999;
-              color: #fff;
+              color: #f8fafc;
               font-weight: 600;
               text-align: center;
               width: 90%;
@@ -510,6 +511,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
               margin-right: -0.5em;
               font-size: clamp(1rem, 4vw, 4rem);
               text-transform: none;
+              text-shadow: 0 2px 8px rgba(0,0,0,0.3);
             }
             .clip-text { overflow: hidden; }
 
@@ -556,7 +558,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
                   animate={{ y: 0 }}
                   exit={{ y: '100%' }}
                   transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-                  className="relative bg-gradient-to-t from-black/60 via-black/50 to-black/40 backdrop-blur-2xl border-t border-white/30 flex flex-col shadow-2xl"
+                  className="relative bg-gradient-to-t from-white/95 via-slate-100/90 to-slate-50/80 dark:from-black/60 dark:via-black/50 dark:to-black/40 backdrop-blur-2xl border-t border-slate-300 dark:border-white/30 flex flex-col shadow-2xl transition-colors duration-300"
                   style={{
                     height: '75%',
                     backdropFilter: 'blur(24px) saturate(180%)',
@@ -567,7 +569,7 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
                   {/* Close Button */}
                   <button
                     onClick={handleTopHalfClick}
-                    className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 sm:p-3 text-white/70 hover:text-white transition-colors z-10 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 hover:border-white/40"
+                    className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 sm:p-3 text-slate-600 dark:text-white/70 hover:text-slate-900 dark:hover:text-white transition-colors z-10 bg-slate-200 dark:bg-white/10 backdrop-blur-sm rounded-full border border-slate-300 dark:border-white/20 hover:border-slate-400 dark:hover:border-white/40"
                     aria-label="Close description"
                   >
                     <X className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -576,17 +578,17 @@ export default function ProjectLibraryModal({ isOpen, onClose }) {
                   {/* Content - Scrollable */}
                   <div className="flex-1 overflow-y-auto px-6 sm:px-8 md:px-12 lg:px-16 py-6 sm:py-8 md:py-10 lg:py-12">
                     <div className="max-w-4xl mx-auto">
-                      <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-black tracking-tight text-white mb-3 sm:mb-4" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
+                      <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-black tracking-tight text-slate-900 dark:text-white mb-3 sm:mb-4" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.2)' }}>
                         {libraryContent[selectedSection].title}
                       </h3>
-                      <div className="text-sm sm:text-base md:text-lg lg:text-xl text-white/95 leading-relaxed space-y-3" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
+                      <div className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-700 dark:text-white/95 leading-relaxed space-y-3" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.1)' }}>
                         <p>{libraryContent[selectedSection].description}</p>
                       </div>
 
                       {/* Hint Text */}
                       <div className="mt-6 sm:mt-8 text-center">
-                        <p className="text-xs sm:text-sm text-white/40 font-mono">
-                          Press <kbd className="px-2 py-1 bg-white/10 rounded border border-white/20">ESC</kbd> or click the top area to close
+                        <p className="text-xs sm:text-sm text-slate-500 dark:text-white/40 font-mono">
+                          Press <kbd className="px-2 py-1 bg-slate-200 dark:bg-white/10 rounded border border-slate-300 dark:border-white/20">ESC</kbd> or click the top area to close
                         </p>
                       </div>
                     </div>

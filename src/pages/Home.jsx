@@ -25,8 +25,8 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-black to-slate-900 flex items-center justify-center">
-        <div className="text-white font-mono" role="status" aria-live="polite">
+      <div className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-slate-50 dark:from-slate-900 dark:via-black dark:to-slate-900 flex items-center justify-center transition-colors duration-300">
+        <div className="text-slate-900 dark:text-white font-mono" role="status" aria-live="polite">
           Loading...
         </div>
       </div>
@@ -34,7 +34,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-black to-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-slate-50 dark:from-slate-900 dark:via-black dark:to-slate-900 transition-colors duration-300">
       <HeroSection entryPoint={entryPoint} />
       <AboutPreview entryPoint={entryPoint} />
       <ProjectShowcase projects={featuredProjects} onProjectClick={handleProjectClick} />

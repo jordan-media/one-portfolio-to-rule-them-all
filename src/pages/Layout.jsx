@@ -4,34 +4,10 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { Home, User, Briefcase, Mail, Github, Linkedin, Instagram, MapPin, Code, Calendar, Menu, X } from "lucide-react";
 import { FloatingCursor } from "../components/locomotive/InteractiveElements";
 import ProjectLibraryModal from "../components/portfolio/ProjectLibraryModal";
-
-const navigationItems = [
-  {
-    title: "Home",
-    url: "/", // Changed to direct path
-    icon: Home,
-    description: "Welcome & Overview"
-  },
-  {
-    title: "Work",
-    url: "/Projects", // Changed to match the actual page file name
-    icon: Briefcase,
-    description: "Featured Projects"
-  },
-  {
-    title: "About",
-    url: "/About", // Changed to match the actual page file name
-    icon: User,
-    description: "My Story & Skills"
-  },
-  {
-    title: "Other Cool Stuff",
-    action: "openGlobalProject",
-    icon: Code,
-    description: "The Collection"
-  }
-];
-
+import CookieBanner from "../components/CookieBanner";
+import ThemeToggle from "../components/ThemeToggle";
+import LanguageSwitcher from "../components/LanguageSwitcher";
+import { useTranslation } from 'react-i18next';
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/jordan-media", label: "GitHub" },
@@ -42,7 +18,46 @@ const socialLinks = [
 
 
 export default function Layout({ children, currentPageName }) {
+  const { t } = useTranslation();
   const location = useLocation();
+
+  const navigationItems = [
+    {
+      title: t('navigation.home.title'),
+      url: "/",
+      icon: Home,
+      description: t('navigation.home.description')
+    },
+    {
+      title: t('navigation.work.title'),
+      url: "/Projects",
+      icon: Briefcase,
+      description: t('navigation.work.description')
+    },
+    {
+      title: t('navigation.about.title'),
+      url: "/About",
+      icon: User,
+      description: t('navigation.about.description')
+    },
+    {
+      title: t('navigation.otherStuff.title'),
+      action: "openGlobalProject",
+      icon: Code,
+      description: t('navigation.otherStuff.description')
+    }
+  ];
+
+  // Get social links with translated labels
+  const getSocialLabel = (baseLabel) => {
+    const labelMap = {
+      'GitHub': t('social.github'),
+      'LinkedIn': t('social.linkedin'),
+      'Instagram': t('social.instagram'),
+      'Email': t('social.email')
+    };
+    return labelMap[baseLabel] || baseLabel;
+  };
   const [scrollProgress, setScrollProgress] = useState(0);
   const [currentSection, setCurrentSection] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -206,7 +221,7 @@ export default function Layout({ children, currentPageName }) {
   const currentPageInfo = getCurrentPageInfo();
 
   return (
-    <div className="min-h-screen bg-black text-white font-mono">
+    <div className="min-h-screen bg-white dark:bg-black text-slate-900 dark:text-white font-mono transition-colors duration-300">
       {/* Skip Navigation Link */}
       <a
         href="#main-content"
@@ -240,7 +255,7 @@ export default function Layout({ children, currentPageName }) {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsMobileMenuOpen(true)}
-        className="fixed top-4 left-4 z-50 lg:hidden bg-black/80 backdrop-blur-sm border border-white/20 rounded-lg p-3 text-white hover:bg-black/90 transition-all duration-300 cursor-pointer"
+        className="fixed top-4 left-4 z-50 lg:hidden bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-slate-300 dark:border-white/20 rounded-lg p-3 text-slate-900 dark:text-white hover:bg-white/90 dark:hover:bg-black/90 transition-all duration-300 cursor-pointer"
       >
         <Menu className="w-5 h-5" />
       </button>
@@ -248,7 +263,7 @@ export default function Layout({ children, currentPageName }) {
       {/* Mobile Overlay */}
       {isInitialized && isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden cursor-pointer"
+          className="fixed inset-0 bg-slate-900/50 dark:bg-black/50 backdrop-blur-sm z-40 lg:hidden cursor-pointer"
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -260,7 +275,7 @@ export default function Layout({ children, currentPageName }) {
 
       {/* Sidebar - Compact design */}
       <nav
-        className={`fixed inset-y-0 left-0 w-64 sm:w-72 lg:w-80 xl:w-96 2xl:w-[26rem] bg-black/95 backdrop-blur-xl border-r border-white/10 z-50 overflow-y-auto transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 w-64 sm:w-72 lg:w-80 xl:w-96 2xl:w-[26rem] bg-slate-50/95 dark:bg-black/95 backdrop-blur-xl border-r border-slate-200 dark:border-white/10 z-50 overflow-y-auto transition-transform duration-300 lg:translate-x-0 ${
           !isInitialized
             ? "-translate-x-full lg:translate-x-0" // Force closed during initialization
             : isMobileMenuOpen
@@ -334,58 +349,39 @@ export default function Layout({ children, currentPageName }) {
             <div className="ml-2.5 space-y-1 pointer-events-none">
               <div className="flex items-center gap-1.5">
                 <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-xs text-green-400 font-mono">
-                  LIVE STATUS [{daysRemaining} days remaining as a STUDENT]
+                <span className="text-xs text-green-500 dark:text-green-400 font-mono">
+                  {t('sidebar.status.liveLabel')} [{t('sidebar.status.daysRemaining', { count: daysRemaining })}]
                 </span>
               </div>
 
-              <div className="text-xs text-blue-400">
-                Available for work Jan 5th, 2026
+              <div className="text-xs text-blue-500 dark:text-blue-400">
+                {t('sidebar.status.availableDate')}
               </div>
             </div>
           </div>
 
-          {/* Live Location Tracking - Compact */}
-          <div className="mb-1 sm:mb-5 p-2.5 sm:p-3 bg-white/5 border border-white/10 rounded-lg">
-            <div className="flex items-center gap-1.5 mb-2">
-              <MapPin className="w-3 h-3 text-green-400" />
-              <span className="text-xs font-bold tracking-wider">LOCATION</span>
+          {/* Scroll Progress */}
+          <div className="mb-1 sm:mb-5 p-2.5 sm:p-3 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg">
+            <div className="flex items-center gap-1.5 mb-1.5">
+              <span className="text-xs font-mono text-slate-500 dark:text-white/40">
+                {t('sidebar.progress.label')}
+              </span>
+              <span className="text-xs font-bold text-slate-700 dark:text-white/60">
+                {Math.round(scrollProgress)}%
+              </span>
             </div>
-
-            {/* Current Page */}
-            <div className="flex items-center gap-2 mb-2">
-              <currentPageInfo.icon className="w-3 h-3 sm:w-4 sm:h-4 text-white/80" />
-              <div>
-                <div className="font-bold text-sm">{currentPageInfo.page}</div>
-                <div className="text-xs text-white/60 leading-tight">
-                  {currentPageInfo.description}
-                </div>
-              </div>
-            </div>
-
-            {/* Scroll Progress */}
-            <div className="mt-2.5 pt-2.5 border-t border-white/10">
-              <div className="flex items-center gap-1.5 mb-1.5">
-                <span className="text-xs font-mono text-white/40">
-                  PROGRESS
-                </span>
-                <span className="text-xs font-bold text-white/60">
-                  {Math.round(scrollProgress)}%
-                </span>
-              </div>
-              <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-green-400 to-blue-500 transition-all duration-300 ease-out"
-                  style={{ width: `${scrollProgress}%` }}
-                />
-              </div>
+            <div className="w-full h-1 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-green-400 to-blue-500 transition-all duration-300 ease-out"
+                style={{ width: `${scrollProgress}%` }}
+              />
             </div>
           </div>
 
           {/* Navigation Items - Compact */}
           <div className="mb-2 sm:mb-5">
-            <div className="text-xs font-bold tracking-wider text-white/40 mb-2.5">
-              NAVIGATION
+            <div className="text-xs font-bold tracking-wider text-slate-500 dark:text-white/40 mb-2.5">
+              {t('navigation.label')}
             </div>
             <div className="space-y-1.5">
               {navigationItems.map((item, index) =>
@@ -398,37 +394,42 @@ export default function Layout({ children, currentPageName }) {
                       // Allow the Link to navigate first, then close menu
                       setTimeout(() => closeMenu(), 0);
                     }}
-                    className={`group flex items-center gap-2.5 p-1 sm:p-3 transition-all duration-300 cursor-pointer ${
+                    className={`group relative flex items-center gap-2.5 p-1 sm:p-3 transition-all duration-300 cursor-pointer rounded-lg dark:rounded-none ${
                       location.pathname === item.url
-                        ? "bg-gradient-to-r from-purple-800/40 via-green-500/40 to-green-300/90 backdrop-blur-xl border-2 border-green-100"
-                        : "border-2 border-white/40 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90"
+                        ? "bg-white/10 border border-white/20 dark:bg-gradient-to-r dark:from-purple-800/40 dark:via-green-500/40 dark:to-green-300/90 dark:backdrop-blur-xl dark:border-2 dark:border-green-100"
+                        : "bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 dark:border-2 dark:border-white/40 dark:hover:border-green-100 dark:hover:bg-gradient-to-r dark:hover:from-purple-800/40 dark:hover:via-green-500/40 dark:hover:to-green-300/90"
                     }`}
                     style={{
                       touchAction: 'manipulation',
                       WebkitTapHighlightColor: 'transparent'
                     }}
                   >
+                    {/* Background glow effect - light mode only */}
+                    <div className={`absolute -inset-0.5 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 rounded-lg blur transition duration-500 dark:hidden ${
+                      location.pathname === item.url ? 'opacity-30' : 'opacity-0 group-hover:opacity-30'
+                    }`}></div>
+
                     <div
-                      className={`w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center transition-all duration-300 ${
+                      className={`relative w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center transition-all duration-300 rounded-lg dark:rounded-none ${
                         location.pathname === item.url
-                          ? "bg-gradient-to-br from-blue-500 to-cyan-400 text-black shadow-lg"
-                          : "bg-white/10 text-white/60 group-hover:text-white group-hover:bg-white/15"
+                          ? "bg-gradient-to-br from-blue-500 to-cyan-400 text-slate-900 dark:text-black shadow-lg"
+                          : "bg-white/10 text-slate-700 dark:text-white/60 group-hover:text-slate-900 dark:group-hover:text-white group-hover:bg-white/15"
                       }`}
                     >
                       <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </div>
 
-                    <div className="flex-1 min-w-0">
-                      <div className="font-bold text-sm truncate">
+                    <div className="relative flex-1 min-w-0">
+                      <div className="font-bold text-sm truncate text-slate-900 dark:text-white">
                         {item.title}
                       </div>
-                      <div className="text-xs text-white/50 truncate leading-tight">
+                      <div className="text-xs text-slate-600 dark:text-white/50 truncate leading-tight">
                         {item.description}
                       </div>
                     </div>
 
                     {location.pathname === item.url && (
-                      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse flex-shrink-0"></div>
+                      <div className="relative w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse flex-shrink-0"></div>
                     )}
                   </Link>
                 ) : (
@@ -453,34 +454,39 @@ export default function Layout({ children, currentPageName }) {
                         setIsMobileMenuOpen(false);
                       }
                     }}
-                    className={`group flex items-center gap-2 p-2 sm:p-3 transition-all duration-300 cursor-pointer w-full text-left ${
+                    className={`group relative flex items-center gap-2 p-2 sm:p-3 transition-all duration-300 cursor-pointer w-full text-left rounded-lg dark:rounded-none ${
                       showGlobalModal
-                        ? "bg-gradient-to-r from-purple-800/40 via-green-500/40 to-green-300/90 backdrop-blur-xl border-2 border-green-100"
-                        : "border-2 border-white/40 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90"
+                        ? "bg-white/10 border border-white/20 dark:bg-gradient-to-r dark:from-purple-800/40 dark:via-green-500/40 dark:to-green-300/90 dark:backdrop-blur-xl dark:border-2 dark:border-green-100"
+                        : "bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 dark:border-2 dark:border-white/40 dark:hover:border-green-100 dark:hover:bg-gradient-to-r dark:hover:from-purple-800/40 dark:hover:via-green-500/40 dark:hover:to-green-300/90"
                     }`}
                     style={{ touchAction: 'manipulation' }}
                   >
+                    {/* Background glow effect - light mode only */}
+                    <div className={`absolute -inset-0.5 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 rounded-lg blur transition duration-500 dark:hidden ${
+                      showGlobalModal ? 'opacity-30' : 'opacity-0 group-hover:opacity-30'
+                    }`}></div>
+
                     <div
-                      className={`w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center transition-all duration-300 ${
+                      className={`relative w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center transition-all duration-300 rounded-lg dark:rounded-none ${
                         showGlobalModal
-                          ? "bg-gradient-to-br from-blue-500 to-cyan-400 text-black shadow-lg"
-                          : "bg-white/10 text-white/60 group-hover:text-white group-hover:bg-white/15"
+                          ? "bg-gradient-to-br from-blue-500 to-cyan-400 text-slate-900 dark:text-black shadow-lg"
+                          : "bg-white/10 text-slate-700 dark:text-white/60 group-hover:text-slate-900 dark:group-hover:text-white group-hover:bg-white/15"
                       }`}
                     >
                       <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </div>
 
-                    <div className="flex-1 min-w-0">
-                      <div className="font-bold text-sm truncate">
+                    <div className="relative flex-1 min-w-0">
+                      <div className="font-bold text-sm truncate text-slate-900 dark:text-white">
                         {item.title}
                       </div>
-                      <div className="text-xs text-white/50 truncate leading-tight">
+                      <div className="text-xs text-slate-600 dark:text-white/50 truncate leading-tight">
                         {item.description}
                       </div>
                     </div>
 
                     {showGlobalModal && (
-                      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse flex-shrink-0"></div>
+                      <div className="relative w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse flex-shrink-0"></div>
                     )}
                   </button>
                 )
@@ -488,15 +494,23 @@ export default function Layout({ children, currentPageName }) {
             </div>
           </div>
 
+          {/* Theme Toggle & Language Switcher - Above Social Links */}
+          <div className="mt-auto mb-3 sm:mb-4">
+            <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
+              <ThemeToggle />
+              <LanguageSwitcher />
+            </div>
+          </div>
+
           {/* Social Links - Compact */}
-          <div className="mt-auto">
+          <div>
             <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
               {socialLinks.map((social, index) => (
                 <a
                   key={social.label}
                   href={social.href}
-                  className="group relative flex items-center gap-1.5 sm:gap-2 p-2 sm:p-2.5 bg-gradient-to-br from-yellow-300/5 to-yellow-200/10 hover:from-yellow-300/10 hover:to-yellow-200/15 border border-yellow-300/20 hover:border-yellow-300/30 transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden"
-                  title={social.label}
+                  className="group relative flex items-center gap-1.5 sm:gap-2 p-2 sm:p-2.5 bg-gradient-to-br from-yellow-300/5 to-yellow-200/10 hover:from-yellow-300/10 hover:to-yellow-200/15 border border-yellow-400/20 dark:border-yellow-300/20 hover:border-yellow-500/30 dark:hover:border-yellow-300/30 transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden"
+                  title={getSocialLabel(social.label)}
                   target={social.href.startsWith("http") ? "_blank" : undefined}
                   rel={
                     social.href.startsWith("http")
@@ -516,9 +530,9 @@ export default function Layout({ children, currentPageName }) {
                     }}
                   ></div>
 
-                  <social.icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white/70 group-hover:text-white flex-shrink-0 relative z-10 transition-colors duration-300" />
-                  <span className="text-xs font-medium truncate text-white/70 group-hover:text-white relative z-10 transition-colors duration-300">
-                    {social.label}
+                  <social.icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-700 dark:text-white/70 group-hover:text-slate-900 dark:group-hover:text-white flex-shrink-0 relative z-10 transition-colors duration-300" />
+                  <span className="text-xs font-medium truncate text-slate-900 dark:text-white/70 group-hover:text-black dark:group-hover:text-white relative z-10 transition-colors duration-300">
+                    {getSocialLabel(social.label)}
                   </span>
                 </a>
               ))}
@@ -534,7 +548,7 @@ export default function Layout({ children, currentPageName }) {
 
       {/* Enhanced Interactive Footer - Updated margins for compact sidebar */}
       {!isProjectModalOpen && (
-      <footer className="lg:ml-80 xl:ml-96 2xl:ml-[26rem] bg-gradient-to-t from-black via-slate-900/90 to-black border-t border-white/10 relative overflow-hidden">
+      <footer className="lg:ml-80 xl:ml-96 2xl:ml-[26rem] bg-gradient-to-t from-slate-100 via-white to-slate-50 dark:from-black dark:via-slate-900/90 dark:to-black border-t border-slate-200 dark:border-white/10 relative overflow-hidden transition-colors duration-300">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-green-400/20 via-transparent to-transparent animate-pulse"></div>
@@ -546,7 +560,7 @@ export default function Layout({ children, currentPageName }) {
           {/* Terminal Header */}
           <div className="flex items-center gap-4 mb-8 sm:mb-12">
             <span className="text-green-400 font-mono text-xs sm:text-sm animate-pulse cursor-default">
-              $ footer --initialize
+              {t('footer.terminalCommand')}
             </span>
             <div className="h-px bg-gradient-to-r from-green-400/50 via-blue-400/30 to-purple-500/20 flex-1"></div>
             <div className="flex gap-1">
@@ -561,17 +575,15 @@ export default function Layout({ children, currentPageName }) {
               {/* Left Column - CTA */}
               <div className="space-y-6 sm:space-y-8">
                 <div>
-                  <h3 className="text-2xl sm:text-4xl lg:text-5xl font-black mb-4 sm:mb-6 tracking-wider cursor-default">
-                    <span className="cursor-default">LET'S BUILD</span>
+                  <h3 className="text-2xl sm:text-4xl lg:text-5xl font-black mb-4 sm:mb-6 tracking-wider cursor-default text-slate-900 dark:text-white">
+                    <span className="cursor-default">{t('footer.cta.title1')}</span>
                     <br />
                     <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-pulse cursor-default">
-                      THE FUTURE
+                      {t('footer.cta.title2')}
                     </span>
                   </h3>
-                  <p className="text-white/70 text-base sm:text-lg lg:text-xl leading-relaxed mb-6 sm:mb-8 cursor-default">
-                    Ready to create something extraordinary? I'm passionate
-                    about turning ideas into reality and would love to hear
-                    about your next project.
+                  <p className="text-slate-700 dark:text-white/70 text-base sm:text-lg lg:text-xl leading-relaxed mb-6 sm:mb-8 cursor-default">
+                    {t('footer.cta.description')}
                   </p>
                 </div>
 
@@ -580,18 +592,18 @@ export default function Layout({ children, currentPageName }) {
                   <div className="absolute -inset-1 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
                   <a
                     href="mailto:jordanasseff@gmail.com"
-                    className="relative flex items-center gap-3 sm:gap-4 bg-gradient-to-r from-green-400/10 via-blue-500/10 to-purple-600/10 backdrop-blur-xl border border-white/10 text-white px-4 sm:px-8 py-4 sm:py-6 font-bold text-sm sm:text-lg tracking-wider transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl group cursor-pointer"
+                    className="relative flex items-center gap-3 sm:gap-4 bg-gradient-to-r from-green-400/10 via-blue-500/10 to-purple-600/10 backdrop-blur-xl border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white px-4 sm:px-8 py-4 sm:py-6 font-bold text-sm sm:text-lg tracking-wider transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl group cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
                       <Mail className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
                       <span className="cursor-default text-sm">
-                        START A CONVERSATION
+                        {t('footer.cta.button')}
                       </span>
                     </div>
                     <div className="ml-auto flex items-center gap-2">
                       <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                      <span className="text-sm text-green-400 cursor-default">
-                        Available
+                      <span className="text-sm text-green-500 dark:text-green-400 cursor-default">
+                        {t('common.available')}
                       </span>
                     </div>
                   </a>
@@ -599,30 +611,30 @@ export default function Layout({ children, currentPageName }) {
 
                 {/* Live Status Indicators */}
                 <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-3 sm:p-4 hover:bg-white/10 transition-all duration-300 cursor-default">
+                  <div className="bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 rounded-xl p-3 sm:p-4 hover:bg-slate-200 dark:hover:bg-white/10 transition-all duration-300 cursor-default">
                     <div className="flex items-center gap-2 sm:gap-3 mb-2">
-                      <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 group-hover:scale-110 transition-transform" />
-                      <span className="text-xs sm:text-sm font-bold cursor-default">
-                        RESPONSE TIME
+                      <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 dark:text-blue-400 group-hover:scale-110 transition-transform" />
+                      <span className="text-xs sm:text-sm font-bold cursor-default text-slate-900 dark:text-white">
+                        {t('footer.metrics.responseTime.label')}
                       </span>
                     </div>
                     <div className="text-lg sm:text-2xl font-black">
                       <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent cursor-default">
-                        &lt; 24h
+                        {t('footer.metrics.responseTime.value')}
                       </span>
                     </div>
                   </div>
 
-                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-3 sm:p-4 hover:bg-white/10 transition-all duration-300 cursor-default">
+                  <div className="bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 rounded-xl p-3 sm:p-4 hover:bg-slate-200 dark:hover:bg-white/10 transition-all duration-300 cursor-default">
                     <div className="flex items-center gap-2 sm:gap-3 mb-2">
-                      <Code className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 group-hover:scale-110 transition-transform" />
-                      <span className="text-xs sm:text-sm font-bold cursor-default">
-                        ENERGY LEVEL
+                      <Code className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 dark:text-purple-400 group-hover:scale-110 transition-transform" />
+                      <span className="text-xs sm:text-sm font-bold cursor-default text-slate-900 dark:text-white">
+                        {t('footer.metrics.energyLevel.label')}
                       </span>
                     </div>
                     <div className="text-lg sm:text-2xl font-black">
                       <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent cursor-default">
-                        92%
+                        {t('footer.metrics.energyLevel.value')}
                       </span>
                     </div>
                   </div>
@@ -632,21 +644,21 @@ export default function Layout({ children, currentPageName }) {
               {/* Right Column - Info & Social */}
               <div className="space-y-6 sm:space-y-8">
                 {/* Current Status */}
-                <div className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 sm:p-6">
-                  <h4 className="font-bold mb-2 sm:mb-6 tracking-wider text-base sm:text-lg flex items-center gap-2 cursor-default">
+                <div className="bg-gradient-to-br from-slate-100 to-slate-200 dark:from-white/5 dark:to-white/10 backdrop-blur-sm border border-slate-200 dark:border-white/10 rounded-2xl p-4 sm:p-6">
+                  <h4 className="font-bold mb-2 sm:mb-6 tracking-wider text-base sm:text-lg flex items-center gap-2 cursor-default text-slate-900 dark:text-white">
                     <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="cursor-default">CURRENT STATUS</span>
+                    <span className="cursor-default">{t('footer.status.title')}</span>
                   </h4>
                   <div className="space-y-3 sm:space-y-4">
-                    <div className="flex items-center justify-between p-3 bg-black/20 rounded-lg hover:bg-black/30 transition-colors cursor-default">
-                      <span className="text-white/80 text-sm sm:text-base cursor-default">
-                        🚀 Open for new projects
+                    <div className="flex items-center justify-between p-3 bg-slate-200 dark:bg-black/20 rounded-lg hover:bg-slate-300 dark:hover:bg-black/30 transition-colors cursor-default">
+                      <span className="text-slate-700 dark:text-white/80 text-sm sm:text-base cursor-default">
+                        {t('footer.status.openProjects')}
                       </span>
                       <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                     </div>
-                    <div className="flex items-center justify-between p-3 bg-black/20 rounded-lg hover:bg-black/30 transition-colors cursor-default">
-                      <span className="text-white/80 text-sm sm:text-base cursor-default">
-                        🌍 Remote collaboration
+                    <div className="flex items-center justify-between p-3 bg-slate-200 dark:bg-black/20 rounded-lg hover:bg-slate-300 dark:hover:bg-black/30 transition-colors cursor-default">
+                      <span className="text-slate-700 dark:text-white/80 text-sm sm:text-base cursor-default">
+                        {t('footer.status.remoteCollab')}
                       </span>
                       <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                     </div>
@@ -655,15 +667,15 @@ export default function Layout({ children, currentPageName }) {
 
                 {/* Enhanced Social Links */}
                 <div>
-                  <h4 className="font-bold mb-4 sm:mb-6 tracking-wider text-base sm:text-lg">
-                    CONNECT & FOLLOW
+                  <h4 className="font-bold mb-4 sm:mb-6 tracking-wider text-base sm:text-lg text-slate-900 dark:text-white">
+                    {t('footer.connectFollow')}
                   </h4>
                   <div className="grid grid-cols-2 gap-2 sm:gap-3">
                     {[
                       {
                         icon: Github,
                         href: "https://github.com/jordan-media",
-                        label: "GitHub",
+                        label: t('social.github'),
                       },
                       {
                         icon: () => (
@@ -676,24 +688,24 @@ export default function Layout({ children, currentPageName }) {
                           </svg>
                         ),
                         href: "https://www.linkedin.com/in/jor11/",
-                        label: "LinkedIn",
+                        label: t('social.linkedin'),
                       },
                       {
                         icon: Instagram,
                         href: "https://www.instagram.com/jordanmediacreations/#",
-                        label: "Instagram",
+                        label: t('social.instagram'),
                       },
                       {
                         icon: Mail,
                         href: "mailto:jordanasseff@gmail.com",
-                        label: "Email",
+                        label: t('social.email'),
                       },
                     ].map((social, index) => (
                       <div key={social.label} className="group relative">
                         <div className="absolute -inset-1 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
                         <a
                           href={social.href}
-                          className="relative flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gradient-to-r from-green-400/10 via-blue-500/10 to-purple-600/10 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105 cursor-pointer"
+                          className="relative flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gradient-to-r from-green-400/10 via-blue-500/10 to-purple-600/10 backdrop-blur-xl border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-all duration-300 hover:scale-105 cursor-pointer"
                           target={
                             social.href?.startsWith("http")
                               ? "_blank"
@@ -705,12 +717,12 @@ export default function Layout({ children, currentPageName }) {
                               : undefined
                           }
                         >
-                          <social.icon className="w-4 h-4 sm:w-5 sm:h-5 text-white/60 group-hover:text-white transition-all duration-300 relative z-10" />
-                          <span className="font-medium relative z-10 text-xs sm:text-sm group-hover:translate-x-1 transition-transform duration-300">
+                          <social.icon className="w-4 h-4 sm:w-5 sm:h-5 text-slate-700 dark:text-white/60 group-hover:text-slate-900 dark:group-hover:text-white transition-all duration-300 relative z-10" />
+                          <span className="font-medium relative z-10 text-xs sm:text-sm text-slate-900 dark:text-white group-hover:translate-x-1 transition-transform duration-300">
                             {social.label}
                           </span>
                           <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 relative z-10">
-                            <div className="w-1 h-1 bg-white rounded-full"></div>
+                            <div className="w-1 h-1 bg-slate-900 dark:bg-white rounded-full"></div>
                           </div>
                         </a>
                       </div>
@@ -724,37 +736,34 @@ export default function Layout({ children, currentPageName }) {
                     <span className="text-xl sm:text-2xl animate-bounce">
                       🎯
                     </span>
-                    <span className="font-bold text-purple-300 text-sm sm:text-base cursor-default">
-                      FUN FACT
+                    <span className="font-bold text-purple-700 dark:text-purple-300 text-sm sm:text-base cursor-default">
+                      {t('footer.funFact.label')}
                     </span>
                   </div>
-                  <p className="text-white/80 text-xs sm:text-sm leading-relaxed cursor-default">
-                    This portfolio was built with love, lots of late nights, and
-                    approximately 100 moments of thinking "finally finished!"
-                    immediately followed by more refactoring and additional
-                    work. ✨
+                  <p className="text-slate-900 dark:text-white/80 text-xs sm:text-sm leading-relaxed cursor-default">
+                    {t('footer.funFact.text')}
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Bottom Bar */}
-                    <div className="border-t border-white/10 pt-6 sm:pt-8">
+                    <div className="border-t border-slate-200 dark:border-white/10 pt-6 sm:pt-8">
                       <div className="flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6">
                         {/* Copyright with typing effect */}
                         <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-                          <span className="text-white/40 font-mono text-xs sm:text-sm cursor-default">
-                            © 2024 Portfolio —
+                          <span className="text-slate-500 dark:text-white/40 font-mono text-xs sm:text-sm cursor-default">
+                            {t('footer.copyright.year')}
                           </span>
                           <div className="flex items-center gap-2">
-                            <span className="text-white/60 font-mono text-xs sm:text-sm cursor-default">
-                              Made with
+                            <span className="text-slate-700 dark:text-white/60 font-mono text-xs sm:text-sm cursor-default">
+                              {t('footer.copyright.madeWith')}
                             </span>
                             <span className="text-red-500 animate-pulse">
                               ❤️
                             </span>
-                            <span className="text-white/60 font-mono text-xs sm:text-sm cursor-default">
-                              and
+                            <span className="text-slate-700 dark:text-white/60 font-mono text-xs sm:text-sm cursor-default">
+                              {t('footer.copyright.and')}
                             </span>
                             <span className="text-yellow-600 text-2xl sm:text-2xl">
                               ☕
@@ -763,15 +772,15 @@ export default function Layout({ children, currentPageName }) {
                         </div>
 
                         {/* Live coding status */}
-                        <div className="flex items-center gap-2 sm:gap-3 bg-black/30 backdrop-blur-sm border border-white/10 rounded-full px-3 sm:px-4 py-1 sm:py-2">
+                        <div className="flex items-center gap-2 sm:gap-3 bg-slate-200 dark:bg-black/30 backdrop-blur-sm border border-slate-300 dark:border-white/10 rounded-full px-3 sm:px-4 py-1 sm:py-2">
                           <div className="flex items-center gap-2">
                             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                            <span className="text-xs font-mono text-green-400 cursor-default">
-                              LIVE
+                            <span className="text-xs font-mono text-green-500 dark:text-green-400 cursor-default">
+                              {t('footer.live.label')}
                             </span>
                           </div>
-                          <span className="text-xs font-mono text-white/60 cursor-default">
-                            Last updated: {new Date().toLocaleDateString()}
+                          <span className="text-xs font-mono text-slate-700 dark:text-white/60 cursor-default">
+                            {t('footer.live.lastUpdated', { date: new Date().toLocaleDateString() })}
                           </span>
                         </div>
 
@@ -788,30 +797,30 @@ export default function Layout({ children, currentPageName }) {
                               });
                             }
                           }}
-                          className="group flex items-center gap-2 text-white/60 hover:text-white font-mono text-xs sm:text-sm transition-all duration-300 hover:scale-105 cursor-pointer"
+                          className="group flex items-center gap-2 text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white font-mono text-xs sm:text-sm transition-all duration-300 hover:scale-105 cursor-pointer"
                         >
-                          <span>Back to top</span>
+                          <span>{t('footer.backToTop')}</span>
                           <div className="w-3 h-3 sm:w-4 sm:h-4 border border-current border-t-transparent rounded-full animate-spin group-hover:animate-pulse"></div>
                         </button>
                       </div>
 
                       {/* Full-width footer line */}
-                      <div className="mt-6 sm:mt-8 text-center border-t border-white/10 pt-4">
-                        <span className="text-white/50 font-mono text-xs sm:text-sm tracking-wide cursor-default">
-                          This website was designed and coded by{" "}
-                          <span className="text-white font-semibold">
-                            Jordan Asseff
+                      <div className="mt-6 sm:mt-8 text-center border-t border-slate-200 dark:border-white/10 pt-4">
+                        <span className="text-slate-600 dark:text-white/50 font-mono text-xs sm:text-sm tracking-wide cursor-default">
+                          {t('footer.techStack.prefix')}{" "}
+                          <span className="text-slate-900 dark:text-white font-semibold">
+                            {t('footer.techStack.author')}
                           </span>{" "}
-                          using{" "}
-                          <span className="text-sky-400 font-semibold">
+                          {t('footer.techStack.using')}{" "}
+                          <span className="text-sky-500 dark:text-sky-400 font-semibold">
                             React
                           </span>
                           ,{" "}
-                          <span className="text-cyan-400 font-semibold">
+                          <span className="text-cyan-500 dark:text-cyan-400 font-semibold">
                             Tailwind CSS
                           </span>
-                          , and{" "}
-                          <span className="text-pink-400 font-semibold">
+                          , {t('footer.techStack.and')}{" "}
+                          <span className="text-pink-500 dark:text-pink-400 font-semibold">
                             Framer Motion
                           </span>
                           .
@@ -870,6 +879,9 @@ export default function Layout({ children, currentPageName }) {
         isOpen={showGlobalModal}
         onClose={() => setShowGlobalModal(false)}
       />
+
+      {/* Cookie Consent Banner */}
+      <CookieBanner />
     </div>
   );
 }

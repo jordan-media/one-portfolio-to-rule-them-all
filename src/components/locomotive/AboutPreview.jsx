@@ -2,10 +2,12 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useIsMobile } from '../../hooks/use-mobile';
 import fullshot5 from '../../assets/images/jordan/fullshot-5.jpg';
 
 const AboutPreview = ({ entryPoint = "developer" }) => {
+  const { t } = useTranslation();
   const containerRef = useRef(null);
   const textRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-200px" });
@@ -20,32 +22,14 @@ const AboutPreview = ({ entryPoint = "developer" }) => {
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
 
   const getContent = () => {
-    switch (entryPoint) {
-      case "developer":
-        return {
-          title: "CRAFTING\nDIGITAL\nEXPERIENCES",
-          description:
-            "Authentic and Honest. Explore around—you might just find something worthy of your time.",
-        };
-      case "storyteller":
-        return {
-          title: "WEAVING\nCOMPELLING\nNARRATIVES",
-          description:
-            "Stories have the power to transform. I create content that doesn't just inform—it captivates, resonates, and builds lasting connections between brands and their audiences.",
-        };
-      case "ux_designer":
-        return {
-          title: "DESIGNING\nHUMAN\nCONNECTIONS",
-          description:
-            "Great design is invisible. I create interfaces that feel natural and intuitive, bridging the gap between complex technology and human needs.",
-        };
-      default:
-        return {
-          title: "CREATING\nMEANINGFUL\nIMPACT",
-          description:
-            "At the intersection of technology, design, and storytelling, I create experiences that matter—solutions that not only work but inspire.",
-        };
-    }
+    const key = entryPoint === 'developer' || entryPoint === 'storyteller' || entryPoint === 'ux_designer'
+      ? entryPoint
+      : 'default';
+
+    return {
+      title: t(`aboutPreview.${key}.title`),
+      description: t(`aboutPreview.${key}.description`)
+    };
   };
 
   const content = getContent();
@@ -53,7 +37,7 @@ const AboutPreview = ({ entryPoint = "developer" }) => {
   return (
     <section
       ref={containerRef}
-      className="relative py-32 px-6 bg-black overflow-hidden"
+      className="relative py-32 px-6 bg-white dark:bg-black overflow-hidden transition-colors duration-300"
     >
       {/* Background elements */}
       <motion.div
@@ -76,7 +60,7 @@ const AboutPreview = ({ entryPoint = "developer" }) => {
           >
             <motion.h2
               ref={textRef}
-              className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-12"
+              className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-12 text-slate-900 dark:text-white"
             >
               {content.title.split("\n").map((line, i) => (
                 <motion.div
@@ -98,7 +82,7 @@ const AboutPreview = ({ entryPoint = "developer" }) => {
               initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : (isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 })}
               transition={{ duration: 0.6, delay: 0.8 }}
-              className={`text-xl text-white/70 leading-relaxed mb-12 ${isMobile ? 'motion-div-fallback' : ''}`}
+              className={`text-xl text-slate-700 dark:text-white/70 leading-relaxed mb-12 ${isMobile ? 'motion-div-fallback' : ''}`}
               style={isMobile ? { opacity: 1 } : {}}
             >
               {content.description}
@@ -111,8 +95,8 @@ const AboutPreview = ({ entryPoint = "developer" }) => {
               className={isMobile ? 'motion-div-fallback' : ''}
               style={isMobile ? { opacity: 1 } : {}}
             >
-              <Link to="/About" className="group border-2 border-white/40 text-white px-12 py-6 font-black text-sm tracking-widest uppercase transition-all duration-300 cursor-pointer backdrop-blur-xl hover:scale-105 hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90 hover:text-white inline-block">
-                LEARN MORE ABOUT ME
+              <Link to="/About" className="group border-2 border-slate-400 dark:border-white/40 text-slate-900 dark:text-white px-12 py-6 font-black text-sm tracking-widest uppercase transition-all duration-300 cursor-pointer backdrop-blur-xl hover:scale-105 hover:border-green-500 dark:hover:border-green-100 hover:bg-gradient-to-r hover:from-purple-800/40 hover:via-green-500/40 hover:to-green-300/90 hover:text-white inline-block">
+                {t('aboutPreview.button')}
               </Link>
             </motion.div>
           </motion.div>

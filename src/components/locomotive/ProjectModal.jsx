@@ -1,10 +1,12 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { X, ExternalLink, Github, Calendar, User, ArrowLeft, ArrowRight, Home, Briefcase, Mail, MapPin, Code, Instagram, ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateToProject }) => {
+  const { t } = useTranslation();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [showScrollCursor, setShowScrollCursor] = useState(true);
@@ -220,7 +222,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-black flex"
+          className="fixed inset-0 z-50 bg-white dark:bg-black flex transition-colors duration-300"
           role="dialog"
           aria-modal="true"
           aria-labelledby="locomotive-project-modal-title"
@@ -235,8 +237,8 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                 transform: 'translate(-50%, -50%)'
               }}
             >
-              <div className="bg-white text-black px-3 py-1 text-xs font-black tracking-widest uppercase rounded-full shadow-lg">
-                SCROLL
+              <div className="bg-slate-900 dark:bg-white text-white dark:text-black px-3 py-1 text-xs font-black tracking-widest uppercase rounded-full shadow-lg">
+                {t('projectModal.scroll')}
               </div>
             </div>
           )}
@@ -245,24 +247,24 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
 
           <div className="flex-1 flex flex-col h-screen max-w-none overflow-hidden">
             {/* Header - Enhanced for ultra-wide */}
-            <div className="flex-shrink-0 bg-black/95 backdrop-blur-xl border-b border-white/10 z-20">
+            <div className="flex-shrink-0 bg-white/95 dark:bg-black/95 backdrop-blur-xl border-b border-slate-300 dark:border-white/10 z-20 transition-colors duration-300">
               <div className="flex items-center justify-between p-4 sm:p-6 2xl:p-8 max-w-none">
                 <div className="flex items-center gap-3 sm:gap-4 2xl:gap-6 min-w-0">
                   <button
                     onClick={onClose}
-                    className="flex items-center gap-2 text-white/70 hover:text-white transition-colors group flex-shrink-0"
+                    className="flex items-center gap-2 text-slate-600 dark:text-white/70 hover:text-slate-900 dark:hover:text-white transition-colors group flex-shrink-0"
                   >
                     <X className="w-4 h-4 sm:w-5 sm:h-5 2xl:w-6 2xl:h-6 group-hover:rotate-90 transition-transform duration-300" />
                     <span className="hidden sm:block text-sm 2xl:text-base">
-                      Close
+                      {t('projectModal.close')}
                     </span>
                   </button>
 
-                  <div className="hidden md:flex items-center gap-2 text-xs sm:text-sm 2xl:text-base text-white/50 min-w-0">
+                  <div className="hidden md:flex items-center gap-2 text-xs sm:text-sm 2xl:text-base text-slate-500 dark:text-white/50 min-w-0">
                     <Link
                       to="/"
                       onClick={onClose}
-                      className="hover:text-white/80 transition-colors flex-shrink-0"
+                      className="hover:text-slate-700 dark:hover:text-white/80 transition-colors flex-shrink-0"
                     >
                       <Home className="w-3 h-3 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5" />
                     </Link>
@@ -270,12 +272,12 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                     <Link
                       to="/Projects"
                       onClick={onClose}
-                      className="hover:text-white/80 transition-colors flex-shrink-0"
+                      className="hover:text-slate-700 dark:hover:text-white/80 transition-colors flex-shrink-0"
                     >
-                      Projects
+                      {t('projectModal.projects')}
                     </Link>
                     <span className="flex-shrink-0">/</span>
-                    <span className="text-white/80 truncate">
+                    <span className="text-slate-700 dark:text-white/80 truncate">
                       {project.title}
                     </span>
                   </div>
@@ -285,10 +287,10 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                   <Link
                     to="/Projects"
                     onClick={onClose}
-                    className="flex items-center gap-2 px-2 sm:px-3 2xl:px-4 py-2 2xl:py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300 text-xs sm:text-sm 2xl:text-base"
+                    className="flex items-center gap-2 px-2 sm:px-3 2xl:px-4 py-2 2xl:py-3 bg-slate-200 dark:bg-white/5 hover:bg-slate-300 dark:hover:bg-white/10 border border-slate-300 dark:border-white/10 hover:border-slate-400 dark:hover:border-white/20 transition-all duration-300 text-xs sm:text-sm 2xl:text-base text-slate-900 dark:text-white"
                   >
                     <Briefcase className="w-3 h-3 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5" />
-                    <span className="hidden sm:block">All Projects</span>
+                    <span className="hidden sm:block">{t('projectModal.allProjects')}</span>
                   </Link>
                 </div>
               </div>
@@ -303,7 +305,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
               style={{ cursor: showScrollCursor ? 'none' : 'default' }}
             >
               {/* Navigation and Category - Desktop: Above image, Mobile: Inside hero */}
-              <div className="hidden sm:block bg-black pt-2 sm:pt-3 2xl:pt-5 pb-2 sm:pb-2 2xl:pb-3 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+              <div className="hidden sm:block bg-white dark:bg-black pt-2 sm:pt-3 2xl:pt-5 pb-2 sm:pb-2 2xl:pb-3 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 transition-colors duration-300">
                 <div className="text-center max-w-5xl 2xl:max-w-[120rem] mx-auto w-full">
                   {/* Project Navigation */}
                   <motion.div
@@ -315,25 +317,25 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                     {prevProject && (
                       <button
                         onClick={() => handleNavigateToProject(prevProject)}
-                        className="flex items-center gap-2 px-4 sm:px-6 2xl:px-8 py-2 sm:py-3 2xl:py-4 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 transition-all duration-300 text-xs sm:text-sm 2xl:text-base group backdrop-blur-sm"
+                        className="flex items-center gap-2 px-4 sm:px-6 2xl:px-8 py-2 sm:py-3 2xl:py-4 bg-slate-200 dark:bg-white/10 hover:bg-green-500 dark:hover:bg-green-500 border border-slate-300 dark:border-white/20 hover:border-green-500 dark:hover:border-green-500 transition-all duration-300 text-xs sm:text-sm 2xl:text-base text-slate-900 dark:text-white hover:text-white group backdrop-blur-sm"
                         title={`Previous: ${prevProject.title}`}
                       >
                         <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5 group-hover:-translate-x-1 transition-transform" />
-                        <span>Previous</span>
+                        <span>{t('projectModal.previous')}</span>
                       </button>
                     )}
 
-                    <div className="px-3 sm:px-4 2xl:px-6 py-2 sm:py-3 2xl:py-4 bg-white/5 border border-white/10 rounded-lg text-xs 2xl:text-sm text-white/60 backdrop-blur-sm">
-                      {currentIndex + 1} of {allProjects.length}
+                    <div className="px-3 sm:px-4 2xl:px-6 py-2 sm:py-3 2xl:py-4 bg-slate-200 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-lg text-xs 2xl:text-sm text-slate-600 dark:text-white/60 backdrop-blur-sm">
+                      {currentIndex + 1} {t('projectModal.of')} {allProjects.length}
                     </div>
 
                     {nextProject && (
                       <button
                         onClick={() => handleNavigateToProject(nextProject)}
-                        className="flex items-center gap-2 px-4 sm:px-6 2xl:px-8 py-2 sm:py-3 2xl:py-4 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 transition-all duration-300 text-xs sm:text-sm 2xl:text-base group backdrop-blur-sm"
+                        className="flex items-center gap-2 px-4 sm:px-6 2xl:px-8 py-2 sm:py-3 2xl:py-4 bg-slate-200 dark:bg-white/10 hover:bg-green-500 dark:hover:bg-green-500 border border-slate-300 dark:border-white/20 hover:border-green-500 dark:hover:border-green-500 transition-all duration-300 text-xs sm:text-sm 2xl:text-base text-slate-900 dark:text-white hover:text-white group backdrop-blur-sm"
                         title={`Next: ${nextProject.title}`}
                       >
-                        <span>Next</span>
+                        <span>{t('projectModal.next')}</span>
                         <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5 group-hover:translate-x-1 transition-transform" />
                       </button>
                     )}
@@ -344,7 +346,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
-                    className="text-xs sm:text-sm xl:text-base 2xl:text-lg font-bold tracking-[0.3em] text-white/60 uppercase"
+                    className="text-xs sm:text-sm xl:text-base 2xl:text-lg font-bold tracking-[0.3em] text-slate-600 dark:text-white/60 uppercase"
                   >
                     {project.category?.replace("_", " ")}
                   </motion.p>
@@ -377,12 +379,12 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                         title={`Previous: ${prevProject.title}`}
                       >
                         <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" />
-                        <span>Previous</span>
+                        <span>{t('projectModal.previous')}</span>
                       </button>
                     )}
 
                     <div className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-xs text-white/60 backdrop-blur-sm">
-                      {currentIndex + 1} of {allProjects.length}
+                      {currentIndex + 1} {t('projectModal.of')} {allProjects.length}
                     </div>
 
                     {nextProject && (
@@ -391,7 +393,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                         className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 transition-all duration-300 text-xs group backdrop-blur-sm"
                         title={`Next: ${nextProject.title}`}
                       >
-                        <span>Next</span>
+                        <span>{t('projectModal.next')}</span>
                         <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                       </button>
                     )}
@@ -412,7 +414,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4, duration: 0.8 }}
-                    className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[10rem] font-black tracking-tighter mb-6 sm:mb-8 2xl:mb-16 leading-tight"
+                    className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[10rem] font-black tracking-tighter mb-6 sm:mb-8 2xl:mb-16 leading-tight text-slate-900 dark:text-white"
                   >
                     {project.title}
                   </motion.h1>
@@ -421,7 +423,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
-                    className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-white/80 max-w-3xl 2xl:max-w-8xl mx-auto mb-8 sm:mb-12 2xl:mb-16"
+                    className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 max-w-3xl 2xl:max-w-8xl mx-auto mb-8 sm:mb-12 2xl:mb-16"
                   >
                     {project.short_description || project.description}
                   </motion.p>
@@ -438,7 +440,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                         href={project.project_url || project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group relative inline-flex items-center gap-3 bg-white text-black px-6 sm:px-8 xl:px-10 2xl:px-12 py-3 sm:py-4 xl:py-5 2xl:py-6 font-black text-sm sm:text-base xl:text-lg 2xl:text-xl tracking-widest uppercase transition-all duration-300 hover:bg-green-500 hover:text-white hover:scale-105 shadow-2xl"
+                        className="group relative inline-flex items-center gap-3 bg-slate-900 dark:bg-white text-white dark:text-black px-6 sm:px-8 xl:px-10 2xl:px-12 py-3 sm:py-4 xl:py-5 2xl:py-6 font-black text-sm sm:text-base xl:text-lg 2xl:text-xl tracking-widest uppercase transition-all duration-300 hover:bg-green-500 hover:text-white hover:scale-105 shadow-2xl"
                       >
                         <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 2xl:w-6 2xl:h-6 group-hover:rotate-12 transition-transform" />
                         <span>VIEW LIVE SITE</span>
@@ -452,9 +454,9 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
               {(project.developmentProcess || project.development_process) &&
                 (project.developmentProcess || project.development_process)
                   .length > 0 && (
-                  <div className="px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 py-16 sm:py-24 2xl:py-32 bg-gradient-to-b from-black/50 to-transparent max-w-none">
+                  <div className="px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 py-16 sm:py-24 2xl:py-32 bg-gradient-to-b from-slate-200 to-transparent dark:from-black/50 dark:to-transparent max-w-none transition-colors duration-300">
                     <div className="max-w-7xl 2xl:max-w-[120rem] mx-auto w-full">
-                      <h3 className="text-xl sm:text-2xl xl:text-3xl 2xl:text-5xl font-black tracking-tight mb-6 sm:mb-8 2xl:mb-12 text-center">
+                      <h3 className="text-xl sm:text-2xl xl:text-3xl 2xl:text-5xl font-black tracking-tight mb-6 sm:mb-8 2xl:mb-12 text-center text-slate-900 dark:text-white">
                         DEVELOPMENT PROCESS
                       </h3>
 
@@ -466,17 +468,17 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                         ).map((phase, index) => (
                           <div
                             key={index}
-                            className="bg-white/5 border border-white/10 rounded-xl p-4"
+                            className="bg-slate-100 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl p-4 transition-colors duration-300"
                           >
                             <div className="flex items-center gap-3 mb-3">
-                              <div className="w-8 h-8 bg-green-400 text-black rounded-full flex items-center justify-center font-black text-sm">
+                              <div className="w-8 h-8 bg-green-500 dark:bg-green-400 text-white dark:text-black rounded-full flex items-center justify-center font-black text-sm">
                                 {index + 1}
                               </div>
-                              <h4 className="font-bold text-white text-sm">
+                              <h4 className="font-bold text-slate-900 dark:text-white text-sm">
                                 {phase.title}
                               </h4>
                             </div>
-                            <p className="text-white/70 text-xs leading-relaxed">
+                            <p className="text-slate-700 dark:text-white/70 text-xs leading-relaxed">
                               {phase.description}
                             </p>
                           </div>
@@ -501,15 +503,15 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                               >
                                 {/* Timeline Node - Removed numbering, just a dot */}
                                 <div className="flex justify-center mb-6 xl:mb-8 2xl:mb-12">
-                                  <div className="relative z-20 w-4 h-4 xl:w-5 xl:h-5 2xl:w-6 2xl:h-6 bg-green-400 rounded-full border-2 2xl:border-3 border-black shadow-lg"></div>
+                                  <div className="relative z-20 w-4 h-4 xl:w-5 xl:h-5 2xl:w-6 2xl:h-6 bg-green-500 dark:bg-green-400 rounded-full border-2 2xl:border-3 border-white dark:border-black shadow-lg"></div>
                                 </div>
 
                                 {/* Content Card - Auto height to accommodate text, uniform across all cards */}
-                                <div className="bg-white/5 border border-white/10 rounded-xl 2xl:rounded-2xl p-4 xl:p-5 2xl:p-6 hover:bg-white/10 transition-colors duration-300 text-center flex flex-col justify-between min-h-[120px] xl:min-h-[140px] 2xl:min-h-[160px]">
-                                  <h4 className="font-bold text-white text-sm xl:text-base 2xl:text-lg leading-tight mb-3 xl:mb-4 2xl:mb-5">
+                                <div className="bg-slate-100 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl 2xl:rounded-2xl p-4 xl:p-5 2xl:p-6 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors duration-300 text-center flex flex-col justify-between min-h-[120px] xl:min-h-[140px] 2xl:min-h-[160px]">
+                                  <h4 className="font-bold text-slate-900 dark:text-white text-sm xl:text-base 2xl:text-lg leading-tight mb-3 xl:mb-4 2xl:mb-5">
                                     {phase.title}
                                   </h4>
-                                  <p className="text-white/70 text-xs xl:text-sm 2xl:text-base leading-relaxed">
+                                  <p className="text-slate-700 dark:text-white/70 text-xs xl:text-sm 2xl:text-base leading-relaxed">
                                     {phase.description}
                                   </p>
                                 </div>
@@ -527,11 +529,11 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                 <div className="max-w-7xl 2xl:max-w-[120rem] mx-auto w-full">
                   <div className="grid lg:grid-cols-3 gap-12 sm:gap-20 2xl:gap-32">
                     <div ref={imageColumnRef} className="lg:col-span-2 min-w-0 relative">
-                      <h2 className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl 2xl:text-7xl font-black tracking-tight mb-6 sm:mb-8 2xl:mb-16">
+                      <h2 className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl 2xl:text-7xl font-black tracking-tight mb-6 sm:mb-8 2xl:mb-16 text-slate-900 dark:text-white">
                         PROJECT OVERVIEW
                       </h2>
 
-                      <div className="text-base sm:text-lg xl:text-xl 2xl:text-3xl text-white/80 leading-relaxed space-y-4 sm:space-y-6 2xl:space-y-12 mb-8 sm:mb-12 2xl:mb-20">
+                      <div className="text-base sm:text-lg xl:text-xl 2xl:text-3xl text-slate-700 dark:text-white/80 leading-relaxed space-y-4 sm:space-y-6 2xl:space-y-12 mb-8 sm:mb-12 2xl:mb-20">
                         <p>
                           {showFullDescription
                             ? project.longDescription ||
@@ -573,7 +575,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                         (project.summaryPoints || project.summary_points)
                           .length > 0 && (
                           <div className="mb-12 sm:mb-16 2xl:mb-24">
-                            <h3 className="text-xl sm:text-2xl xl:text-3xl 2xl:text-5xl font-black tracking-tight mb-6 sm:mb-8 2xl:mb-12">
+                            <h3 className="text-xl sm:text-2xl xl:text-3xl 2xl:text-5xl font-black tracking-tight mb-6 sm:mb-8 2xl:mb-12 text-slate-900 dark:text-white">
                               KEY HIGHLIGHTS
                             </h3>
                             <div className="space-y-4 2xl:space-y-8">
@@ -584,8 +586,8 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                                   key={index}
                                   className="flex items-start gap-4 2xl:gap-6"
                                 >
-                                  <div className="w-2 h-2 2xl:w-3 2xl:h-3 bg-green-400 rounded-full mt-3 2xl:mt-4 flex-shrink-0"></div>
-                                  <p className="text-white/80 text-base sm:text-lg xl:text-xl 2xl:text-3xl">
+                                  <div className="w-2 h-2 2xl:w-3 2xl:h-3 bg-green-500 dark:bg-green-400 rounded-full mt-3 2xl:mt-4 flex-shrink-0"></div>
+                                  <p className="text-slate-700 dark:text-white/80 text-base sm:text-lg xl:text-xl 2xl:text-3xl">
                                     {point}
                                   </p>
                                 </div>
@@ -597,7 +599,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                       {(project.gallery_images ||
                         (project.images && project.images.length > 0)) && (
                         <div className="mb-12 sm:mb-16 2xl:mb-24">
-                          <h3 className="text-xl sm:text-2xl xl:text-3xl 2xl:text-5xl font-black tracking-tight mb-6 sm:mb-8 2xl:mb-12">
+                          <h3 className="text-xl sm:text-2xl xl:text-3xl 2xl:text-5xl font-black tracking-tight mb-6 sm:mb-8 2xl:mb-12 text-slate-900 dark:text-white">
                             PROJECT GALLERY
                           </h3>
                           <div className="space-y-6 sm:space-y-8 2xl:space-y-12">
@@ -716,7 +718,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                                     <div className="pt-4 sm:pt-6 border-t border-white/10 space-y-2 mt-4">
                                       {selectedImage.image.title && (
                                         <p className="text-sm sm:text-base text-white/60">
-                                          <span className="font-bold text-white/80">Title:</span> {selectedImage.image.title}
+                                          <span className="font-bold text-white/80">{t('projectModal.title')}:</span> {selectedImage.image.title}
                                         </p>
                                       )}
                                     </div>
@@ -740,35 +742,35 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                     {/* Sidebar - Tightened Layout */}
                     <div className="min-w-0 space-y-4 sm:space-y-6 lg:space-y-8 2xl:space-y-12">
                       {/* PROJECT DETAILS */}
-                      <div className="rounded-xl border border-white/10 odd:bg-white/5 even:bg-white/10 px-2 md:px-2 lg:px-2 py-4 sm:py-5 lg:py-6 2xl:py-8">
-                        <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base pb-2 mb-3 sm:mb-4 border-b border-white/10 text-white/70">
+                      <div className="rounded-xl border border-slate-300 dark:border-white/10 odd:bg-slate-100 dark:odd:bg-white/5 even:bg-slate-200 dark:even:bg-white/10 px-2 md:px-2 lg:px-2 py-4 sm:py-5 lg:py-6 2xl:py-8 transition-colors duration-300">
+                        <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base pb-2 mb-3 sm:mb-4 border-b border-slate-300 dark:border-white/10 text-slate-700 dark:text-white/70">
                           PROJECT DETAILS
                         </h4>
                         <div className="space-y-3 sm:space-y-4 lg:space-y-5 2xl:space-y-8">
                           <div>
-                            <p className="text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 tracking-widest uppercase">
+                            <p className="text-slate-600 dark:text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 tracking-widest uppercase">
                               ROLE
                             </p>
-                            <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl">
+                            <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl text-slate-900 dark:text-white">
                               {project.role || project.rolePlayed}
                             </p>
                           </div>
                           {project.category && (
                             <div>
-                              <p className="text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 tracking-widest uppercase">
+                              <p className="text-slate-600 dark:text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 tracking-widest uppercase">
                                 CATEGORY
                               </p>
-                              <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl">
+                              <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl text-slate-900 dark:text-white">
                                 {project.category?.replace("_", " ")}
                               </p>
                             </div>
                           )}
                           {project.completion_date && (
                             <div>
-                              <p className="text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 tracking-widest uppercase">
+                              <p className="text-slate-600 dark:text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 tracking-widest uppercase">
                                 COMPLETED
                               </p>
-                              <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl">
+                              <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl text-slate-900 dark:text-white">
                                 {new Date(
                                   project.completion_date
                                 ).toLocaleDateString("en-US", {
@@ -780,10 +782,10 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                           )}
                           {project.outcome && (
                             <div>
-                              <p className="text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 tracking-widest uppercase">
+                              <p className="text-slate-600 dark:text-white/60 text-xs sm:text-sm 2xl:text-base mb-1 tracking-widest uppercase">
                                 OUTCOME
                               </p>
-                              <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl text-green-400">
+                              <p className="font-bold text-sm sm:text-base xl:text-lg 2xl:text-2xl text-green-600 dark:text-green-400">
                                 {project.outcome}
                               </p>
                             </div>
@@ -794,8 +796,8 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                       {/* TECHNOLOGIES */}
                       {(project.technologies || project.technologiesUsed)
                         ?.length > 0 && (
-                        <div className="rounded-xl border border-white/10 odd:bg-white/5 even:bg-white/10 px-2 md:px-2 lg:px-2 py-4 sm:py-5 lg:py-6 2xl:py-8">
-                          <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base pb-2 mb-3 sm:mb-4 border-b border-white/10 text-white/70">
+                        <div className="rounded-xl border border-slate-300 dark:border-white/10 odd:bg-slate-100 dark:odd:bg-white/5 even:bg-slate-200 dark:even:bg-white/10 px-2 md:px-2 lg:px-2 py-4 sm:py-5 lg:py-6 2xl:py-8 transition-colors duration-300">
+                          <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base pb-2 mb-3 sm:mb-4 border-b border-slate-300 dark:border-white/10 text-slate-700 dark:text-white/70">
                             TECHNOLOGIES
                           </h4>
                           <div className="space-y-1.5 sm:space-y-2 lg:space-y-3 2xl:space-y-4">
@@ -804,9 +806,9 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                             ).map((tech, index) => (
                               <div
                                 key={index}
-                                className="pb-1.5 sm:pb-2 border-b border-white/10 last:border-none"
+                                className="pb-1.5 sm:pb-2 border-b border-slate-300 dark:border-white/10 last:border-none"
                               >
-                                <span className="font-medium text-sm sm:text-base xl:text-lg 2xl:text-xl">
+                                <span className="font-medium text-sm sm:text-base xl:text-lg 2xl:text-xl text-slate-900 dark:text-white">
                                   {tech}
                                 </span>
                               </div>
@@ -818,8 +820,8 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                       {/* TOOLS USED */}
                       {(project.tools_used || project.toolsUsed)?.length >
                         0 && (
-                        <div className="rounded-xl border border-white/10 odd:bg-white/5 even:bg-white/10 px-2 md:px-2 lg:px-2 py-4 sm:py-5 lg:py-6 2xl:py-8">
-                          <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base pb-2 mb-3 sm:mb-4 border-b border-white/10 text-white/70">
+                        <div className="rounded-xl border border-slate-300 dark:border-white/10 odd:bg-slate-100 dark:odd:bg-white/5 even:bg-slate-200 dark:even:bg-white/10 px-2 md:px-2 lg:px-2 py-4 sm:py-5 lg:py-6 2xl:py-8 transition-colors duration-300">
+                          <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base pb-2 mb-3 sm:mb-4 border-b border-slate-300 dark:border-white/10 text-slate-700 dark:text-white/70">
                             TOOLS USED
                           </h4>
                           <div className="space-y-1.5 sm:space-y-2 lg:space-y-3 2xl:space-y-4">
@@ -827,9 +829,9 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                               (tool, index) => (
                                 <div
                                   key={index}
-                                  className="pb-1.5 sm:pb-2 border-b border-white/10 last:border-none"
+                                  className="pb-1.5 sm:pb-2 border-b border-slate-300 dark:border-white/10 last:border-none"
                                 >
-                                  <span className="font-medium text-sm sm:text-base xl:text-lg 2xl:text-xl">
+                                  <span className="font-medium text-sm sm:text-base xl:text-lg 2xl:text-xl text-slate-900 dark:text-white">
                                     {tool}
                                   </span>
                                 </div>
@@ -841,21 +843,21 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
 
                       {/* CHALLENGES & SOLUTIONS */}
                       {project.challenges?.length > 0 && (
-                        <div className="rounded-xl border border-white/10 odd:bg-white/5 even:bg-white/10 px-2 md:px-2 lg:px-2 py-4 sm:py-5 lg:py-6 2xl:py-8">
-                          <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base pb-2 mb-3 sm:mb-4 border-b border-white/10 text-white/70">
+                        <div className="rounded-xl border border-slate-300 dark:border-white/10 odd:bg-slate-100 dark:odd:bg-white/5 even:bg-slate-200 dark:even:bg-white/10 px-2 md:px-2 lg:px-2 py-4 sm:py-5 lg:py-6 2xl:py-8 transition-colors duration-300">
+                          <h4 className="font-black tracking-widest uppercase text-xs sm:text-sm 2xl:text-base pb-2 mb-3 sm:mb-4 border-b border-slate-300 dark:border-white/10 text-slate-700 dark:text-white/70">
                             CHALLENGES & SOLUTIONS
                           </h4>
                           <div className="space-y-2 sm:space-y-3 lg:space-y-4 2xl:space-y-5">
                             {project.challenges.map((challenge, index) => (
                               <div
                                 key={index}
-                                className="bg-black/20 border border-white/10 rounded-lg px-2 sm:px-3 lg:px-4 2xl:px-5 py-2.5 sm:py-3 lg:py-4 2xl:py-5"
+                                className="bg-slate-50 dark:bg-black/20 border border-slate-300 dark:border-white/10 rounded-lg px-2 sm:px-3 lg:px-4 2xl:px-5 py-2.5 sm:py-3 lg:py-4 2xl:py-5 transition-colors duration-300"
                               >
-                                <p className="text-white/80 text-sm xl:text-base 2xl:text-lg mb-2 font-medium">
+                                <p className="text-slate-900 dark:text-white/80 text-sm xl:text-base 2xl:text-lg mb-2 font-medium">
                                   {challenge.description}
                                 </p>
                                 {challenge.solution && (
-                                  <p className="text-green-400 text-xs sm:text-sm xl:text-base 2xl:text-lg">
+                                  <p className="text-green-600 dark:text-green-400 text-xs sm:text-sm xl:text-base 2xl:text-lg">
                                     {challenge.solution}
                                   </p>
                                 )}
@@ -872,7 +874,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                             href={project.project_url || project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="block w-full bg-white text-black py-3 sm:py-4 2xl:py-6 px-4 sm:px-6 2xl:px-8 font-black text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase text-center hover:bg-white/90 transition-colors"
+                            className="block w-full bg-slate-900 dark:bg-white text-white dark:text-black py-3 sm:py-4 2xl:py-6 px-4 sm:px-6 2xl:px-8 font-black text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase text-center hover:bg-slate-700 dark:hover:bg-white/90 transition-colors"
                           >
                             VIEW LIVE SITE
                           </a>
@@ -882,7 +884,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                             href={project.github_url || project.githubUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="block w-full border-2 border-white text-white py-3 sm:py-4 2xl:py-6 px-4 sm:px-6 2xl:px-8 font-black text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase text-center hover:bg-white hover:text-black transition-colors rounded-lg 2xl:rounded-xl"
+                            className="block w-full border-2 border-slate-900 dark:border-white text-slate-900 dark:text-white py-3 sm:py-4 2xl:py-6 px-4 sm:px-6 2xl:px-8 font-black text-xs sm:text-sm xl:text-base 2xl:text-lg tracking-widest uppercase text-center hover:bg-slate-900 dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors rounded-lg 2xl:rounded-xl"
                           >
                             VIEW CODE
                           </a>
@@ -894,22 +896,22 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
               </div>
 
               {/* Project Navigation - Above main footer */}
-              <div className="border-t border-white/10 bg-gradient-to-t from-black via-slate-900/50 to-black px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 py-6 sm:py-8 2xl:py-12 max-w-none">
+              <div className="border-t border-slate-300 dark:border-white/10 bg-gradient-to-t from-white to-slate-100 dark:from-black dark:via-slate-900/50 dark:to-black px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 py-6 sm:py-8 2xl:py-12 max-w-none transition-colors duration-300">
                 <div className="max-w-7xl 2xl:max-w-[120rem] mx-auto w-full">
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 2xl:gap-8">
                     <div className="w-full sm:w-1/3 order-2 sm:order-1">
                       {prevProject ? (
                         <button
                           onClick={() => handleNavigateToProject(prevProject)}
-                          className="group text-left p-3 xl:p-4 2xl:p-5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20  transition-all duration-300 w-full max-w-sm"
+                          className="group text-left p-3 xl:p-4 2xl:p-5 bg-slate-200 dark:bg-white/5 hover:bg-slate-300 dark:hover:bg-white/10 border border-slate-300 dark:border-white/10 hover:border-slate-400 dark:hover:border-white/20  transition-all duration-300 w-full max-w-sm"
                         >
                           <div className="flex items-center gap-2 xl:gap-3 mb-1 xl:mb-2">
-                            <ArrowLeft className="w-3 h-3 xl:w-4 xl:h-4 text-white/40 group-hover:text-white group-hover:-translate-x-1 transition-all" />
-                            <span className="text-xs xl:text-sm text-white/60 tracking-wider uppercase">
+                            <ArrowLeft className="w-3 h-3 xl:w-4 xl:h-4 text-slate-500 dark:text-white/40 group-hover:text-slate-900 dark:group-hover:text-white group-hover:-translate-x-1 transition-all" />
+                            <span className="text-xs xl:text-sm text-slate-600 dark:text-white/60 tracking-wider uppercase">
                               Previous
                             </span>
                           </div>
-                          <p className="font-bold text-white group-hover:text-green-400 transition-colors text-xs xl:text-sm 2xl:text-base truncate">
+                          <p className="font-bold text-slate-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors text-xs xl:text-sm 2xl:text-base truncate">
                             {prevProject.title}
                           </p>
                         </button>
@@ -922,7 +924,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                       <Link
                         to="/Projects"
                         onClick={onClose}
-                        className="flex items-center gap-2 xl:gap-3 bg-white text-black px-6 xl:px-8 2xl:px-10 py-3 xl:py-4 2xl:py-5 font-black text-xs xl:text-sm 2xl:text-base tracking-widest uppercase transition-all duration-300 hover:bg-green-500 hover:text-white"
+                        className="flex items-center gap-2 xl:gap-3 bg-slate-900 dark:bg-white text-white dark:text-black px-6 xl:px-8 2xl:px-10 py-3 xl:py-4 2xl:py-5 font-black text-xs xl:text-sm 2xl:text-base tracking-widest uppercase transition-all duration-300 hover:bg-green-500 hover:text-white"
                       >
                         <Briefcase className="w-3 h-3 xl:w-4 xl:h-4" />
                         <span className="hidden sm:inline">
@@ -936,15 +938,15 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                       {nextProject ? (
                         <button
                           onClick={() => handleNavigateToProject(nextProject)}
-                          className="group text-left sm:text-right p-3 xl:p-4 2xl:p-5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20  transition-all duration-300 w-full max-w-sm"
+                          className="group text-left sm:text-right p-3 xl:p-4 2xl:p-5 bg-slate-200 dark:bg-white/5 hover:bg-slate-300 dark:hover:bg-white/10 border border-slate-300 dark:border-white/10 hover:border-slate-400 dark:hover:border-white/20  transition-all duration-300 w-full max-w-sm"
                         >
                           <div className="flex items-center justify-start sm:justify-end gap-2 xl:gap-3 mb-1 xl:mb-2">
-                            <span className="text-xs xl:text-sm text-white/60 tracking-wider uppercase">
+                            <span className="text-xs xl:text-sm text-slate-600 dark:text-white/60 tracking-wider uppercase">
                               Next
                             </span>
-                            <ArrowRight className="w-3 h-3 xl:w-4 xl:h-4 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                            <ArrowRight className="w-3 h-3 xl:w-4 xl:h-4 text-slate-500 dark:text-white/40 group-hover:text-slate-900 dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
                           </div>
-                          <p className="font-bold text-white group-hover:text-green-400 transition-colors text-xs xl:text-sm 2xl:text-base truncate">
+                          <p className="font-bold text-slate-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors text-xs xl:text-sm 2xl:text-base truncate">
                             {nextProject.title}
                           </p>
                         </button>
@@ -957,7 +959,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
               </div>
 
               {/* Enhanced Interactive Footer - Exact copy from Layout.js */}
-              <footer className="bg-gradient-to-t from-black via-slate-900/90 to-black border-t border-white/10 relative overflow-hidden">
+              <footer className="bg-gradient-to-t from-white via-slate-100/90 to-white dark:from-black dark:via-slate-900/90 dark:to-black border-t border-slate-300 dark:border-white/10 relative overflow-hidden transition-colors duration-300">
                 {/* Animated Background Elements */}
                 <div className="absolute inset-0 pointer-events-none">
                   <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-green-400/20 via-transparent to-transparent animate-pulse"></div>
@@ -968,10 +970,10 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                 <div className="relative z-10 py-8 px-4 sm:py-16 sm:px-6">
                   {/* Terminal Header */}
                   <div className="flex items-center gap-4 mb-8 sm:mb-12">
-                    <span className="text-green-400 font-mono text-xs sm:text-sm animate-pulse cursor-default">
+                    <span className="text-green-500 dark:text-green-400 font-mono text-xs sm:text-sm animate-pulse cursor-default">
                       $ footer --initialize
                     </span>
-                    <div className="h-px bg-gradient-to-r from-green-400/50 via-blue-400/30 to-purple-500/20 flex-1"></div>
+                    <div className="h-px bg-gradient-to-r from-green-500/50 dark:from-green-400/50 via-blue-400/30 to-purple-500/20 flex-1"></div>
                     <div className="flex gap-1">
                       <div className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full animate-pulse"></div>
                       <div className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-500 rounded-full animate-pulse delay-200"></div>
@@ -984,14 +986,14 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                       {/* Left Column - CTA */}
                       <div className="space-y-6 sm:space-y-8">
                         <div>
-                          <h3 className="text-2xl sm:text-4xl lg:text-5xl font-black mb-4 sm:mb-6 tracking-wider cursor-default">
+                          <h3 className="text-2xl sm:text-4xl lg:text-5xl font-black mb-4 sm:mb-6 tracking-wider cursor-default text-slate-900 dark:text-white">
                             <span className="cursor-default">LET'S BUILD</span>
                             <br />
                             <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-pulse cursor-default">
                               THE FUTURE
                             </span>
                           </h3>
-                          <p className="text-white/70 text-base sm:text-lg lg:text-xl leading-relaxed mb-6 sm:mb-8 cursor-default">
+                          <p className="text-slate-700 dark:text-white/70 text-base sm:text-lg lg:text-xl leading-relaxed mb-6 sm:mb-8 cursor-default">
                             Ready to create something extraordinary? I'm
                             passionate about turning ideas into reality and
                             would love to hear about your next project.
@@ -1003,7 +1005,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                           <div className="absolute -inset-1 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
                           <a
                             href="mailto:jordanasseff@gmail.com"
-                            className="relative flex items-center gap-3 sm:gap-4 bg-gradient-to-r from-green-400/10 via-blue-500/10 to-purple-600/10 backdrop-blur-xl border border-white/10 text-white px-4 sm:px-8 py-4 sm:py-6 font-bold text-sm sm:text-lg tracking-wider transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl group cursor-pointer"
+                            className="relative flex items-center gap-3 sm:gap-4 bg-gradient-to-r from-green-400/10 via-blue-500/10 to-purple-600/10 backdrop-blur-xl border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white px-4 sm:px-8 py-4 sm:py-6 font-bold text-sm sm:text-lg tracking-wider transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl group cursor-pointer"
                           >
                             <div className="flex items-center gap-3">
                               <Mail className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
@@ -1013,7 +1015,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                             </div>
                             <div className="ml-auto flex items-center gap-2">
                               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                              <span className="text-sm text-green-400 cursor-default">
+                              <span className="text-sm text-green-500 dark:text-green-400 cursor-default">
                                 Available
                               </span>
                             </div>
@@ -1022,10 +1024,10 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
 
                         {/* Live Status Indicators */}
                         <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-3 sm:p-4 cursor-default">
+                          <div className="bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-300 dark:border-white/10 rounded-xl p-3 sm:p-4 cursor-default transition-colors duration-300">
                             <div className="flex items-center gap-2 sm:gap-3 mb-2">
-                              <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 group-hover:scale-110 transition-transform" />
-                              <span className="text-xs sm:text-sm font-bold cursor-default">
+                              <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 dark:text-blue-400 group-hover:scale-110 transition-transform" />
+                              <span className="text-xs sm:text-sm font-bold cursor-default text-slate-900 dark:text-white">
                                 RESPONSE TIME
                               </span>
                             </div>
@@ -1036,10 +1038,10 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                             </div>
                           </div>
 
-                          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-3 sm:p-4 cursor-default">
+                          <div className="bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-300 dark:border-white/10 rounded-xl p-3 sm:p-4 cursor-default transition-colors duration-300">
                             <div className="flex items-center gap-2 sm:gap-3 mb-2">
-                              <Code className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 group-hover:scale-110 transition-transform" />
-                              <span className="text-xs sm:text-sm font-bold cursor-default">
+                              <Code className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 dark:text-purple-400 group-hover:scale-110 transition-transform" />
+                              <span className="text-xs sm:text-sm font-bold cursor-default text-slate-900 dark:text-white">
                                 ENERGY LEVEL
                               </span>
                             </div>
@@ -1055,22 +1057,22 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                       {/* Right Column - Info & Social */}
                       <div className="space-y-6 sm:space-y-8">
                         {/* Current Status */}
-                        <div className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 sm:p-6">
-                          <h4 className="font-bold mb-4 sm:mb-6 tracking-wider text-base sm:text-lg flex items-center gap-2 cursor-default">
+                        <div className="bg-gradient-to-br from-slate-100 to-slate-200 dark:from-white/5 dark:to-white/10 backdrop-blur-sm border border-slate-300 dark:border-white/10 rounded-2xl p-4 sm:p-6 transition-colors duration-300">
+                          <h4 className="font-bold mb-4 sm:mb-6 tracking-wider text-base sm:text-lg flex items-center gap-2 cursor-default text-slate-900 dark:text-white">
                             <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                             <span className="cursor-default">
                               CURRENT STATUS
                             </span>
                           </h4>
                           <div className="space-y-3 sm:space-y-4">
-                            <div className="flex items-center justify-between p-3 bg-black/20 rounded-lg hover:bg-black/30 transition-colors cursor-default">
-                              <span className="text-white/80 text-sm sm:text-base cursor-default">
+                            <div className="flex items-center justify-between p-3 bg-slate-50 dark:bg-black/20 rounded-lg hover:bg-slate-100 dark:hover:bg-black/30 transition-colors cursor-default">
+                              <span className="text-slate-700 dark:text-white/80 text-sm sm:text-base cursor-default">
                                 🚀 Open for new projects
                               </span>
                               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                             </div>
-                            <div className="flex items-center justify-between p-3 bg-black/20 rounded-lg hover:bg-black/30 transition-colors cursor-default">
-                              <span className="text-white/80 text-sm sm:text-base cursor-default">
+                            <div className="flex items-center justify-between p-3 bg-slate-50 dark:bg-black/20 rounded-lg hover:bg-slate-100 dark:hover:bg-black/30 transition-colors cursor-default">
+                              <span className="text-slate-700 dark:text-white/80 text-sm sm:text-base cursor-default">
                                 🌍 Remote collaboration
                               </span>
                               <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
@@ -1080,7 +1082,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
 
                         {/* Enhanced Social Links */}
                         <div>
-                          <h4 className="font-bold mb-4 sm:mb-6 tracking-wider text-base sm:text-lg">
+                          <h4 className="font-bold mb-4 sm:mb-6 tracking-wider text-base sm:text-lg text-slate-900 dark:text-white">
                             CONNECT & FOLLOW
                           </h4>
                           <div className="grid grid-cols-2 gap-2 sm:gap-3">
@@ -1121,7 +1123,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                                 <div className="absolute -inset-1 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
                                 <a
                                   href={social.href}
-                                  className="relative flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gradient-to-r from-green-400/10 via-blue-500/10 to-purple-600/10 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105 cursor-pointer"
+                                  className="relative flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gradient-to-r from-green-400/10 via-blue-500/10 to-purple-600/10 backdrop-blur-xl border border-slate-300 dark:border-white/10 hover:border-slate-400 dark:hover:border-white/20 transition-all duration-300 hover:scale-105 cursor-pointer"
                                   target={
                                     social.href?.startsWith("http")
                                       ? "_blank"
@@ -1133,12 +1135,12 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                                       : undefined
                                   }
                                 >
-                                  <social.icon className="w-4 h-4 sm:w-5 sm:h-5 text-white/60 group-hover:text-white transition-all duration-300 relative z-10" />
-                                  <span className="font-medium relative z-10 text-xs sm:text-sm group-hover:translate-x-1 transition-transform duration-300">
+                                  <social.icon className="w-4 h-4 sm:w-5 sm:h-5 text-slate-600 dark:text-white/60 group-hover:text-slate-900 dark:group-hover:text-white transition-all duration-300 relative z-10" />
+                                  <span className="font-medium relative z-10 text-xs sm:text-sm group-hover:translate-x-1 transition-transform duration-300 text-slate-900 dark:text-white">
                                     {social.label}
                                   </span>
                                   <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 relative z-10">
-                                    <div className="w-1 h-1 bg-white rounded-full"></div>
+                                    <div className="w-1 h-1 bg-slate-900 dark:bg-white rounded-full"></div>
                                   </div>
                                 </a>
                               </div>
@@ -1147,16 +1149,16 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                         </div>
 
                         {/* Fun Fact / Easter Egg */}
-                        <div className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-purple-500/20 rounded-2xl p-4 sm:p-6 cursor-default">
+                        <div className="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/20 border border-purple-300 dark:border-purple-500/20 rounded-2xl p-4 sm:p-6 cursor-default transition-colors duration-300">
                           <div className="flex items-center gap-3 mb-3">
                             <span className="text-xl sm:text-2xl animate-bounce">
                               🎯
                             </span>
-                            <span className="font-bold text-purple-300 text-sm sm:text-base cursor-default">
+                            <span className="font-bold text-purple-700 dark:text-purple-300 text-sm sm:text-base cursor-default">
                               FUN FACT
                             </span>
                           </div>
-                          <p className="text-white/80 text-xs sm:text-sm leading-relaxed cursor-default">
+                          <p className="text-slate-700 dark:text-white/80 text-xs sm:text-sm leading-relaxed cursor-default">
                             This portfolio was built with love, lots of late
                             nights, and approximately 100 moments of thinking
                             "finally finished!" immediately followed by more
@@ -1167,21 +1169,21 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                     </div>
 
                     {/* Bottom Bar */}
-                    <div className="border-t border-white/10 pt-6 sm:pt-8">
+                    <div className="border-t border-slate-300 dark:border-white/10 pt-6 sm:pt-8">
                       <div className="flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6">
                         {/* Copyright with typing effect */}
                         <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-                          <span className="text-white/40 font-mono text-xs sm:text-sm cursor-default">
+                          <span className="text-slate-500 dark:text-white/40 font-mono text-xs sm:text-sm cursor-default">
                             © 2024 Portfolio —
                           </span>
                           <div className="flex items-center gap-2">
-                            <span className="text-white/60 font-mono text-xs sm:text-sm cursor-default">
+                            <span className="text-slate-600 dark:text-white/60 font-mono text-xs sm:text-sm cursor-default">
                               Made with
                             </span>
                             <span className="text-red-500 animate-pulse">
                               ❤️
                             </span>
-                            <span className="text-white/60 font-mono text-xs sm:text-sm cursor-default">
+                            <span className="text-slate-600 dark:text-white/60 font-mono text-xs sm:text-sm cursor-default">
                               and
                             </span>
                             <span className="text-yellow-600 text-2xl sm:text-2xl">
@@ -1191,14 +1193,14 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                         </div>
 
                         {/* Live coding status */}
-                        <div className="flex items-center gap-2 sm:gap-3 bg-black/30 backdrop-blur-sm border border-white/10 rounded-full px-3 sm:px-4 py-1 sm:py-2">
+                        <div className="flex items-center gap-2 sm:gap-3 bg-slate-200 dark:bg-black/30 backdrop-blur-sm border border-slate-300 dark:border-white/10 rounded-full px-3 sm:px-4 py-1 sm:py-2 transition-colors duration-300">
                           <div className="flex items-center gap-2">
                             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                            <span className="text-xs font-mono text-green-400 cursor-default">
+                            <span className="text-xs font-mono text-green-500 dark:text-green-400 cursor-default">
                               LIVE
                             </span>
                           </div>
-                          <span className="text-xs font-mono text-white/60 cursor-default">
+                          <span className="text-xs font-mono text-slate-600 dark:text-white/60 cursor-default">
                             Last updated: {new Date().toLocaleDateString()}
                           </span>
                         </div>
@@ -1216,7 +1218,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                               });
                             }
                           }}
-                          className="group flex items-center gap-2 text-white/60 hover:text-white font-mono text-xs sm:text-sm transition-all duration-300 hover:scale-105 cursor-pointer"
+                          className="group flex items-center gap-2 text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white font-mono text-xs sm:text-sm transition-all duration-300 hover:scale-105 cursor-pointer"
                         >
                           <span>Back to top</span>
                           <div className="w-3 h-3 sm:w-4 sm:h-4 border border-current border-t-transparent rounded-full animate-spin group-hover:animate-pulse"></div>
@@ -1224,22 +1226,22 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                       </div>
 
                       {/* Full-width footer line */}
-                      <div className="mt-6 sm:mt-8 text-center border-t border-white/10 pt-4">
-                        <span className="text-white/50 font-mono text-xs sm:text-sm tracking-wide cursor-default">
+                      <div className="mt-6 sm:mt-8 text-center border-t border-slate-300 dark:border-white/10 pt-4">
+                        <span className="text-slate-600 dark:text-white/50 font-mono text-xs sm:text-sm tracking-wide cursor-default">
                           This website was designed and coded by{" "}
-                          <span className="text-white font-semibold">
+                          <span className="text-slate-900 dark:text-white font-semibold">
                             Jordan Asseff
                           </span>{" "}
                           using{" "}
-                          <span className="text-sky-400 font-semibold">
+                          <span className="text-sky-500 dark:text-sky-400 font-semibold">
                             React
                           </span>
                           ,{" "}
-                          <span className="text-cyan-400 font-semibold">
+                          <span className="text-cyan-500 dark:text-cyan-400 font-semibold">
                             Tailwind CSS
                           </span>
                           , and{" "}
-                          <span className="text-pink-400 font-semibold">
+                          <span className="text-pink-500 dark:text-pink-400 font-semibold">
                             Framer Motion
                           </span>
                           .
