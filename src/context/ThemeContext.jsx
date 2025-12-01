@@ -14,16 +14,15 @@ export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState('dark');
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // Initialize theme from localStorage or system preference
+  // Initialize theme from localStorage or default to dark
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
 
     if (savedTheme) {
       setTheme(savedTheme);
     } else {
-      // Optional: Detect system preference
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(systemPrefersDark ? 'dark' : 'light');
+      // Default to dark mode for first-time visitors
+      setTheme('dark');
     }
 
     setIsInitialized(true);

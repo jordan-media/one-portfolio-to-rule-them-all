@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ExternalLink, ArrowRight, Github, Eye } from 'lucide-react';
 import { TechStack, AnimatedCounter } from './InteractiveElements';
 import CodeSnippets from './CodeSnippets';
@@ -53,14 +54,15 @@ const getProjectTheme = (category, index) => {
 };
 
 const ProjectCard = ({ project, index, onProjectClick }) => {
+  const { t } = useTranslation();
   const cardRef = useRef(null);
   const isInView = useInView(cardRef, { once: true, margin: "-100px" });
-  
+
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end start"]
   });
-  
+
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const theme = getProjectTheme(project.category, index);
 
@@ -113,7 +115,7 @@ const ProjectCard = ({ project, index, onProjectClick }) => {
               )}
             </div>
             <p className="text-white font-black tracking-widest uppercase text-sm backdrop-blur-sm bg-black/30 px-4 py-2 rounded-full">
-              VIEW PROJECT
+              {t('projects.viewProject')}
             </p>
           </div>
         </div>
@@ -160,7 +162,7 @@ const ProjectCard = ({ project, index, onProjectClick }) => {
           className={`group flex items-center space-x-2  px-4 py-2 text-slate-900 dark:text-white font-bold tracking-widest uppercase text-sm hover:${theme.accent} transition-colors mt-6`}
           whileHover={{ x: 10 }}
         >
-          <span>VIEW CASE STUDY</span>
+          <span>{t('projectModal.viewDetails')}</span>
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </motion.button>
       </div>
@@ -169,6 +171,7 @@ const ProjectCard = ({ project, index, onProjectClick }) => {
 };
 
 const ProjectShowcase = ({ projects, onProjectClick }) => {
+  const { t } = useTranslation();
   return (
     <section
     id="projects"
@@ -192,14 +195,14 @@ const ProjectShowcase = ({ projects, onProjectClick }) => {
             <div className="h-px bg-slate-300 dark:bg-white/20 flex-1"></div>
           </div>
           
-          <h2 className="text-6xl md:text-8xl xl:text-[8rem] 2xl:text-[12rem] font-black tracking-tighter mb-8 2xl:mb-16 text-slate-900 dark:text-white">
-            SELECTED<br />WORK
+          <h2 className="text-6xl md:text-8xl xl:text-[8rem] 2xl:text-[12rem] font-black tracking-tighter mb-8 2xl:mb-16 text-slate-900 dark:text-white whitespace-pre-line">
+            {t('projects.showcaseTitle')}
           </h2>
           
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 2xl:gap-16">
             <p className="text-xl xl:text-2xl 2xl:text-3xl text-slate-700 dark:text-white/60 max-w-3xl 2xl:max-w-5xl">
-              A curated selection of projects that I have completed.
-              < br/><span className="text-green-600 dark:text-green-300 text-sm tracking-tight leading-tight">Each project highlights my skills in development, design, and storytelling, showcasing my ability to create impactful digital experiences."</span>
+              {t('projects.showcaseDescription')}
+              <br/><span className="text-green-600 dark:text-green-300 text-sm tracking-tight leading-tight">{t('projects.showcaseDescriptionDetail')}</span>
             </p>
             
             <div className="flex items-center gap-6 xl:gap-8 2xl:gap-12">
@@ -252,7 +255,7 @@ const ProjectShowcase = ({ projects, onProjectClick }) => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        VIEW ALL WORK
+        {t('projectModal.viewAllProjects')}
       </motion.button>
     </Link>
     

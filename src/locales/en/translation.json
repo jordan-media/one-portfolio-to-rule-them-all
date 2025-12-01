@@ -100,7 +100,10 @@
     "scroll": "SCROLL",
     "subtitle": "PORTFOLIO SHOWCASE",
     "title": "ALL\nWORK",
+    "showcaseTitle": "SELECTED\nWORK",
     "description": "A comprehensive collection of projects showcasing creativity, technical excellence, and innovative problem-solving.",
+    "showcaseDescription": "A curated selection of projects that I have completed.",
+    "showcaseDescriptionDetail": "Each project highlights my skills in development, design, and storytelling, showcasing my ability to create impactful digital experiences.",
     "emptyState": {
       "title": "NO PROJECTS FOUND",
       "description": "No projects match the current filter.",
