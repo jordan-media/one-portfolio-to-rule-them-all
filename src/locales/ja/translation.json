@@ -3,7 +3,8 @@
     "loading": "読み込み中...",
     "comingSoon": "近日公開",
     "available": "対応可能",
-    "availableForProjects": "プロジェクト受付中",
+    "availableForProjects": "契約中 · 業務遂行中 — 2026年4月より対応可能",
+    "liveStatusLabel": "[LIVE STATUS]",
     "scroll": "スクロール",
     "viewWork": "作品を見る",
     "contact": "お問い合わせ"
@@ -30,8 +31,9 @@
   "sidebar": {
     "status": {
       "liveLabel": "ライブステータス",
+      "studentCountdown": "学生としての残り時間",
       "daysRemaining": "学生として残り{{count}}日",
-      "availableDate": "2026年1月5日から勤務可能"
+      "availableDate": "勤務可能開始 2026年4月17日"
     },
     "progress": {
       "label": "スクロール進捗"
@@ -130,10 +132,10 @@
       "description": "開発のルーツは科学サマーキャンプに遡る。AOLのCDが朝食に付いてきた時代のことだ。"
     },
     "collaboration": {
-      "quote1Part1": "100フィートの高さで",
-      "quote1Part2": "教えてくれたのは",
-      "quote1Part3": "「協力」について、",
-      "quote1Part4": "教室で学ぶよりも多くのことを教えてくれた",
+      "quote1Part1": "見つけることが好き",
+      "quote1Part2": "デザインやパターンを",
+      "quote1Part3": "雲や木目、",
+      "quote1Part4": "そして花崗岩の中に",
       "paragraph1": "自分は賢いと思いたいけど、ただ創造的なことが好きな普通の男だ。部屋に入るときに自分のエネルギーを注ぎ込むのが好きで",
       "paragraph1Bold": "毎日見過ごしがちな小さな瞬間をすべて楽しむ",
       "paragraph2Bold": "経験",
@@ -186,7 +188,11 @@
       "paragraph2End": "二人の成人した子供を持つ父親であり、彼らを幸せで健康に育てることは、私自身の強さと成長に光を当て続けています。",
       "paragraph3": "どんな状況であれ、私たちが生きるこの世界には適応力と粘り強さが求められます。",
       "paragraph4": "家族で外食する際の冗談はこうです：",
-      "paragraph4Bold": "『3名様ですか？』"
+      "paragraph4Bold": "『3名様ですか？』",
+      "paragraph5Intro": "この年齢の頃は —",
+      "paragraph5List": "最新のiPod touchを脱獄したり、Dreamweaverで開発したり、FlashやShockwaveでアニメーションを作ったり。",
+      "paragraph5Highlight": "Windows XPのアドレスバーがウェブのURLバーと同じように機能することを発見した日は忘れられない。",
+      "paragraph5End": "実は、すべてはパスとフォルダとファイルでシステムが動いているということを理解した瞬間.. 原点となる瞬間 🥸"
     },
     "closing": {
       "title1": "アウトドアでもオンラインでも、",
@@ -485,11 +491,16 @@
     "metrics": {
       "responseTime": {
         "label": "応答時間",
-        "value": "< 24時間"
+        "value": "< 24時間",
+        "note": "週末を除く — ノートPCを閉じて外で冒険中"
       },
       "energyLevel": {
         "label": "エネルギーレベル",
         "value": "92%"
+      },
+      "claudeCode": {
+        "label": "共同制作",
+        "value": "With Claude Code"
       }
     },
     "status": {

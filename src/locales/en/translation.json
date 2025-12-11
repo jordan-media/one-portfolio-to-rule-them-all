@@ -3,7 +3,8 @@
     "loading": "Loading...",
     "comingSoon": "Coming Soon",
     "available": "Available",
-    "availableForProjects": "Available for projects",
+    "availableForProjects": "Contracted · On Assignment — Available April 2026",
+    "liveStatusLabel": "[LIVE STATUS]",
     "scroll": "SCROLL",
     "viewWork": "VIEW WORK",
     "contact": "CONTACT"
@@ -30,8 +31,9 @@
   "sidebar": {
     "status": {
       "liveLabel": "LIVE STATUS",
+      "studentCountdown": "Time remaining as student",
       "daysRemaining": "{{count}} days remaining as a STUDENT",
-      "availableDate": "Available for work Jan 5th, 2026"
+      "availableDate": "Work Availability Beginning April 17, 2026"
     },
     "progress": {
       "label": "SCROLL PROGRESS"
@@ -130,10 +132,10 @@
       "description": "Dev roots sprouted in science summer camps, back when AOL CDs came with breakfast."
     },
     "collaboration": {
-      "quote1Part1": "100 feet in the air",
-      "quote1Part2": "taught me more about",
-      "quote1Part3": "collaboration",
-      "quote1Part4": "than any classroom.",
+      "quote1Part1": "I love seeing",
+      "quote1Part2": "designs and patterns",
+      "quote1Part3": "in clouds, wood grain,",
+      "quote1Part4": "and granite stone.",
       "paragraph1": "I like to think I'm clever, but I'm just a normal guy who likes to be creative. I enjoy bringing my energy when I walk into a room and",
       "paragraph1Bold": " I enjoy all of the small moments that we tend to overlook each day.",
       "paragraph2Bold": " Experience",
@@ -186,7 +188,11 @@
       "paragraph2End": " of two grown children, raising them to be happy and healthy has continued to shine light on personal strength and growth.",
       "paragraph3": "Regardless of the situation, the world we live in requires adaptability and grit.",
       "paragraph4": "Our family joke when going out to eat is:",
-      "paragraph4Bold": "\"Table for three?\""
+      "paragraph4Bold": "\"Table for three?\"",
+      "paragraph5Intro": "When I was this age it was —",
+      "paragraph5List": "Jailbreaking the latest iPod touch, Developing in Dreamweaver, Animating with Flash and Shockwave.",
+      "paragraph5Highlight": "I'll never forget the day I discovered Windows XP's address bar functioned the same as the web URL bar.",
+      "paragraph5End": "Actually, understanding that everything is just paths and folders and files to make systems work and click.. Foundational moments 🥸"
     },
     "closing": {
       "title1": "Outdoors or online,",
@@ -485,11 +491,16 @@
     "metrics": {
       "responseTime": {
         "label": "RESPONSE TIME",
-        "value": "< 24h"
+        "value": "< 24h",
+        "note": "Unless it's the weekend — the laptop is closed and I'm exploring outside"
       },
       "energyLevel": {
         "label": "ENERGY LEVEL",
         "value": "92%"
+      },
+      "claudeCode": {
+        "label": "CO-CREATED",
+        "value": "With Claude Code"
       }
     },
     "status": {

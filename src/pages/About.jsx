@@ -1021,15 +1021,22 @@ const PersonalSideSection = () => {
             <div className="space-y-6 2xl:space-y-10">
 
               <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed text-center lg:text-left">
-                {t('about.personal.paragraph3')}
+                {t('about.personal.paragraph4')} <span className="font-bold text-cyan-600 dark:text-cyan-400 text-base sm:text-lg xl:text-xl 2xl:text-3xl">{t('about.personal.paragraph4Bold')}</span>
               </p>
-              <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed text-center lg:text-left">
-                {t('about.personal.paragraph4')}
-                <br />
-                <span className="font-bold text-cyan-600 dark:text-cyan-400">
-                  {t('about.personal.paragraph4Bold')}
-                </span>
-              </p>
+
+              {/* Tech Nostalgia Section */}
+              <div className="mt-8 2xl:mt-12 pt-8 2xl:pt-12 border-t border-slate-200 dark:border-white/10">
+                <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed text-center lg:text-left">
+                  <span className="font-bold text-slate-900 dark:text-white">{t('about.personal.paragraph5Intro')}</span>
+                  {' '}{t('about.personal.paragraph5List')}
+                </p>
+                <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-700 dark:text-white/80 leading-relaxed text-center lg:text-left mt-4 2xl:mt-6">
+                  <span className="italic text-cyan-600 dark:text-cyan-400">{t('about.personal.paragraph5Highlight')}</span>
+                </p>
+                <p className="text-lg sm:text-xl xl:text-2xl 2xl:text-4xl text-slate-600 dark:text-white/60 leading-relaxed text-center lg:text-left mt-4 2xl:mt-6">
+                  {t('about.personal.paragraph5End')}
+                </p>
+              </div>
             </div>
           </motion.div>
 

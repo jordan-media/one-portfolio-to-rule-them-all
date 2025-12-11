@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { X, ExternalLink, Github, Calendar, User, ArrowLeft, ArrowRight, Home, Briefcase, Mail, MapPin, Code, Instagram, ChevronDown, ChevronUp } from 'lucide-react';
+import { X, ExternalLink, Github, Calendar, User, ArrowLeft, ArrowRight, Home, Briefcase, Mail, MapPin, Code, Instagram, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateToProject }) => {
@@ -1021,6 +1021,7 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
 
                         {/* Live Status Indicators */}
                         <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                          {/* Left Column - Response Time */}
                           <div className="bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-300 dark:border-white/10 rounded-xl p-3 sm:p-4 cursor-default transition-colors duration-300">
                             <div className="flex items-center gap-2 sm:gap-3 mb-2">
                               <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 dark:text-blue-400 group-hover:scale-110 transition-transform" />
@@ -1033,19 +1034,39 @@ const ProjectModal = ({ project, isOpen, onClose, allProjects = [], onNavigateTo
                                 {t('footer.metrics.responseTime.value')}
                               </span>
                             </div>
+                            <p className="text-sm sm:text-base text-slate-700 dark:text-white/80 mt-3 leading-relaxed cursor-default">
+                              {t('footer.metrics.responseTime.note')}
+                            </p>
                           </div>
 
-                          <div className="bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-300 dark:border-white/10 rounded-xl p-3 sm:p-4 cursor-default transition-colors duration-300">
-                            <div className="flex items-center gap-2 sm:gap-3 mb-2">
-                              <Code className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 dark:text-purple-400 group-hover:scale-110 transition-transform" />
-                              <span className="text-xs sm:text-sm font-bold cursor-default text-slate-900 dark:text-white">
-                                {t('footer.metrics.energyLevel.label')}
-                              </span>
+                          {/* Right Column - Energy Level + Claude Code stacked */}
+                          <div className="flex flex-col gap-3 sm:gap-4">
+                            <div className="bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-300 dark:border-white/10 rounded-xl p-3 sm:p-4 cursor-default transition-colors duration-300">
+                              <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                                <Code className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 dark:text-purple-400 group-hover:scale-110 transition-transform" />
+                                <span className="text-xs sm:text-sm font-bold cursor-default text-slate-900 dark:text-white">
+                                  {t('footer.metrics.energyLevel.label')}
+                                </span>
+                              </div>
+                              <div className="text-lg sm:text-2xl font-black">
+                                <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent cursor-default">
+                                  {t('footer.metrics.energyLevel.value')}
+                                </span>
+                              </div>
                             </div>
-                            <div className="text-lg sm:text-2xl font-black">
-                              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent cursor-default">
-                                {t('footer.metrics.energyLevel.value')}
-                              </span>
+
+                            <div className="bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-300 dark:border-white/10 rounded-xl p-3 sm:p-4 cursor-default transition-colors duration-300">
+                              <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 dark:text-amber-400 group-hover:scale-110 transition-transform" />
+                                <span className="text-xs sm:text-sm font-bold cursor-default text-slate-900 dark:text-white">
+                                  {t('footer.metrics.claudeCode.label')}
+                                </span>
+                              </div>
+                              <div className="text-lg sm:text-2xl font-black">
+                                <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent cursor-default">
+                                  {t('footer.metrics.claudeCode.value')}
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>

@@ -111,8 +111,11 @@ const HeroSection = ({ entryPoint = 'developer' }) => {
             transition={{ delay: 0.3 }}
             className="flex items-center justify-center gap-2 mt-4 sm:mt-8 2xl:mt-12 mb-6 sm:mb-8 2xl:mb-12 cursor-default"
           >
-            <div className="w-2 h-2 2xl:w-3 2xl:h-3 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-green-500 dark:text-green-400 font-mono text-xs sm:text-sm xl:text-base 2xl:text-lg">{t('common.availableForProjects')}</span>
+            <div className="w-2 h-2 2xl:w-3 2xl:h-3 bg-red-500 rounded-full animate-pulse"></div>
+            <span className="font-mono text-xs sm:text-sm xl:text-base 2xl:text-lg">
+              <span className="text-red-500 dark:text-red-400">{t('common.liveStatusLabel')}</span>
+              <span className="text-green-500 dark:text-green-400"> {t('common.availableForProjects')}</span>
+            </span>
           </motion.div>
 
           <motion.p

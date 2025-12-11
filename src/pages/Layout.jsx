@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Home, User, Briefcase, Mail, Github, Linkedin, Instagram, MapPin, Code, Calendar, Menu, X } from "lucide-react";
+import { Home, User, Briefcase, Mail, Github, Linkedin, Instagram, MapPin, Code, Calendar, Menu, X, Sparkles } from "lucide-react";
 import { FloatingCursor } from "../components/locomotive/InteractiveElements";
 import ProjectLibraryModal from "../components/portfolio/ProjectLibraryModal";
 import CookieBanner from "../components/CookieBanner";
@@ -93,7 +93,7 @@ export default function Layout({ children, currentPageName }) {
     }
     setIsInitialized(true);
   }, []);
-  const [daysRemaining, setDaysRemaining] = useState(0);
+  const [timeRemaining, setTimeRemaining] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [showGlobalModal, setShowGlobalModal] = useState(false);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
 
@@ -116,19 +116,24 @@ export default function Layout({ children, currentPageName }) {
     setIsProjectModalOpen(false);
   }, [location.pathname]);
 
-  // Calculate days remaining until Dec 12, 2025
+  // Calculate time remaining until Dec 11, 2025 at 4:30 PM
   useEffect(() => {
-    const calculateDaysRemaining = () => {
-      const targetDate = new Date('2025-12-12');
+    const calculateTimeRemaining = () => {
+      const targetDate = new Date(2025, 11, 11, 16, 30, 0); // Dec 11, 2025 at 4:30 PM local
       const currentDate = new Date();
-      const timeDiff = targetDate.getTime() - currentDate.getTime();
-      const daysDiff = Math.max(0, Math.ceil(timeDiff / (1000 * 3600 * 24)));
-      setDaysRemaining(daysDiff);
+      const timeDiff = Math.max(0, targetDate.getTime() - currentDate.getTime());
+
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      setTimeRemaining({ days, hours, minutes, seconds });
     };
 
-    calculateDaysRemaining();
-    // Update daily at midnight
-    const interval = setInterval(calculateDaysRemaining, 24 * 60 * 60 * 1000);
+    calculateTimeRemaining();
+    // Update every second
+    const interval = setInterval(calculateTimeRemaining, 1000);
 
     return () => clearInterval(interval);
   }, []);
@@ -355,7 +360,7 @@ export default function Layout({ children, currentPageName }) {
               <div className="flex items-center gap-1.5">
                 <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
                 <span className="text-xs text-green-500 dark:text-green-400 font-mono">
-                  {t('sidebar.status.liveLabel')} [{t('sidebar.status.daysRemaining', { count: daysRemaining })}]
+                  {t('sidebar.status.studentCountdown')} [{timeRemaining.days}d {timeRemaining.hours}h {timeRemaining.minutes}m {timeRemaining.seconds}s]
                 </span>
               </div>
 
@@ -616,6 +621,7 @@ export default function Layout({ children, currentPageName }) {
 
                 {/* Live Status Indicators */}
                 <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                  {/* Left Column - Response Time */}
                   <div className="bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 rounded-xl p-3 sm:p-4 hover:bg-slate-200 dark:hover:bg-white/10 transition-all duration-300 cursor-default">
                     <div className="flex items-center gap-2 sm:gap-3 mb-2">
                       <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 dark:text-blue-400 group-hover:scale-110 transition-transform" />
@@ -628,19 +634,39 @@ export default function Layout({ children, currentPageName }) {
                         {t('footer.metrics.responseTime.value')}
                       </span>
                     </div>
+                    <p className="text-sm sm:text-base text-slate-700 dark:text-white/80 mt-3 leading-relaxed cursor-default">
+                      {t('footer.metrics.responseTime.note')}
+                    </p>
                   </div>
 
-                  <div className="bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 rounded-xl p-3 sm:p-4 hover:bg-slate-200 dark:hover:bg-white/10 transition-all duration-300 cursor-default">
-                    <div className="flex items-center gap-2 sm:gap-3 mb-2">
-                      <Code className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 dark:text-purple-400 group-hover:scale-110 transition-transform" />
-                      <span className="text-xs sm:text-sm font-bold cursor-default text-slate-900 dark:text-white">
-                        {t('footer.metrics.energyLevel.label')}
-                      </span>
+                  {/* Right Column - Energy Level + Claude Code stacked */}
+                  <div className="flex flex-col gap-3 sm:gap-4">
+                    <div className="bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 rounded-xl p-3 sm:p-4 hover:bg-slate-200 dark:hover:bg-white/10 transition-all duration-300 cursor-default">
+                      <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                        <Code className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 dark:text-purple-400 group-hover:scale-110 transition-transform" />
+                        <span className="text-xs sm:text-sm font-bold cursor-default text-slate-900 dark:text-white">
+                          {t('footer.metrics.energyLevel.label')}
+                        </span>
+                      </div>
+                      <div className="text-lg sm:text-2xl font-black">
+                        <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent cursor-default">
+                          {t('footer.metrics.energyLevel.value')}
+                        </span>
+                      </div>
                     </div>
-                    <div className="text-lg sm:text-2xl font-black">
-                      <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent cursor-default">
-                        {t('footer.metrics.energyLevel.value')}
-                      </span>
+
+                    <div className="bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 rounded-xl p-3 sm:p-4 hover:bg-slate-200 dark:hover:bg-white/10 transition-all duration-300 cursor-default">
+                      <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                        <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 dark:text-amber-400 group-hover:scale-110 transition-transform" />
+                        <span className="text-xs sm:text-sm font-bold cursor-default text-slate-900 dark:text-white">
+                          {t('footer.metrics.claudeCode.label')}
+                        </span>
+                      </div>
+                      <div className="text-lg sm:text-2xl font-black">
+                        <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent cursor-default">
+                          {t('footer.metrics.claudeCode.value')}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
