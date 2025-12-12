@@ -182,10 +182,10 @@ export default function Layout({ children, currentPageName }) {
     }, 1000);
   }, []);
 
-  // Calculate time remaining until Dec 11, 2025 at 4:30 PM
+  // Calculate time remaining until Dec 11, 2025 at 4:43 PM
   useEffect(() => {
     const calculateTimeRemaining = () => {
-      const targetDate = new Date(2025, 11, 11, 16, 30, 0); // Dec 11, 2025 at 4:30 PM local
+      const targetDate = new Date(2025, 11, 11, 16, 43, 0); // Dec 11, 2025 at 4:43 PM local
       const currentDate = new Date();
       const timeDiff = Math.max(0, targetDate.getTime() - currentDate.getTime());
 
