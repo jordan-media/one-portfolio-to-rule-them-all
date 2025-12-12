@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Home, User, Briefcase, Mail, Github, Linkedin, Instagram, MapPin, Code, Calendar, Menu, X, Sparkles } from "lucide-react";
+import confetti from 'canvas-confetti';
 import { FloatingCursor } from "../components/locomotive/InteractiveElements";
 import ProjectLibraryModal from "../components/portfolio/ProjectLibraryModal";
 import CookieBanner from "../components/CookieBanner";
@@ -96,6 +97,8 @@ export default function Layout({ children, currentPageName }) {
   const [timeRemaining, setTimeRemaining] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [showGlobalModal, setShowGlobalModal] = useState(false);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const [countdownComplete, setCountdownComplete] = useState(false);
+  const fireworksTriggeredRef = useRef(false);
 
   // Listen for ProjectModal open/close events
   useEffect(() => {
@@ -116,6 +119,69 @@ export default function Layout({ children, currentPageName }) {
     setIsProjectModalOpen(false);
   }, [location.pathname]);
 
+  // Big fireworks celebration function
+  const launchFireworks = useCallback(() => {
+    // Play celebration sound
+    const audio = new Audio('/assets/sounds/fireworks-07-419025.mp3');
+    audio.volume = 0.5;
+    audio.play().catch(() => {
+      // Audio autoplay may be blocked by browser - that's okay
+      console.log('Audio autoplay blocked - user interaction required');
+    });
+
+    const duration = 15 * 1000; // 15 seconds of fireworks
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+
+    function randomInRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    const interval = setInterval(function() {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = 50 * (timeLeft / duration);
+
+      // Launch fireworks from multiple positions
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+        colors: ['#22c55e', '#3b82f6', '#a855f7', '#f59e0b', '#ef4444']
+      });
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+        colors: ['#22c55e', '#3b82f6', '#a855f7', '#f59e0b', '#ef4444']
+      });
+    }, 250);
+
+    // Initial big burst from center
+    confetti({
+      particleCount: 200,
+      spread: 100,
+      origin: { y: 0.6 },
+      colors: ['#22c55e', '#3b82f6', '#a855f7', '#f59e0b', '#ef4444', '#ffffff'],
+      zIndex: 9999
+    });
+
+    // Staggered side bursts
+    setTimeout(() => {
+      confetti({ particleCount: 100, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#22c55e', '#3b82f6'], zIndex: 9999 });
+      confetti({ particleCount: 100, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#a855f7', '#f59e0b'], zIndex: 9999 });
+    }, 500);
+
+    setTimeout(() => {
+      confetti({ particleCount: 150, angle: 60, spread: 80, origin: { x: 0, y: 0.5 }, colors: ['#ef4444', '#22c55e'], zIndex: 9999 });
+      confetti({ particleCount: 150, angle: 120, spread: 80, origin: { x: 1, y: 0.5 }, colors: ['#3b82f6', '#ffffff'], zIndex: 9999 });
+    }, 1000);
+  }, []);
+
   // Calculate time remaining until Dec 11, 2025 at 4:30 PM
   useEffect(() => {
     const calculateTimeRemaining = () => {
@@ -129,6 +195,13 @@ export default function Layout({ children, currentPageName }) {
       const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
       setTimeRemaining({ days, hours, minutes, seconds });
+
+      // Check if countdown is complete
+      if (timeDiff === 0 && !fireworksTriggeredRef.current) {
+        fireworksTriggeredRef.current = true;
+        setCountdownComplete(true);
+        launchFireworks();
+      }
     };
 
     calculateTimeRemaining();
@@ -136,7 +209,7 @@ export default function Layout({ children, currentPageName }) {
     const interval = setInterval(calculateTimeRemaining, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [launchFireworks]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -358,9 +431,12 @@ export default function Layout({ children, currentPageName }) {
             {/* Status Information */}
             <div className="ml-2.5 space-y-1 pointer-events-none">
               <div className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-xs text-green-500 dark:text-green-400 font-mono">
-                  {t('sidebar.status.studentCountdown')} [{timeRemaining.days}d {timeRemaining.hours}h {timeRemaining.minutes}m {timeRemaining.seconds}s]
+                <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${countdownComplete ? 'bg-amber-500' : 'bg-green-500'}`}></div>
+                <span className={`text-xs font-mono ${countdownComplete ? 'text-amber-500 dark:text-amber-400' : 'text-green-500 dark:text-green-400'}`}>
+                  {countdownComplete
+                    ? '🎓 We did it!!!!! 🎉'
+                    : `${t('sidebar.status.studentCountdown')} [${timeRemaining.days}d ${timeRemaining.hours}h ${timeRemaining.minutes}m ${timeRemaining.seconds}s]`
+                  }
                 </span>
               </div>
 
